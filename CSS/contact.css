@@ -1,0 +1,107 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*<p class="contact-header">Contact</p>
+        <div class="contact-image-profile"></div>
+        <h1 class="contact-name">Harrison Balogh</h1>
+        <p class="contact-description"></p>
+        <div class="contact-container-reveal">
+          <p class="contact-reveal-button">Show Email</p>
+        </div>
+        <div class="contact-container-reveal">
+          <p class="contact-reveal-button">Show Phone Number</p>
+        </div>*/
+
+.contact-scroller {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 100%;
+}
+
+.contact-header {
+	font-size: 20px;
+	font-style: italic;
+	font-weight: bold;
+	margin-top:  80px;
+	margin-bottom: 0;
+	width: 100%;
+}
+
+.contact-image-profile {
+	background: url(../images/profilePic@2x.png) no-repeat center/contain;
+	display: inline-block;
+	height: 230px;
+	margin: 16px 0;
+	padding: 0;
+	width: 100%;
+}
+
+.contact-name {
+	font-size:  38px;
+	margin-top: 0;
+	width: 100%;
+}
+
+.contact-description {
+	font-size: 18px;
+	font-weight: lighter;
+	margin: 10px auto 30px auto;
+	max-width: 620px;
+	width: 100%;
+}
+
+.contact-container {
+	list-style: none;
+	margin: 0 auto;
+	padding: 0;
+	width: 302px;
+}
+
+.contact-container-reveal {
+	border-top: 1px solid var(--color-background);
+	border-bottom: 1px solid var(--color-background);
+	margin: 10px 0;
+	padding: 0;
+	width: 300px;
+}
+
+.contact-form {
+	border: 1px solid red;
+	height: 20px;
+	width: 60px;
+}
+
+/*.contact-reveal-button {
+	background-color: var(--color-background);
+	border: 1px solid var(--color-background);
+	border-radius: 8px;
+	color: var(--color-foreground);
+	font-size: 20px;
+	font-weight: bolder;
+	height: 30px;
+	margin: 12px auto;
+	padding: 8px 0 0 0;
+}
+#reveal-email {
+	width: 148px;
+}
+#reveal-phone {
+	width: 223px;
+}
+.contact-reveal-button:hover {
+	background-color: var(--color-accent);
+	border-color: var(--color-accent);
+	cursor: pointer;
+}
+.contact-reveal-button:active {
+	background-color: var(--color-foreground);
+	border-color: var(--color-foreground);
+	color: var(--color-background);
+	cursor: pointer;
+}*/
+
+
+.scene-contact {
+	color: var(--color-background);
+	text-align: center;
+}

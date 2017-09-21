@@ -1,0 +1,370 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* - - - - - - - - - Project Header  - - - - - - - - */
+
+.projects-search {
+	border-bottom: 1px solid var(--color-background);
+	display: block;
+	height: 30px;
+	margin: 0;
+	overflow-y: hidden;
+	padding: 0 0 8px 0;
+	text-align: center;
+	width: 100%;
+}
+
+.projects-search p {
+	color: var(--color-accent-backup);
+	cursor: default;
+	display: block;
+	font-size: 16px;
+	font-style: italic;
+	font-weight: lighter;
+	height: 100%;
+	margin: 10px;
+}
+
+/* - - - - - - - - - Image Zoomer  - - - - - - - - */
+
+.project-imageZoom-cover {
+	background-color: black;
+	display: block;
+	height: 100%;
+	opacity: 0;
+	position: fixed;
+	width: 100%;
+	z-index: -8;
+}
+
+.project-imageZoom-container {
+	background-color: black;
+	bottom: 38px;
+	display: block;
+	left: 60px;
+	position: fixed;
+	right: 60px;
+	text-align: center;
+	top: 38px;
+	transform: scale(0);
+	z-index: -9;
+}
+
+.project-imageZoom-close {
+	background: url("../images/icon_close@2x.png") no-repeat center/30px;
+	cursor: pointer;
+	display: block;
+	height: 30px;
+	position: fixed;
+	right: 8px;
+	top: 8px;
+	width: 30px;
+}
+.project-imageZoom-close:hover {
+	background: url("../images/icon_close_hover@2x.png") no-repeat center/30px;
+}
+
+.project-imageZoom-image {
+	background: url("") no-repeat center/contain;
+	bottom: 25px;
+	display: block;
+	left: 5px;
+	position: fixed;
+	right: 5px;
+	top: 25px;
+}
+
+.project-imageZoom-image iframe {
+	border: 1px solid transparent;
+	height: 95%;
+	margin: 20px 0 0 0;
+	padding: 0;
+	width: 100%;
+}
+
+.project-imageZoom-navigator {
+	cursor: pointer;
+	display: block;
+	height: 80px;
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 26px;
+}
+
+.project-imageZoom-navigator.nav-left {
+	background: url("../images/arrow_left@2x.png") no-repeat center left/contain;
+	left: 0;
+}
+
+.project-imageZoom-navigator.nav-right {
+	background: url("../images/arrow_right@2x.png") no-repeat center right/contain;
+	right: 0;
+}
+
+/* - - - - - - - - - Projects List  - - - - - - - - */
+
+.projects-container-list {
+	display: block;
+	margin: 0;
+	overflow-y: auto;
+	width: 100%;
+}
+
+.projects-list-container {
+	display: inline-block;
+	overflow-x: auto;
+	overflow-y: hidden;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.projects-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+.projects-list li {
+	color: var(--color-background);
+	border-bottom-color: var(--color-background);
+	cursor: pointer;
+	display: inline-block;
+	margin: 20px 20px;
+	padding: 0 0;
+	text-align: center;
+	vertical-align: top;
+	width: 200px;
+}
+
+.projects-list-icon {
+		display: inline-block;
+		height: 100px;
+		margin: 0 0 6px 0;
+		padding: 0;
+		transform: translateX(-50%);
+		width: 100px;
+}
+
+.projects-list-icon-outerCircle {
+	background: url("../images/icon_outerCircle@2x.png") no-repeat center/100%;
+	display: inline-block;
+	height: 100%;
+	position: absolute;
+	transform: rotate(0deg);
+	width: 100%;
+}
+
+.projects-list-icon-innerCircle {
+	background: url("../images/hxr-logo-active@2x.png") no-repeat center/100%;
+	border: 1px solid rgb(70,70,70);
+	border-radius: 50%;
+	/*box-shadow: inset 0 0 10px 2px black;*/
+	display: inline-block;
+	/*filter: grayscale(50%);*/
+	height: 92px;
+	margin: 3px;
+	position: absolute;
+	width: 92px;
+}
+
+.projects-list p {
+	margin: 0;
+}
+
+.projects-list-title {
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 0 0 5px 0;
+}
+
+.projects-list-expand {
+	color: var(--color-accent);
+	display: block;
+	font-weight: bold;
+	height: 0;
+	overflow: hidden;
+}
+
+.projects-list-architecture {
+	border-top: 1px solid var(--color-text);
+	border-color: transparent;
+	font-size: 14px;
+	padding: 5px 0 0 0;
+}
+
+.projects-list-platform {
+	font-size: 11px;
+	font-weight: lighter;
+	padding: 4px 0 0 0;
+}
+
+.projects-list-date {
+	font-size: 12px;
+	font-style: italic;
+	padding: 4px 0 0 0;
+}
+
+.projects-list-padding-bottom {
+	display: inline-block;
+	height: 60px;
+	width: 100%;
+}
+
+/* - - - - - - - - Projects Expanded - - - - - - - - */
+
+.projects-container-expanded {
+	background-color: var(--color-background);
+	/*color: var(--color-text);*/
+	display: block;
+	height: 0;
+	margin: 0;
+	overflow: hidden;
+	text-align: center;
+	width: 100.01%;
+}
+
+.projects-expanded-text-container {
+	display: inline-block;
+	max-width: 800px;
+	text-align: center;
+	width: 100%;
+}
+
+.projects-expanded-title {
+	color: var(--color-dominant);
+	font-size: 22px;
+	font-weight: bold;
+	margin: 10px 0 4px 10px;
+}
+
+.projects-expanded-details {
+	color: var(--color-dominant);
+	font-weight: lighter;
+	margin: 0 0 0 10px;
+}
+
+.projects-expanded-imageContainer::-webkit-scrollbar {
+	height: 0px;
+  width: 0px;
+  background: transparent;
+}
+
+.projects-expanded-imageContainer {
+	background-color: rgb(37,37,37);
+	border-top: 2px solid rgb(35,35,35);
+	border-bottom: 2px solid rgb(35,35,35);
+	display: inline-block;
+	height: 158px;
+	overflow-x: auto;
+	margin: 8px 0 0 0;
+	text-align: center;
+	width: 100%;
+}
+
+.projects-expanded-imageContainer ul {
+	display: inline-block;
+	height: 100%;
+	list-style: none;
+	overflow-x: visible;
+	text-align: center;
+}
+
+.projects-expanded-imageContainer ul li {
+	background: url("../images/loader3@2x.gif") no-repeat center/contain;
+	border: 1px solid transparent;
+	cursor: pointer;
+	display: inline-block;
+	height: 152px;
+	margin: 2px;
+	overflow: hidden;
+	width: 152px;
+}
+.projects-expanded-imageContainer ul li:hover {
+	border-color: var(--color-text);
+	transform: scale(1.03);
+}
+
+.projects-expanded-imageContainer-play {
+	background: url("../images/button_play@2x.png") no-repeat center/60px;
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+.projects-expanded-imageContainer-play:hover {
+	background-color: rgba(0,0,0,0.5);
+}
+
+.projects-expanded-description-container {
+	display: block;
+	margin: 5px auto 0 auto;
+	max-width: 800px;
+	overflow-y: hidden;
+	padding: 0;
+	position: relative;
+	text-align: center;
+	width: 96%;
+}
+
+.projects-expanded-description-gitLink {
+	color: var(--color-dominant);
+	text-align: left;
+}
+.projects-expanded-description-gitLink a {
+	color: var(--color-mediant);
+}
+.projects-expanded-description-gitLink a:hover {
+	color: var(--color-accent);
+}
+
+.projects-expanded-description-blur {
+	bottom: 0;
+	box-shadow: 0 -20px 20px var(--color-background) inset;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	width: 100%;
+}
+
+.projects-expanded-description-expandButton {
+	bottom: 0;
+	color: var(--color-foreground);
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	width: 100%;
+}
+
+.projects-expanded-description-expandButton:hover {
+	color: var(--color-accent);
+	cursor: pointer;
+}
+
+.projects-expanded-description {
+	color: var(--color-dominant);
+	display: block;
+	margin-top: 5px;
+	padding: 0;
+	text-align: justify;
+	width: 100%;
+}
+
+.projects-expanded-description a {
+	color: var(--color-tonic);
+	font-style: italic;
+	text-decoration: none;
+}
+.projects-expanded-description a:hover {
+	color: var(--color-accent);
+}
+
+/* - - - - - - - - Base - - - - - - - - */
+
+.scene-projects {
+	text-align: center;
+}

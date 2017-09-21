@@ -1,0 +1,277 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.about--header {
+	border-bottom: 1px solid var(--color-background);
+	display: block;
+	height: 30px;
+	margin: 0;
+	overflow-y: hidden;
+	padding: 0 0 8px 0;
+	text-align: center;
+	width: 100%;
+}
+
+.about--header p {
+	display: block;
+	font-size: 22px;
+	font-weight: bolder;
+	height: 100%;
+	margin: 10px;
+	padding: 0;
+}
+
+.about--scrollable {
+	display: block;
+	margin: 0;
+	overflow-y: auto;
+	width: 100%
+}
+
+.about--container-profile {
+	background-color: var(--color-background);
+	border-bottom: 1px solid var(--color-background);
+	height: 226px;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: relative;
+	width: 100.01%;
+}
+
+.about--profile-cover-shadow {
+	background-image: url("../images/image_gradientUp@2x.png");
+	background-position: center;
+	background-repeat: repeat-x;
+	background-size: 20px 20px;
+	display: inline-block;
+	height: 20px;
+	margin: 0;
+	opacity: 0.8;
+	padding: 0;
+	transform: translateY(-100%);
+	width: 100%;
+	z-index: 2;
+}
+
+.about--profile-cover {
+	background: url("../images/profile_cover@2x.jpg") no-repeat center top/contain;
+	display: inline-block;
+	height: 1000px;
+	min-width: 1418px;
+	text-align: center;
+	width: 100%;
+	z-index: 0;
+}
+
+.about--profile-picture {
+	background: url("../images/profilePic_noShadow@2x.png") no-repeat left center/contain;
+	display: block;
+	float: left;
+	height: 150px;
+	padding: 0;
+	margin: 0 0 0 6.8%;
+	transform: translate(0, -92px);
+	/*width: 150px;*/
+	width: 20%;
+}
+
+.about--profile-links {
+	list-style: none;
+	margin: 50px auto;
+	padding: 0;
+	text-align: center;
+	width: 280px;
+}
+.about--profile-links li {
+	display: inline-block;
+	font-weight: bolder;
+	margin: 0 20px;
+	padding: 0;
+}
+
+.about--profile-links .github div {
+	cursor: pointer;
+	background: url(../images/icon_github@2x.png) no-repeat center/cover;
+	display: block;
+	height: 45px;
+	width: 45px;
+}
+.about--profile-links .github div:hover {
+	background: url(../images/icon_github_alt@2x.png) no-repeat center/cover;
+}
+.about--profile-links .facebook div {
+	cursor: pointer;
+	background: url(../images/icon_facebook@2x.png) no-repeat center/cover;
+	display: block;
+	height: 45px;
+	width: 45px;
+}
+.about--profile-links .facebook div:hover {
+	background: url(../images/icon_facebook_alt@2x.png) no-repeat center/cover;
+}
+.about--profile-links .linkedin div {
+	cursor: pointer;
+	background: url(../images/icon_linkedin@2x.png) no-repeat center/cover;
+	display: block;
+	height: 45px;
+	width: 45px;
+}
+.about--profile-links .linkedin div:hover {
+	background: url(../images/icon_linkedin_alt@2x.png) no-repeat center/cover;
+}
+
+.about--container-content {
+	margin: 0 auto;
+	max-width: 800px;
+	padding: 0;
+	z-index: 2;
+}
+
+.about--content-bio {
+	font-size: 14px;
+	margin: 40px 20px 40px 20px;
+	max-width: 800px;
+	padding-bottom: 10px;
+	text-align: justify;
+}
+
+.about--content-links {
+	color: var(--color-dominant);
+	font-size: 14px;
+	list-style: none;
+	margin: 26px 100px 50px 100px;
+	text-align: center;
+}
+.about--content-links li {
+	color: var(--color-background);
+	display: inline;
+	font-weight: bolder;
+}
+.about--content-links li:hover {
+	color: var(--color-dominant);
+	cursor: pointer;
+}
+
+.about--container-content h1 {
+	font-size: 18px;
+	margin: 12px 0 6px 0;
+	padding: 4px 0 0 8px;
+	text-align: center;
+}
+
+.about--content-list {
+	border-bottom: 1px solid transparent;
+	display: table;
+  margin: 0;
+  padding: 0 0 50px 0;
+  text-align: center;
+  width: 100%;
+}
+
+.about--content-list li {
+	border: 1px solid transparent;
+	/*border-left: 1px solid var(--color-accent-backup);*/
+	border: 1px solid rgba(204,206,208, 1);
+  display: inline-table;
+  font-size: 14px;
+  margin: 10px;
+  overflow: visible;
+	padding: 6px;
+  text-align: left;
+	vertical-align: middle;
+  width: 120px;
+}
+.about--content-list li:hover {
+	border: 1px solid var(--color-dominant);
+}
+
+.about--content-list li .classIcon {
+	background: url("../images/icon_class@2x.png") no-repeat center/cover;
+	border-radius: 2px;
+	display: inline-block;
+	float: right;
+	height: 20px;
+	margin: 0;
+	margin-right: 4px;
+	overflow: visible;
+	padding: 0;
+	position: relative;
+	width: 20px;
+}
+
+.about--content-list li .classIcon div {
+	background-color: var(--color-accent-backup);
+	border: 1px solid var(--color-background);
+	border-radius: 4px;
+	color: var(--color-accent);
+	display: block;
+	margin-left: 26px;
+	overflow: visible;
+	padding: 4px;
+	position: absolute;
+	text-align: left;
+	visibility: hidden;
+	width: 90px;
+	z-index: 1;
+}
+.about--content-list li .classIcon:hover div {
+	visibility: visible;
+}
+
+.about--content-list li .projectsIcon {
+	background: url("../images/icon_projects@2x.png") no-repeat center/cover;
+	border-radius: 2px;
+	cursor: pointer;
+	display: inline-block;
+	float: right;
+	height: 20px;
+	margin: 0;
+	margin-right: 4px;
+	overflow: visible;
+	padding: 0;
+	position: relative;
+	width: 20px;
+}
+.about--content-list li .projectsIcon:hover {
+	background: url("../images/icon_projects_hover@2x.png") no-repeat center/cover;
+}
+.about--content-list li .projectsIcon:active {
+	background: url("../images/icon_projects_active@2x.png") no-repeat center/cover;
+}
+
+.about--content-list li .projectsIcon div {
+	background-color: var(--color-accent-backup);
+	border: 1px solid var(--color-background);
+	border-radius: 4px;
+	color: var(--color-accent);
+	display: block;
+	margin-left: 26px;
+	overflow: visible;
+	padding: 4px;
+	position: absolute;
+	text-align: left;
+	visibility: hidden;
+	width: 100px;
+	z-index: 1;
+}
+.about--content-list li .projectsIcon:hover div {
+	visibility: visible;
+}
+
+.about--content-copy-category {
+	font-size: 14px;
+	margin: 0 0 0 30px;
+	text-align: left;
+}
+
+.about-padding-bottom {
+	display: inline-block;
+	height: 60px;
+	width: 100%;
+}
+
+.scene-about {
+	color: var(--color-background);
+	text-align: center;
+}
