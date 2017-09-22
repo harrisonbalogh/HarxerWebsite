@@ -193,7 +193,8 @@ var selectProject = function(projNum) {
 				// Create li
 				var li = document.createElement("li");
 				li.style.backgroundImage = "url(projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "_thumb@2x.png)";
-				li.onmouseup = imageZoomed_open(p);
+				li.onmouseup = imageZoomed_open("url(projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "@2x.png)");
+				clearMouseDrag();
 				// Add li
 				projects_expanded_imageList.appendChild(li);
 			}
@@ -424,10 +425,10 @@ function clearMouseDrag() {
 // ============================================================================================== Init image zoomer =========
 
 // Open the image zoomer overlay, provided the given image number, assuming the latest selected project
-var imageZoomed_open = function(imageNumber) {
+var imageZoomed_open = function(image) {
 	return function() {
 		if (!imageDragging) {
-			project_imageZoom_image.style.backgroundImage = "url(projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageNumber+1) + "@2x.png)";
+			project_imageZoom_image.style.backgroundImage = image;
 			project_imageZoom_cover.style.zIndex = 8;
 			TweenLite.to(project_imageZoom_cover, 0.25, {opacity: 0.6});
 			project_imageZoom_container.style.zIndex = 9;
@@ -448,7 +449,6 @@ var imageZoomed_open = function(imageNumber) {
 			}
 			imageSelected = imageNumber;
 		}
-		clearMouseDrag();
 	};
 };
 // Open the image zoomer overlay but override to display a video. This assumes there is only one video allowed.

@@ -21,7 +21,7 @@
   <div class="indicator"></div>
 </div>
 <div id="loaderDisplay">
-  <div class="logo"></div>
+  <p id="loaderText">Loading</p>
 </div>
 
 <body>
@@ -183,26 +183,35 @@
           <p class="contact-header">Contact</p>
           <div class="contact-image-profile"></div>
           <h1 class="contact-name">Harrison Balogh</h1>
-          <p class="contact-description">In order to not get my email or phone
-            number sniffed out from roaming web bots, I’ve obscured both these
-            contact methods behind Google's reCaptcha verification system. </p>
+          <p class="contact-description">You can reach me by email or mobile.
+            These fields have been internally obfuscated to reduce web bots
+            from reading these contact methods and using them for spam. Clicking
+            the email link will open your default mailing application with my
+            email in the recipient field. Feel free to reach out.
+          </p>
           <ul class="contact-container">
             <li class="contact-container-reveal">
-              <!-- <p class="contact-reveal-button" id="reveal-email">Show Email</p> -->
-              <form class="contact-form" id='contact-request-form' action="?" method="POST">
-                <button class="g-recaptcha" data-sitekey="6LfFgzEUAAAAAMuG72_U-k1cByN_FhZBmIPFu2On", data-callback="requestContact">Show Email</button>
-              </form>
+              <a
+                data-name="harrisonbalogh"
+                data-domain="gmail"
+                data-tld="com"
+                href="#"
+                class="bonnie"
+                onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld">
+              </a>
             </li>
             <li class="contact-container-reveal">
-              <form class="contact-form" id='contact-request-form' action="?" method="POST">
-                <button class="g-recaptcha" data-sitekey="6LfFgzEUAAAAAMuG72_U-k1cByN_FhZBmIPFu2On", data-callback="requestContact">Show Phone Number</button>
-              </form>
-              <!-- <p class="contact-reveal-button"id="reveal-phone">Show Phone Number</p> -->
+              <a
+                data-one="323"
+                data-two="229"
+                data-three="0290"
+                href=""
+                class="clyde">
+              </a>
             </li>
           </ul>
 
         </div>
-
       </li>
 
       <!-- = = = = = = = = = = HOME SCENE = = = = =  -->
@@ -274,6 +283,36 @@
       <li class="scene-products content--scene" id="scene-products">
         <div class="scene-divider" id="scene-divider-products"></div>
 
+        <div class="products-scroller">
+
+          <div class="product-icon"></div>
+          <p class="product-author">Harxer</p>
+          <h1 class="product-name">HXNotes</h1>
+          <p class="product-platform">Mac OS X</p>
+          <p class="product-description">&nbsp &nbsp &nbsp &nbsp You can reach me by email or mobile.
+            These fields have been internally obfuscated to reduce web bots
+            from reading these contact methods and using them for spam. Clicking
+            the email link will open your default mailing application with my
+            email in the recipient field. Feel free to reach out. You can reach me by email or mobile.
+            These fields have been internally obfuscated to reduce web bots
+            from reading these contact methods and using them for spam. Clicking
+            the email link will open your default mailing application with my
+            email in the recipient field. Feel free to reach out.
+          </p>
+          <div class="product-imageContainer">
+            <ul id="product-imageList">
+                <li style="background-image: url(./images/product_p1@2x.png);"></li>
+                <li style="background-image: url(./images/product_p2@2x.png);"></li>
+                <li style="background-image: url(./images/product_p3@2x.png);"></li>
+                <li style="background-image: url(./images/product_p4@2x.png);"></li>
+            </ul>
+          </div>
+
+          <p class="product-documentation-header"> Documentation<br><i>Work In Progress</i> </p>
+          <div class="product-documentation"></div>
+
+        </div>
+
       </li>
     </ul>
   </div>
@@ -294,7 +333,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/easing/EasePack.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="javascript/base.js"></script>
   <script src="javascript/projects.js"></script>
   <!-- <script src="javascript/home_canvasObjects/blocker.js"></script>

@@ -12,7 +12,6 @@
 // 		window.location = "http://www.harxer.com";
 // 	}
 // }
-console.log("Window location: " + window.location);
 
 (function quickOpenScene() {
 
@@ -27,7 +26,12 @@ console.log("Window location: " + window.location);
     	window.history.pushState({path:newurl},'',newurl);
 		}
 	} else if (openScene == "scene=contact") {
-
+		document.getElementById('header-button-contact').click();
+		if (history.pushState) {
+			// Removes the query for URL aesthetics
+    	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    	window.history.pushState({path:newurl},'',newurl);
+		}
 	} else if (openScene == "scene=about") {
 		document.getElementById('header-button-about').click();
 		if (history.pushState) {
@@ -36,6 +40,11 @@ console.log("Window location: " + window.location);
     	window.history.pushState({path:newurl},'',newurl);
 		}
 	} else if (openScene == "scene=products") {
-		
+		document.getElementById('header-button-products').click();
+		if (history.pushState) {
+			// Removes the query for URL aesthetics
+    	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    	window.history.pushState({path:newurl},'',newurl);
+		}
 	}
 })();
