@@ -31,4 +31,29 @@
     project_imageZoom_right.style.opacity = 0;
     project_imageZoom_left.style.opacity = 0;
   }
+
+  var productsScroller = document.getElementById('products-scroller');
+  var productName = document.getElementById('product-name');
+  var productStickyHeader = document.getElementById('products-stickyHeader');
+  var productStickyHeaderName = document.getElementById('products-stickyHeaderName');
+  var productsScroll = function() {
+    return function() {
+      if (productsScroller.scrollTop > productName.offsetTop + 8) {
+        productName.style.opacity = 0;
+        productStickyHeader.style.opacity = 1;
+        var diff = productsScroller.scrollTop - (productName.offsetTop + 8);
+        var ratio = Math.min(diff/(productName.offsetHeight), 1);
+        var h = Math.max(productName.offsetHeight - diff, 36);
+        productStickyHeader.style.height = h + "px";
+        productStickyHeaderName.style.fontSize = Math.max(h - 12, 32) + "px";
+        productStickyHeaderName.style.transform = "translateY(" + (-(1-ratio)*8) + "px)";
+        productStickyHeader.style.backgroundColor = "rgba(234,236,238," + ratio + ")";
+        productStickyHeader.style.borderBottom = "1px solid rgba(44,54,64," + ratio + ")";
+      } else {
+        productName.style.opacity = 1;
+        productStickyHeader.style.opacity = 0;
+      }
+    };
+  };
+  productsScroller.onscroll = productsScroll();
 })();
