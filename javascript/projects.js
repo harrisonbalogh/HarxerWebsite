@@ -193,7 +193,7 @@ var selectProject = function(projNum) {
 				// Create li
 				var li = document.createElement("li");
 				li.style.backgroundImage = "url(projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "_thumb@2x.png)";
-				li.onmouseup = imageZoomed_open("url(projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "@2x.png)");
+				li.onmouseup = imageZoomed_open(p);
 				clearMouseDrag();
 				// Add li
 				projects_expanded_imageList.appendChild(li);
@@ -302,20 +302,22 @@ function initializeProjectItem(x) {
 
 	// NOTE: OPEN() IS NOT BEING RUN ASYNCHRONOUSLY (false param) - SLOWS DOWN LOAD TIME
 	// READ IN DESCRIPTION FROM TEXT FILE
-	var rawFile = new XMLHttpRequest();
-	rawFile.open("GET", "projects/" + PROJECT[x][FILE_NAME] +"/descrip.txt", false);
-	rawFile.onreadystatechange = function ()
-	{
-			if(rawFile.readyState === 4)
-			{
-					if(rawFile.status === 200 || rawFile.status == 0)
-					{
-							var allText = rawFile.responseText;
-							PROJECT[x][DESCRIPTION] = allText;
-					}
-			}
-	};
-	rawFile.send(null);
+	if (window.XMLHttpRequest) {
+		var rawFile = new XMLHttpRequest();
+		rawFile.onreadystatechange = function ()
+		{
+				if(rawFile.readyState === 4)
+				{
+						if(rawFile.status === 200 || rawFile.status == 0)
+						{
+								var allText = rawFile.responseText;
+								PROJECT[x][DESCRIPTION] = allText;
+						}
+				}
+		};
+		rawFile.open("GET", "projects/" + PROJECT[x][FILE_NAME] +"/descrip.txt", false);
+		rawFile.send(null);
+	}
 	// END FILE READ
 
 	li.onclick = selectProject(x);
@@ -425,10 +427,10 @@ function clearMouseDrag() {
 // ============================================================================================== Init image zoomer =========
 
 // Open the image zoomer overlay, provided the given image number, assuming the latest selected project
-var imageZoomed_open = function(image) {
+var imageZoomed_open = function(imageNumber) {
 	return function() {
 		if (!imageDragging) {
-			project_imageZoom_image.style.backgroundImage = image;
+			project_imageZoom_image.style.backgroundImage = "url(projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageNumber+1) + "@2x.png)";
 			project_imageZoom_cover.style.zIndex = 8;
 			TweenLite.to(project_imageZoom_cover, 0.25, {opacity: 0.6});
 			project_imageZoom_container.style.zIndex = 9;
