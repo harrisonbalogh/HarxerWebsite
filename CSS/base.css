@@ -174,12 +174,17 @@ footer {
 
 .footer--label-contact {
   color: gray;
+  cursor: pointer;
   left: 10px;
   margin: 0;
   padding: 0;
   position: absolute;
+  text-decoration: underline;
   top: 50%;
   transform: translateY(-50%);
+}
+.footer--label-contact:hover {
+  color: var(--color-accent);
 }
 
 .footer--label-dev {

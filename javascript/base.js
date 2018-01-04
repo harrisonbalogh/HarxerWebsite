@@ -22,6 +22,8 @@ scene_dividers.push.apply(scene_dividers, document.getElementsByClassName('scene
 var scene_scroller_left = document.getElementById('scene-scroller-left');
 var scene_scroller_right = document.getElementById('scene-scroller-right');
 
+var footerContactLink = document.getElementById('footer--label-contact');
+
 // Scenes
 var ABOUT_SCENE = 0;
 var CONTACT_SCENE = 1;
@@ -110,6 +112,12 @@ var mouseLeave_headerButton = function(scene) {
 		sceneButtons[s].onmouseleave  = mouseLeave_headerButton(s);
 	}
 })();
+
+// ============================================================================================================= Footer Controls =====
+
+footerContactLink.onmousedown = function() {
+	document.getElementById('header-button-about').click();
+};
 
 // ================================================================================================== Scene Scroller Buttons Init =====
 

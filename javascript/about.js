@@ -2,7 +2,6 @@
 
 // =========================================================== variables =======
 
-
 var about_profile_picture = document.getElementById("about--profile-picture");
 var about_profile_cover = document.getElementById("about--profile-cover");
 var about_profile_links = document.getElementById('about--profile-links').getElementsByTagName('li');
@@ -25,7 +24,7 @@ var about_profile_subtext = document.getElementById('about--profile-subtext');
 
   var parallax = function() {
     return function() {
-      var offset = Math.min(-scrollContainer.scrollTop * 1.04, 0);
+      var offset = Math.min(-scrollContainer.scrollTop * 0.4, 0);
       about_profile_cover.style.transform = "translateY(" + offset + "px)";
     };
   };

@@ -1,4 +1,20 @@
 
+// ===== Image Zoomer for Products
+
+var productZoom = function(url) {
+	return function() {
+    project_imageZoom_image.style.backgroundImage = url;
+    project_imageZoom_cover.style.zIndex = 8;
+    TweenLite.to(project_imageZoom_cover, 0.25, {opacity: 0.6});
+    project_imageZoom_container.style.zIndex = 9;
+    TweenLite.to(project_imageZoom_container, 0.25, {transform: "scale(1)"});
+    TweenLite.set(project_imageZoom_left, {zIndex: -9, opacity: 0});
+    TweenLite.set(project_imageZoom_right, {zIndex: -9, opacity: 0});
+	};
+};
+
+// =====
+
 (function initialize() {
 
   // Initialize width of horizontal scorlling image list
@@ -27,7 +43,7 @@
     };
     child.onmouseenter = enterImage();
     child.onmouseleave = leaveImage();
-    child.onmouseup = imageZoomed_open("url(images/product_p" + (i+1) + "@2x.png)");
+    child.onmouseup = productZoom("url(images/product_p" + (i+1) + "@2x.png)");
     project_imageZoom_right.style.opacity = 0;
     project_imageZoom_left.style.opacity = 0;
   }
