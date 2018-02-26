@@ -1,3 +1,0 @@
-&nbsp&nbsp Similar to the <a href="javascript:jumpToProject('art')()">Art Assets</a> projects section, I’m reserving a space here to upload any work into audio design for various projects. This only really includes one project at the moment (<a href="javascript:jumpToProject('munch')()">Munch</a>), but I’ll leave this open as a future dropbox. <br><br>
-
-Audio playback support NYI.
