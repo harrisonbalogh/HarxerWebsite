@@ -15,8 +15,8 @@ const GITLINK				= 8;
 
 // FILE_NAME				DISPLAY_NAME								ARCHIECTURE(S)							DESCRIPTION		PLATFORM		UPDATED			IMAGE_COUNT  	VIDEO_ID	GITHUB
 var PROJECT = [[],
-	["website", 			"Website", 									"HTML5, Javascript, CSS", 	"descrip",		"WEB",			"10/5/16", 	18, 					"",							""],
-	// ["helikopter", 		"Helicopter", 							"Java", 										"descrip",		"DESKTOP",	"10/5/16", 	1, 						""],
+	["website", 			"Website", 									"HTML5, Javascript, CSS", 	"descrip",		"WEB",			"2/26/18", 	18, 					"",							""],
+	["encryptedChat", "Encrypted Chat", 					"Swift, NodeJS",						"descrip",		"DESKTOP", 	"12/14/17", 3, 						"qmoNRhd8Ifs",	"https://github.com/harrisonbalogh/Whisper_Server"],
 	["javaPhysics", 	"2D World Template", 				"Java", 										"descrip",		"DESKTOP",	"10/5/16", 	1, 						"",							"https://github.com/harrisonbalogh/java-2d-template"],
 	["messenger",			"Messenger",								"Java", 										"descrip",		"DESKTOP",	"7/30/17", 	4, 						"lH9r2jlbAXE",	"https://github.com/harrisonbalogh/server-client-messenger"],
 	["swiftPhysics",	"Physics Animator", 				"Swift",										"descrip",		"MOBILE", 	"7/29/17", 	7,						"CfA7l1JJYDc",	"https://github.com/harrisonbalogh/spriteKit-dynamicAnimations"],
@@ -24,7 +24,7 @@ var PROJECT = [[],
 	["munch", 				"Munch",										"Java",											"descrip",		"DESKTOP",	"10/5/16", 	6,						"",							""],
 	["art", 					"Art Assets",								"_",												"descrip",		"UNIVERSAL","1/28/17", 	13,						"",							""],
 	["collision", 		"2D Colliders",							"Java",											"descrip",		"DESKTOP",	"10/5/16", 	1,						"61Fctqe4ciA",	"https://github.com/harrisonbalogh/java-2d-colliders"],
-	["earthMap", 			"Earth Map",								"Java",											"descrip",		"DESKTOP",	"10/5/16", 	1,						"MMTMMQx4eeo",	""]
+	["earthMap", 			"Earth Map",								"Java",											"descrip",		"DESKTOP",	"10/5/16", 	1,						"MMTMMQx4eeo",	"https://github.com/harrisonbalogh/java-2d-template"]
 ];
 //Whitespace tabs: &nbsp &nbsp
 
@@ -47,7 +47,7 @@ var DRAG_DECELERATION = 1;
 var dragClockRunning = false;
 
 // Project Icon Slideshow
-var SLIDESHOW_TRANSITION_TIME = 1; // secs
+var SLIDESHOW_TRANSITION_TIME = 0.5; // secs
 var slideshowTransitionTimer;
 var slideshowImage = 1;
 var slideshowProject = -1;
@@ -72,8 +72,6 @@ var projects_expanded_imageList = document.getElementById('projects-expanded-ima
 var projects_expanded_description = document.getElementById('projects-expanded-description');
 var projects_exapnded_description_gitLink = document.getElementById('projects-expanded-description-gitLink');
 var projects_expanded_description_container = document.getElementById('projects-expanded-description-container');
-var projects_expanded_description_expandButton = document.getElementById('projects-expanded-description-expandButton');
-var projects_expanded_description_blur = document.getElementById('projects-expanded-description-blur');
 var project_imageZoom_container = document.getElementById('project-imageZoom-container');
 var project_imageZoom_cover = document.getElementById('project-imageZoom-cover');
 var project_imageZoom_image = document.getElementById('project-imageZoom-image');
@@ -88,23 +86,6 @@ var project_imageZoom_left = document.getElementById('project-imageZoom-left');
 	var containerHeight = document.getElementById('scene-projects').offsetHeight - (projects_search.offsetTop + projects_search.offsetHeight);
 	// TweenLite.set(projects_containerList, {height: containerHeight});
 	projects_containerList.style.height = containerHeight + "px";
-	// Initialize expand button
-	projects_expanded_description_expandButton.onclick = function(e) {
-
-		var hContainer = projects_containerList.offsetHeight - 140;
-
-		if (projects_containerExpanded.style.height == hContainer + "px") {
-			TweenLite.to(projects_expanded_description_container, 0.5, {height: projects_expanded_description.offsetHeight + 2*projects_expanded_description_expandButton.offsetHeight});
-			TweenLite.to(projects_containerExpanded, 0.5, {
-				height: projects_expanded_description_container.offsetTop + projects_expanded_description.offsetHeight - projects_containerExpanded.offsetTop + 2*projects_expanded_description_expandButton.offsetHeight});
-			projects_expanded_description_expandButton.innerHTML = "Show Less";
-		} else {
-			TweenLite.to(projects_containerExpanded, 0.5, {height: hContainer});
-			var hDescrip = Math.max(hContainer, 300) - (projects_expanded_description_container.offsetTop - projects_containerExpanded.offsetTop);
-			TweenLite.to(projects_expanded_description_container, 0.5, {height: hDescrip});
-			projects_expanded_description_expandButton.innerHTML = "Show More";
-		}
-	};
 })();
 
 function projectsRefit() {
@@ -134,19 +115,21 @@ var selectProject = function(projNum) {
 		if (projectSelected != projNum) {
 			// Update visuals to the list of projects by icon
 			TweenLite.to(projects_list, 0.5, {height: 190, textAlign: "left", width: projects_list.getElementsByTagName("li").length * 163});
-			TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {opacity: 0.25, cursor: "pointer", width: 155, margin: "8px 4px"});
+			TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {cursor: "pointer", width: 155, margin: "8px 4px"});
 			TweenLite.to(projects_iconCircle, 0.5, {height: 70, width: 70});
 			TweenLite.to(projects_icon, 0.5, {height: 78, width: 78});
 			// If there is already a selected project, reset its icon
 			if (projectSelected != -1) {
 				TweenLite.to(projects_iconCircle[projectSelected], 0.5, {opacity: 1});
 				projects_icon_OuterCircle[projectSelected].style.backgroundImage = "url(images/icon_outerCircle@2x.png)";
+				TweenLite.to(projects_list.getElementsByTagName("li")[projectSelected-1], 0.5, {opacity: 1, backgroundColor: "tranparent", color: __color_background});
 			}
-			// Darken the coloring of all other project tiles.
 			// Update the newly selected project icon
 			TweenLite.to(projects_iconCircle[projNum], 0.5, {opacity: 0});
+			// TweenLite.to(projects_list.getElementsByTagName("li")[projNum-1], 0.5, {backgroundColor: __color_background, color: __color_foreground});
 			projects_icon_OuterCircle[projNum].style.backgroundImage = "url(images/icon_outerCircle_selected@2x.png)";
 			TweenLite.to(projects_list.getElementsByTagName("li")[projNum-1], 0.5, {opacity: 0.70, cursor: "default"});
+			TweenLite.set(projects_icon[projNum], {scale: 0.9, ease: Back.easeInOut});
 			projects_expanded_title.innerHTML = PROJECT[projNum][DISPLAY_NAME];
 			// Don't display a dash "-" if the architectures field is empty
 			if (PROJECT[projNum][ARCHITECTURES] == "_") {
@@ -204,16 +187,8 @@ var selectProject = function(projNum) {
 			var hDescrip = Math.max(hContainer, 300) - (projects_expanded_description_container.offsetTop - projects_containerExpanded.offsetTop);
 			TweenLite.to(projects_expanded_description_container, 0.5, {height: hDescrip});
 
-			projects_expanded_description_expandButton.innerHTML = "Show More";
 			TweenLite.to(projects_containerList, 0.3, {scrollTo: 0});
 			projects_expanded_description.innerHTML = PROJECT[projNum][DESCRIPTION];
-			if (projects_expanded_description.offsetHeight + 5 <= hDescrip) {
-				projects_expanded_description_expandButton.style.zIndex = -3;
-				projects_expanded_description_blur.style.zIndex = -3;
-			} else {
-				projects_expanded_description_expandButton.style.zIndex = 1;
-				projects_expanded_description_blur.style.zIndex = 0;
-			}
 			// Update reference to which project is now selected
 			projectSelected = projNum;
 			// Simulate a mouse leave of the project
@@ -239,7 +214,7 @@ var selectProject = function(projNum) {
 		TweenLite.to(projects_icon, 0.5, {height: 100, width: 100});
 		TweenLite.to(projects_iconCircle[projectSelected], 0.5, {opacity: 1})
 		projects_icon_OuterCircle[projectSelected].style.backgroundImage = "url(images/icon_outerCircle@2x.png)";
-		TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {opacity: 1, cursor: "pointer", width: 200, margin: "20px 20px"});
+		TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {opacity: 1, cursor: "pointer", width: 200, margin: "20px 20px", backgroundColor: "tranparent", color: __color_background});
 		// Reset the list visuals
 		TweenLite.to(projects_list_container, 0.5, {scrollTo: 0});
 		TweenLite.to(projects_list, 0.5, {height: "auto", textAlign: "center", width: "auto"});
@@ -274,7 +249,7 @@ function initializeProjectItem(x) {
 	projects_icon_OuterCircle.push(pOuterCircle)
 	var pInnerCircle = document.createElement("div");
 	pInnerCircle.setAttribute("class", "projects-list-icon-innerCircle");
-	pLogo.appendChild(pInnerCircle);
+	pOuterCircle.appendChild(pInnerCircle);
 	projects_iconCircle.push(pInnerCircle);
 	if (PROJECT[x][IMAGE_COUNT] > 0) {
 		pInnerCircle.style.backgroundImage = "url(projects/" + PROJECT[x][FILE_NAME] + "/p1_thumb@2x.png)";
@@ -325,9 +300,11 @@ function initializeProjectItem(x) {
 	li.onmouseenter = function() {
 		if (x != projectSelected) {
 			pArchitecture.style.borderColor =  __color_background;
-			TweenLite.to(li, 0.25, {marginBottom: 0, opacity: 1});
+			TweenLite.to(li, 0.25, {marginBottom: 0});
 			TweenLite.to(pExpand, 0.25, {height: 16});
-			TweenLite.to(pOuterCircle, PROJECT[x][IMAGE_COUNT], {rotation: 360, ease: Power0.easeNone});
+			// TweenLite.to(pOuterCircle, PROJECT[x][IMAGE_COUNT], {rotation: 360, ease: Power0.easeNone});
+			TweenLite.to(pLogo, 0.4, {scale: 1.1, ease: Back.easeInOut});
+			TweenLite.to(pOuterCircle);
 			slideshowProject = x;
 			slideshowStart(x);
 		}
@@ -335,11 +312,12 @@ function initializeProjectItem(x) {
 	li.onmouseleave = function() {
 		TweenLite.to(pArchitecture, 0.05, {borderColor: "transparent", delay: 0.20});
 		TweenLite.to(li, 0.25, {marginBottom: 16});
-		if (projectSelected != -1 && x != projectSelected) {
-			TweenLite.to(li, 0.25, {opacity: 0.25});
-		}
+		// if (projectSelected != -1 && x != projectSelected) {
+		// 	TweenLite.to(li, 0.25, {opacity: 0.25});
+		// }
 		TweenLite.to(pExpand, 0.25, {height: 0});
-		TweenLite.to(pOuterCircle, 0.75, {rotation: 0, ease: Power4.easeInOut});
+		TweenLite.to(pLogo, 0.6, {scale: 0.9, ease: Back.easeInOut});
+		// TweenLite.to(pOuterCircle, 0.75, {rotation: 0, ease: Power4.easeInOut});
 		slideshowStop();
 	};
 

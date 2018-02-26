@@ -296,14 +296,14 @@ function update(delta) {
       e.preventDefault();
   };
 
-	// Remove loader display. This is technically called last but everything happens sync
-	var loaderOverlay = document.getElementById('loaderOverlay');
-	var loaderDisplay = document.getElementById('loaderDisplay');
-	var loaderText = document.getElementById('loaderText');
-	TweenLite.to(loaderOverlay, 0.4, {delay: 1, opacity: 0});
-	TweenLite.to(loaderText, 0.4, {delay: 1, opacity: 0});
-	TweenLite.set(loaderOverlay, {delay: 1.4, zIndex: -9});
-	TweenLite.set(loaderDisplay, {delay: 1.8, zIndex: -9});
+	// // Remove loader display. This is technically called last but everything happens sync
+	// var loaderOverlay = document.getElementById('loaderOverlay');
+	// var loaderDisplay = document.getElementById('loaderDisplay');
+	// var loaderText = document.getElementById('loaderText');
+	// TweenLite.to(loaderOverlay, 0.4, {delay: 0, opacity: 0});
+	// TweenLite.to(loaderText, 0.4, {delay: 0, opacity: 0});
+	// TweenLite.set(loaderOverlay, {delay: 1.4, zIndex: -9});
+	// TweenLite.set(loaderDisplay, {delay: 1.8, zIndex: -9});
 	// loaderOverlay.style.opacity = 0;
 	// loaderDisplay.style.opacity = 0;
 	// loaderOverlay.style.zIndex = -9;

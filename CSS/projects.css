@@ -128,8 +128,9 @@
 }
 
 .projects-list li {
+	border: 1px solid transparent;
+	border-radius: 14px;
 	color: var(--color-background);
-	border-bottom-color: var(--color-background);
 	cursor: pointer;
 	display: inline-block;
 	margin: 20px 20px;
@@ -140,20 +141,19 @@
 }
 
 .projects-list-icon {
-		display: inline-block;
-		height: 100px;
-		margin: 0 0 6px 0;
-		padding: 0;
-		transform: translateX(-50%);
-		width: 100px;
+	display: inline-block;
+	height: 100px;
+	margin: 0 0 6px 0;
+	padding: 0;
+	transform: scale(0.9);
+	width: 100px;
 }
 
 .projects-list-icon-outerCircle {
 	background: url("../images/icon_outerCircle@2x.png") no-repeat center/100%;
 	display: inline-block;
 	height: 100%;
-	position: absolute;
-	transform: rotate(0deg);
+	/* position: absolute; */
 	width: 100%;
 }
 
@@ -166,7 +166,7 @@
 	/*filter: grayscale(50%);*/
 	height: 92px;
 	margin: 3px;
-	position: absolute;
+	/* position: absolute; */
 	width: 92px;
 }
 
@@ -270,7 +270,9 @@
 	display: inline-block;
 	height: 100%;
 	list-style: none;
+	margin: 0;
 	overflow-x: visible;
+	padding: 0;
 	text-align: center;
 }
 
@@ -303,11 +305,11 @@
 	display: block;
 	margin: 5px auto 0 auto;
 	max-width: 800px;
-	overflow-y: hidden;
+	overflow-y: scroll;
 	padding: 0;
 	position: relative;
 	text-align: center;
-	width: 96%;
+	width: 99%;
 }
 
 .projects-expanded-description-gitLink {
@@ -319,25 +321,6 @@
 }
 .projects-expanded-description-gitLink a:hover {
 	color: var(--color-accent);
-}
-
-.projects-expanded-description-blur {
-	bottom: 0;
-	box-shadow: 0 -20px 20px var(--color-background) inset;
-	height: 30px;
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	width: 100%;
-}
-
-.projects-expanded-description-expandButton {
-	bottom: 0;
-	color: var(--color-foreground);
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	width: 100%;
 }
 
 .projects-expanded-description-expandButton:hover {

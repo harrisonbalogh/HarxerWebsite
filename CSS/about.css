@@ -55,17 +55,17 @@
 }
 
 .about--profile-cover {
-	background: url("../images/profile_cover@2x.jpg") no-repeat center top/contain;
+	background: url("../images/profile_cover2@2x.jpg") repeat top center/600px;
 	display: inline-block;
 	height: 1000px;
-	min-width: 1418px;
+	/* min-width: 1418px; */
 	text-align: center;
 	width: 100%;
 	z-index: 0;
 }
 
 .about--profile-picture {
-	background: url("../images/profilePic_noShadow@2x.png") no-repeat left center/contain;
+	background: url("../images/profilePic_noShadow2@2x.png") no-repeat left center/contain;
 	display: block;
 	float: left;
 	height: 150px;
