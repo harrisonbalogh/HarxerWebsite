@@ -69,7 +69,7 @@ header ul {
 }
 
 .header--button.home {
-  background: url("../images/hxr-logo-active@2x.png") no-repeat center/103px;
+  background: url("/images/hxr-logo-active@2x.png") no-repeat center/103px;
   background-color: var(--color-foreground);
   display: block;
   height: 100%;
@@ -93,11 +93,11 @@ header ul {
 }
 
 .content--scene-scroller.scroller-left {
-  background: url("../images/arrow_left@2x.png") no-repeat center/contain;
+  background: url("/images/arrow_left@2x.png") no-repeat center/contain;
   left: 0;
 }
 .content--scene-scroller.scroller-right {
-  background: url("../images/arrow_right@2x.png") no-repeat center/contain;
+  background: url("/images/arrow_right@2x.png") no-repeat center/contain;
   right: 0;
 }
 

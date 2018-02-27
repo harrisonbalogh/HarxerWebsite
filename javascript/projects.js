@@ -13,6 +13,8 @@ const IMAGE_COUNT 	= 6;
 const VIDEO					= 7;
 const GITLINK				= 8;
 
+// ** NOTE: The PROJECT 2d array has an empty 0 index.
+
 // FILE_NAME				DISPLAY_NAME								ARCHIECTURE(S)							DESCRIPTION		PLATFORM		UPDATED			IMAGE_COUNT  	VIDEO_ID	GITHUB
 var PROJECT = [[],
 	["website", 			"Website", 									"HTML5, Javascript, CSS", 	"descrip",		"WEB",			"2/26/18", 	18, 					"",							""],
@@ -109,8 +111,39 @@ var jumpToProject = function(projFileName) {
 };
 
 // Updates information fields and performs various animations to expand details about the selected project.
-var selectProject = function(projNum) {
+var selectProject = function(projNum, historied = true) {
 	return function() {
+		if (projNum == -1) {
+			// Reset text
+			projects_header_title.innerHTML = "Select a project";
+			// Reset button visuals
+			TweenLite.to(projects_header_title, 0.5, {opacity: 1, cursor: "default", color: __color_background});
+			// Close container (make it flat)
+			TweenLite.to(projects_containerExpanded, 0.5, {height: 0});
+			// Update all the list items
+			TweenLite.to(projects_iconCircle, 0.5, {height: 92, width: 92});
+			TweenLite.to(projects_icon, 0.5, {height: 100, width: 100});
+			TweenLite.to(projects_iconCircle[projectSelected], 0.5, {opacity: 1})
+			projects_icon_OuterCircle[projectSelected].style.backgroundImage = "url(/images/icon_outerCircle@2x.png)";
+			TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {opacity: 1, cursor: "pointer", width: 200, margin: "20px 20px", backgroundColor: "tranparent", color: __color_background});
+			// Reset the list visuals
+			TweenLite.to(projects_list_container, 0.5, {scrollTo: 0});
+			TweenLite.to(projects_list, 0.5, {height: "auto", textAlign: "center", width: "auto"});
+			// Reseting projectSelected to -1 implies that no project is selected
+			projectSelected = -1;
+			// Update the address bar
+			if (history.pushState && historied !== undefined) { // break historied and it works perfectly!
+				var newurl = window.location.protocol + "//" + window.location.host + "/projects";
+				var newTitle = "Harxer - Projects";
+				if (historied) {
+					window.history.pushState({path:newurl}, newTitle, newurl);
+				} else {
+					window.history.replaceState({path:newurl}, newTitle, newurl);
+				}
+				document.title = newTitle; // In case the replace/push history state didn't update the page title.
+			}
+			return;
+		}
 		// Check if selecting the project that is already selected.
 		if (projectSelected != projNum) {
 			// Update visuals to the list of projects by icon
@@ -121,13 +154,13 @@ var selectProject = function(projNum) {
 			// If there is already a selected project, reset its icon
 			if (projectSelected != -1) {
 				TweenLite.to(projects_iconCircle[projectSelected], 0.5, {opacity: 1});
-				projects_icon_OuterCircle[projectSelected].style.backgroundImage = "url(images/icon_outerCircle@2x.png)";
+				projects_icon_OuterCircle[projectSelected].style.backgroundImage = "url(/images/icon_outerCircle@2x.png)";
 				TweenLite.to(projects_list.getElementsByTagName("li")[projectSelected-1], 0.5, {opacity: 1, backgroundColor: "tranparent", color: __color_background});
 			}
 			// Update the newly selected project icon
 			TweenLite.to(projects_iconCircle[projNum], 0.5, {opacity: 0});
 			// TweenLite.to(projects_list.getElementsByTagName("li")[projNum-1], 0.5, {backgroundColor: __color_background, color: __color_foreground});
-			projects_icon_OuterCircle[projNum].style.backgroundImage = "url(images/icon_outerCircle_selected@2x.png)";
+			projects_icon_OuterCircle[projNum].style.backgroundImage = "url(/images/icon_outerCircle_selected@2x.png)";
 			TweenLite.to(projects_list.getElementsByTagName("li")[projNum-1], 0.5, {opacity: 0.70, cursor: "default"});
 			TweenLite.set(projects_icon[projNum], {scale: 0.9, ease: Back.easeInOut});
 			projects_expanded_title.innerHTML = PROJECT[projNum][DISPLAY_NAME];
@@ -152,7 +185,7 @@ var selectProject = function(projNum) {
 				imageListWidth += 160;
 				// Create li
 				var li = document.createElement("li");
-				li.style.backgroundImage = "url(projects/" + PROJECT[projNum][FILE_NAME] + "/video_thumb@2x.jpg)";
+				li.style.backgroundImage = "url(/projects/" + PROJECT[projNum][FILE_NAME] + "/video_thumb@2x.jpg)";
 				li.onmouseup = videoZoomed_open();
 				var div = document.createElement("div");
 				div.setAttribute("class", "projects-expanded-imageContainer-play");
@@ -172,10 +205,10 @@ var selectProject = function(projNum) {
 			for (p = 0; p < PROJECT[projNum][IMAGE_COUNT]; p++) {
 				// Load images
 				var theImg = new Image();
-				theImg.src = "projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "_thumb@2x.png";
+				theImg.src = "/projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "_thumb@2x.png";
 				// Create li
 				var li = document.createElement("li");
-				li.style.backgroundImage = "url(projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "_thumb@2x.png)";
+				li.style.backgroundImage = "url(/projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "_thumb@2x.png)";
 				li.onmouseup = imageZoomed_open(p);
 				clearMouseDrag();
 				// Add li
@@ -193,6 +226,17 @@ var selectProject = function(projNum) {
 			projectSelected = projNum;
 			// Simulate a mouse leave of the project
 			projects_list.getElementsByTagName("li")[projNum-1].onmouseleave();
+			// Update the address bar
+			if (history.pushState && historied !== undefined) {
+				var newurl = window.location.protocol + "//" + window.location.host + "/projects/" + PROJECT[projNum][FILE_NAME];
+				var newTitle = "Harxer - " + PROJECT[projNum][DISPLAY_NAME];
+				if (historied) {
+					window.history.pushState({path:newurl}, newTitle, newurl);
+				} else {
+					window.history.replaceState({path:newurl}, newTitle, newurl);
+				}
+				document.title = newTitle; // In case the replace/push history state didn't update the page title.
+			}
 		}
 	};
 };
@@ -202,25 +246,7 @@ var selectProject = function(projNum) {
 	for (x = 1; x < PROJECT.length; x++) {initializeProjectItem(x);}
 
 	// Button for closing the currently opened project
-	projects_header_title.onclick = function() {
-		// Reset text
-		projects_header_title.innerHTML = "Select a project";
-		// Reset button visuals
-		TweenLite.to(projects_header_title, 0.5, {opacity: 1, cursor: "default", color: __color_background});
-		// Close container (make it flat)
-		TweenLite.to(projects_containerExpanded, 0.5, {height: 0});
-		// Update all the list items
-		TweenLite.to(projects_iconCircle, 0.5, {height: 92, width: 92});
-		TweenLite.to(projects_icon, 0.5, {height: 100, width: 100});
-		TweenLite.to(projects_iconCircle[projectSelected], 0.5, {opacity: 1})
-		projects_icon_OuterCircle[projectSelected].style.backgroundImage = "url(images/icon_outerCircle@2x.png)";
-		TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {opacity: 1, cursor: "pointer", width: 200, margin: "20px 20px", backgroundColor: "tranparent", color: __color_background});
-		// Reset the list visuals
-		TweenLite.to(projects_list_container, 0.5, {scrollTo: 0});
-		TweenLite.to(projects_list, 0.5, {height: "auto", textAlign: "center", width: "auto"});
-		// Reseting projectSelected to -1 implies that no project is selected
-		projectSelected = -1;
-	};
+	projects_header_title.onclick = selectProject(-1);
 	projects_header_title.onmouseenter = function() {
 		if (projectSelected != -1) {
 			TweenLite.to(projects_header_title, 0.3, {opacity: 1});
@@ -252,7 +278,7 @@ function initializeProjectItem(x) {
 	pOuterCircle.appendChild(pInnerCircle);
 	projects_iconCircle.push(pInnerCircle);
 	if (PROJECT[x][IMAGE_COUNT] > 0) {
-		pInnerCircle.style.backgroundImage = "url(projects/" + PROJECT[x][FILE_NAME] + "/p1_thumb@2x.png)";
+		pInnerCircle.style.backgroundImage = "url(/projects/" + PROJECT[x][FILE_NAME] + "/p1_thumb@2x.png)";
 	}
 	var pTitle = document.createElement("p");
 	pTitle.setAttribute("class", "projects-list-title");
@@ -335,10 +361,10 @@ function slideshowStart(project) {
 function slideshowContinue(project) {
 	if (PROJECT[slideshowProject][IMAGE_COUNT] > slideshowImage) {
 		slideshowImage++;
-		projects_iconCircle[slideshowProject].style.backgroundImage = "url(projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p" + slideshowImage + "_thumb@2x.png)";
+		projects_iconCircle[slideshowProject].style.backgroundImage = "url(/projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p" + slideshowImage + "_thumb@2x.png)";
 		slideshowTransitionTimer = setTimeout(function(){slideshowContinue()}, SLIDESHOW_TRANSITION_TIME * 1000);
 	} else {
-		projects_iconCircle[slideshowProject].style.backgroundImage = "url(projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p" + slideshowImage + "_thumb@2x.png)";
+		projects_iconCircle[slideshowProject].style.backgroundImage = "url(/projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p" + slideshowImage + "_thumb@2x.png)";
 		slideshowImage = 1;
 	}
 }
@@ -347,7 +373,7 @@ function slideshowStop() {
 	slideshowImage = 1;
 	if (slideshowProject != -1) {
 		if (PROJECT[slideshowProject][IMAGE_COUNT] > 0) {
-			projects_iconCircle[slideshowProject].style.backgroundImage = "url(projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p1_thumb@2x.png)";
+			projects_iconCircle[slideshowProject].style.backgroundImage = "url(/projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p1_thumb@2x.png)";
 		}
 		slideshowProject = -1;
 	}
@@ -408,7 +434,7 @@ function clearMouseDrag() {
 var imageZoomed_open = function(imageNumber) {
 	return function() {
 		if (!imageDragging) {
-			project_imageZoom_image.style.backgroundImage = "url(projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageNumber+1) + "@2x.png)";
+			project_imageZoom_image.style.backgroundImage = "url(/projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageNumber+1) + "@2x.png)";
 			project_imageZoom_cover.style.zIndex = 8;
 			TweenLite.to(project_imageZoom_cover, 0.25, {opacity: 0.6});
 			project_imageZoom_container.style.zIndex = 9;
@@ -477,7 +503,7 @@ var imageZoomed_left = function() {
 			}
 			imageBrowseSelectionRight = false;
 			imageSelected--;
-			project_imageZoom_image.style.backgroundImage = "url(projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageSelected+1) + "@2x.png)";
+			project_imageZoom_image.style.backgroundImage = "url(/projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageSelected+1) + "@2x.png)";
 		}
 	};
 };
@@ -492,7 +518,7 @@ var imageZoomed_right = function() {
 			}
 			imageBrowseSelectionRight = true;
 			imageSelected++;
-			project_imageZoom_image.style.backgroundImage = "url(projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageSelected+1) + "@2x.png)";
+			project_imageZoom_image.style.backgroundImage = "url(/projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageSelected+1) + "@2x.png)";
 		}
 	};
 };

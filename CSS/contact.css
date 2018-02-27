@@ -17,7 +17,7 @@
 }
 
 .contact-image-profile {
-	background: url(../images/profilePic@2x.png) no-repeat center/contain;
+	background: url(/images/profilePic@2x.png) no-repeat center/contain;
 	display: inline-block;
 	height: 230px;
 	margin: 16px 0;

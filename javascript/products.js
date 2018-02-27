@@ -28,7 +28,6 @@ var productZoom = function(url) {
   // Initialize image tiles
   for (var i = 0; i < childs; i++) {
     var child = productImageList.children[i];
-    console.log("Child " + child);
     var enterImage = function() {
       return function() {
         // TweenLite.to(this, 0.2, {transform: "scale(1.1)"});
@@ -43,7 +42,7 @@ var productZoom = function(url) {
     };
     child.onmouseenter = enterImage();
     child.onmouseleave = leaveImage();
-    child.onmouseup = productZoom("url(images/product_p" + (i+1) + "@2x.png)");
+    child.onmouseup = productZoom("url(/images/product_p" + (i+1) + "@2x.png)");
     project_imageZoom_right.style.opacity = 0;
     project_imageZoom_left.style.opacity = 0;
   }

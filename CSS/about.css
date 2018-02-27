@@ -40,7 +40,7 @@
 }
 
 .about--profile-cover-shadow {
-	background-image: url("../images/image_gradientUp@2x.png");
+	background-image: url("/images/image_gradientUp@2x.png");
 	background-position: center;
 	background-repeat: repeat-x;
 	background-size: 20px 20px;
@@ -55,7 +55,7 @@
 }
 
 .about--profile-cover {
-	background: url("../images/profile_cover2@2x.jpg") repeat top center/600px;
+	background: url("/images/profile_cover2@2x.jpg") repeat top center/600px;
 	display: inline-block;
 	height: 1000px;
 	/* min-width: 1418px; */
@@ -65,7 +65,7 @@
 }
 
 .about--profile-picture {
-	background: url("../images/profilePic_noShadow2@2x.png") no-repeat left center/contain;
+	background: url("/images/profilePic_noShadow2@2x.png") no-repeat left center/contain;
 	display: block;
 	float: left;
 	height: 150px;
@@ -92,33 +92,33 @@
 
 .about--profile-links .github div {
 	cursor: pointer;
-	background: url(../images/icon_github@2x.png) no-repeat center/cover;
+	background: url(/images/icon_github@2x.png) no-repeat center/cover;
 	display: block;
 	height: 45px;
 	width: 45px;
 }
 .about--profile-links .github div:hover {
-	background: url(../images/icon_github_alt@2x.png) no-repeat center/cover;
+	background: url(/images/icon_github_alt@2x.png) no-repeat center/cover;
 }
 .about--profile-links .facebook div {
 	cursor: pointer;
-	background: url(../images/icon_facebook@2x.png) no-repeat center/cover;
+	background: url(/images/icon_facebook@2x.png) no-repeat center/cover;
 	display: block;
 	height: 45px;
 	width: 45px;
 }
 .about--profile-links .facebook div:hover {
-	background: url(../images/icon_facebook_alt@2x.png) no-repeat center/cover;
+	background: url(/images/icon_facebook_alt@2x.png) no-repeat center/cover;
 }
 .about--profile-links .linkedin div {
 	cursor: pointer;
-	background: url(../images/icon_linkedin@2x.png) no-repeat center/cover;
+	background: url(/images/icon_linkedin@2x.png) no-repeat center/cover;
 	display: block;
 	height: 45px;
 	width: 45px;
 }
 .about--profile-links .linkedin div:hover {
-	background: url(../images/icon_linkedin_alt@2x.png) no-repeat center/cover;
+	background: url(/images/icon_linkedin_alt@2x.png) no-repeat center/cover;
 }
 
 .about--container-content {
@@ -187,7 +187,7 @@
 }
 
 .about--content-list li .classIcon {
-	background: url("../images/icon_class@2x.png") no-repeat center/cover;
+	background: url("/images/icon_class@2x.png") no-repeat center/cover;
 	border-radius: 2px;
 	display: inline-block;
 	float: right;
@@ -220,7 +220,7 @@
 }
 
 .about--content-list li .projectsIcon {
-	background: url("../images/icon_projects@2x.png") no-repeat center/cover;
+	background: url("/images/icon_projects@2x.png") no-repeat center/cover;
 	border-radius: 2px;
 	cursor: pointer;
 	display: inline-block;
@@ -234,10 +234,10 @@
 	width: 20px;
 }
 .about--content-list li .projectsIcon:hover {
-	background: url("../images/icon_projects_hover@2x.png") no-repeat center/cover;
+	background: url("/images/icon_projects_hover@2x.png") no-repeat center/cover;
 }
 .about--content-list li .projectsIcon:active {
-	background: url("../images/icon_projects_active@2x.png") no-repeat center/cover;
+	background: url("/images/icon_projects_active@2x.png") no-repeat center/cover;
 }
 
 .about--content-list li .projectsIcon div {

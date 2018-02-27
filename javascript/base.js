@@ -31,6 +31,7 @@ var HOME_SCENE = 2;
 var PROJECTS_SCENE = 3;
 var PRODUCTS_SCENE = 4;
 var selectedScene = HOME_SCENE;
+var SCENE_NAMES = ["about", "contact", "", "projects", "products"];
 var sceneChangeTimer;
 
 // ================================================================================================= Resizing Window Listener =========
@@ -44,42 +45,57 @@ window.onresize = function() {
 
 // ================================================================================================= Header Button Initialization =====
 
-var mouseDown_headerButton = function(scene) {
+var mouseDown_headerButton = function(scene, push = true) {
 	return function() {
-		if (scene !== selectedScene) {
-			// Update target header button
-			TweenLite.to(sceneButtons[selectedScene].childNodes[0], 0.25, {color: __color_text});
-			TweenLite.to(sceneButtons[selectedScene], 0.25, {backgroundColor: __color_background, cursor: "pointer"});
-			// Update previous header button
-			sceneButtons[scene].style.cursor = "default";
-			TweenLite.to(sceneButtons[scene].childNodes[0], 0.25, {color: __color_background});
-			TweenLite.to(sceneButtons[scene], 0.25, {backgroundColor: __color_foreground});
-			// Update dividers
-			if (selectedScene != 0) TweenLite.to(scene_dividers[selectedScene], 1, { transform: "translateX(0)"});
-			if (scene != 0) TweenLite.to(scene_dividers[scene], 1, { transform: "translateX(-10px)"});
-			// Set new scene target
-			selectedScene = scene;
-			// Update scene
-			TweenLite.to(content, 1, {left: -100*selectedScene + "%"});
-			// Stop draw clock on home scene and update unique header button image
-			if (scene == HOME_SCENE) {
-				canvasDrawing = true;
-				sceneButtons[HOME_SCENE].style.backgroundImage = "url(images/hxr-logo-active@2x.png)"
+		// Update target header button
+		TweenLite.to(sceneButtons[selectedScene].childNodes[0], 0.25, {color: __color_text});
+		TweenLite.to(sceneButtons[selectedScene], 0.25, {backgroundColor: __color_background, cursor: "pointer"});
+		// Update previous header button
+		sceneButtons[scene].style.cursor = "default";
+		TweenLite.to(sceneButtons[scene].childNodes[0], 0.25, {color: __color_background});
+		TweenLite.to(sceneButtons[scene], 0.25, {backgroundColor: __color_foreground});
+		// Update dividers
+		if (selectedScene != 0) TweenLite.to(scene_dividers[selectedScene], 1, { transform: "translateX(0)"});
+		if (scene != 0) TweenLite.to(scene_dividers[scene], 1, { transform: "translateX(-10px)"});
+		// Set new scene target
+		selectedScene = scene;
+		// Update scene
+		TweenLite.to(content, 1, {left: -100*selectedScene + "%"});
+		// Stop draw clock on home scene and update unique header button image
+		if (scene == HOME_SCENE) {
+			canvasDrawing = true;
+			sceneButtons[HOME_SCENE].style.backgroundImage = "url(/images/hxr-logo-active@2x.png)"
+		} else {
+			canvasDrawing = false;
+			sceneButtons[HOME_SCENE].style.backgroundImage = "url(/images/hxr-logo@2x.png)"
+		}
+		// Update navigation buttons
+		if (selectedScene == 0) {
+			TweenLite.to(scene_scroller_left, 0.3, {opacity: 0, cursor: "default"});
+		} else {
+			scene_scroller_left.style.cursor = "pointer";
+		}
+		if (selectedScene == scene_dividers.length - 1) {
+			TweenLite.to(scene_scroller_right, 0.3, {opacity: 0, cursor: "default"});
+		} else {
+			scene_scroller_right.style.cursor = "pointer";
+		}
+		// Update address bar
+		if (history.pushState && push !== undefined) {
+			var newurl = window.location.protocol + "//" + window.location.host + "/" + SCENE_NAMES[scene];
+			var newTitle = "Harxer"
+			if (scene == PROJECTS_SCENE && projectSelected != -1) {
+				newurl += "/" + PROJECT[projectSelected][FILE_NAME];
+				newTitle += " - " + PROJECT[projectSelected][DISPLAY_NAME];
 			} else {
-				canvasDrawing = false;
-				sceneButtons[HOME_SCENE].style.backgroundImage = "url(images/hxr-logo@2x.png)"
+				newTitle += (scene == HOME_SCENE ? "" : " - " + (SCENE_NAMES[scene].charAt(0).toUpperCase() + SCENE_NAMES[scene].slice(1)));
 			}
-			// Update navigation buttons
-			if (selectedScene == 0) {
-				TweenLite.to(scene_scroller_left, 0.3, {opacity: 0, cursor: "default"});
+			if (push) {
+				window.history.pushState({path:newurl}, newTitle, newurl);
 			} else {
-				scene_scroller_left.style.cursor = "pointer";
+				window.history.replaceState({path:newurl}, newTitle, newurl);
 			}
-			if (selectedScene == scene_dividers.length - 1) {
-				TweenLite.to(scene_scroller_right, 0.3, {opacity: 0, cursor: "default"});
-			} else {
-				scene_scroller_right.style.cursor = "pointer";
-			}
+			document.title = newTitle; // In case the replace/push history state didn't update the page title.
 		}
 	};
 };
@@ -90,7 +106,7 @@ var mouseEnter_headerButton = function(scene) {
 			TweenLite.to(sceneButtons[scene], 0.25, {backgroundColor: __color_accent_backup});
 			TweenLite.to(sceneButtons[scene].childNodes[0], 0.25, {color: __color_accent});
 			if (scene == HOME_SCENE)
-				sceneButtons[HOME_SCENE].style.backgroundImage = "url(images/hxr-logo-hover@2x.png)"
+				sceneButtons[HOME_SCENE].style.backgroundImage = "url(/images/hxr-logo-hover@2x.png)"
 		}
 	};
 };
@@ -100,7 +116,7 @@ var mouseLeave_headerButton = function(scene) {
 			TweenLite.to(sceneButtons[scene], 0.25, {backgroundColor: __color_background});
 			TweenLite.to(sceneButtons[scene].childNodes[0], 0.25, {color: __color_text});
 			if (scene == HOME_SCENE)
-				sceneButtons[HOME_SCENE].style.backgroundImage = "url(images/hxr-logo@2x.png)"
+				sceneButtons[HOME_SCENE].style.backgroundImage = "url(/images/hxr-logo@2x.png)"
 		}
 	};
 };

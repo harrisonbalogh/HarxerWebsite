@@ -13,38 +13,59 @@
 // 	}
 // }
 
-(function quickOpenScene() {
+// Allows for www.harxer.com/projects to jump you to www.harxer.com with the projects tab open.
+function quickOpenScene() {
 
-	// Allows for www.harxer.com/projects to jump you to www.harxer.com with the projects tab open
-	var openScene = window.location.search.substr(1);
+	var open = window.location.search.substr(1);
+	if (open == "") return;
 
-	if (openScene == "scene=projects") {
-		document.getElementById('header-button-projects').click();
-		if (history.pushState) {
-			// Removes the query for URL aesthetics
-    	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    	window.history.pushState({path:newurl},'',newurl);
+	var sceneIndex = 0;
+	SCENE_NAMES.forEach(function(scene) {
+
+		if (open == "scene=" + scene) {
+			// Simulate the clicking of the appropriate header button
+			mouseDown_headerButton(sceneIndex, false)();
+			return;
 		}
-	} else if (openScene == "scene=contact") {
-		document.getElementById('header-button-contact').click();
-		if (history.pushState) {
-			// Removes the query for URL aesthetics
-    	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    	window.history.pushState({path:newurl},'',newurl);
-		}
-	} else if (openScene == "scene=about") {
-		document.getElementById('header-button-about').click();
-		if (history.pushState) {
-			// Removes the query for URL aesthetics
-    	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    	window.history.pushState({path:newurl},'',newurl);
-		}
-	} else if (openScene == "scene=products") {
-		document.getElementById('header-button-products').click();
-		if (history.pushState) {
-			// Removes the query for URL aesthetics
-    	var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-    	window.history.pushState({path:newurl},'',newurl);
+
+		sceneIndex++;
+	});
+
+	for (var p = 1; p < PROJECT.length; p++) {
+		if (open == "project=" + PROJECT[p][FILE_NAME]) {
+			mouseDown_headerButton(PROJECTS_SCENE, false)();
+			selectProject(p, false)();
+			return;
 		}
 	}
-})();
+}
+quickOpenScene();
+
+// We don't want back and forward buttons to actually reload the page, simply navigate through the site.
+// NOTE: When a popstate occurs, we don't want to push a new state, we want to replace a new state.
+// So the navigation functions like selectProject and mouseDown_headerButton have optional arguments that
+// default to true which cause a push state but can be passed a false value to perform a replaceState.
+// If history is not to be affected, a null value can be sent to skip all history affects.
+window.onpopstate = function(event) {
+
+	var sceneIndex = 0;
+	SCENE_NAMES.forEach(function(scene) {
+		if (window.location.pathname == "/" + scene) {
+			// Simulate the clicking of the appropriate header button
+			mouseDown_headerButton(sceneIndex, false)();
+			if (sceneIndex == PROJECTS_SCENE)
+				selectProject(-1, null)();
+			return;
+		}
+
+		sceneIndex++;
+	});
+
+	for (var p = 1; p < PROJECT.length; p++) {
+		if (window.location.pathname == "/projects/" + PROJECT[p][FILE_NAME]) {
+			mouseDown_headerButton(PROJECTS_SCENE, null)();
+			selectProject(p, false)();
+			return;
+		}
+	}
+};

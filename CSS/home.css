@@ -6,14 +6,14 @@ canvas {
 	overflow: hidden;
 }
 .home-mouseTracker {
-	background: url("../images/hxr-logoFancy2@2x.png") no-repeat center/165px;
+	background: url("/images/hxr-logoFancy2@2x.png") no-repeat center/165px;
 	height: 100%;
 	position: absolute;
 	width: 20%;
 }
 
 .scene-home {
-	/*background: url("../images/hxr-logoFancy2@2x.png") no-repeat center/165px;*/
+	/*background: url("/images/hxr-logoFancy2@2x.png") no-repeat center/165px;*/
 }
 
 .scene-home-button-style {
@@ -32,7 +32,7 @@ canvas {
 }
 
 .scene-home-button-style-overlay {
-	background: url("../images/overlay_orbStyle@2x.png") no-repeat center/contain;
+	background: url("/images/overlay_orbStyle@2x.png") no-repeat center/contain;
 	display: block;
 	height: 100px;
 	left: 50%;
@@ -80,13 +80,13 @@ canvas {
 }
 
 .icon-clickMouse {
-	background: url("../images/icon_info_moveMouse@2x.png") no-repeat bottom right/contain;
+	background: url("/images/icon_info_moveMouse@2x.png") no-repeat bottom right/contain;
 }
 .icon-moveMouse {
-	background: url("../images/icon_info_clickMouse@2x.png") no-repeat bottom right/contain;
+	background: url("/images/icon_info_clickMouse@2x.png") no-repeat bottom right/contain;
 }
 .icon-spacebar {
-	background: url("../images/icon_info_spacebar@2x.png") no-repeat bottom right/contain;
+	background: url("/images/icon_info_spacebar@2x.png") no-repeat bottom right/contain;
 }
 
 .home-info-icon {
@@ -124,7 +124,7 @@ canvas {
 }
 
 .home-settings-icon {
-	background: url("../images/icon_settings@2x.png") no-repeat right center/contain;
+	background: url("/images/icon_settings@2x.png") no-repeat right center/contain;
 	display: block;
 	height: 25px;
 	margin: 0;
