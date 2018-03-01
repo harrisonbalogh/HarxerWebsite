@@ -153,8 +153,10 @@ document.getElementById('scene-home-info').onmouseleave = function() {
 
 // Spacebar acts like pressing 'Toggle Canvas Drawing' button
 document.onkeypress = function(e) {
+	console.log(e);
 	e = e || window.event;
-	if (e.keyCode  == 32) {
+	console.log("    or " + e);
+	if (e.keyCode  == 32 || e.charCode == 32) { // charCode is for firefox
 		toggleCanvasDrawing();
 	}
 };
