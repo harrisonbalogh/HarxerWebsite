@@ -248,12 +248,6 @@
 	margin: 0 0 0 10px;
 }
 
-.projects-expanded-imageContainer::-webkit-scrollbar {
-	height: 0px;
-  width: 0px;
-  background: transparent;
-}
-
 .projects-expanded-imageContainer {
 	background-color: rgb(37,37,37);
 	border-top: 2px solid rgb(35,35,35);
@@ -309,7 +303,7 @@
 	padding: 0;
 	position: relative;
 	text-align: center;
-	width: 99%;
+	width: 91%;
 }
 
 .projects-expanded-description-gitLink {

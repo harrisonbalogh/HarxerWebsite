@@ -15,6 +15,8 @@ var __color_accent_backup	= "rgb(72,88,104)";
 var sceneButtons = document.getElementById('header--buttons').children;
 
 var content = document.getElementById('content');
+// Non-JS safeguard
+content.style.left = "-200%";
 
 var scene_dividers = [""]; // Offset the scene dividers since scene[0] has no divider
 scene_dividers.push.apply(scene_dividers, document.getElementsByClassName('scene-divider'));
@@ -33,6 +35,8 @@ var PRODUCTS_SCENE = 4;
 var selectedScene = HOME_SCENE;
 var SCENE_NAMES = ["about", "contact", "", "projects", "products"];
 var sceneChangeTimer;
+
+document.getElementById("footer--label-dev").style.width = 0;
 
 // ================================================================================================= Resizing Window Listener =========
 
@@ -123,6 +127,9 @@ var mouseLeave_headerButton = function(scene) {
 // Attach mouse handlers
 (function initSceneButtons() {
 	for (var s = 0; s < sceneButtons.length; s++) {
+		if (sceneButtons[s].getElementsByTagName("p").length > 0)
+			sceneButtons[s].getElementsByTagName("p")[0].style.color = "var(--color-text)";
+
 		sceneButtons[s].onclick 			= mouseDown_headerButton(s);
 		sceneButtons[s].onmouseenter  = mouseEnter_headerButton(s);
 		sceneButtons[s].onmouseleave  = mouseLeave_headerButton(s);

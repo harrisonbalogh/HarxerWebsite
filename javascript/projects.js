@@ -113,6 +113,7 @@ var jumpToProject = function(projFileName) {
 // Updates information fields and performs various animations to expand details about the selected project.
 var selectProject = function(projNum, historied = true) {
 	return function() {
+		// If no project is selected...
 		if (projNum == -1) {
 			// Reset text
 			projects_header_title.innerHTML = "Select a project";
@@ -147,7 +148,7 @@ var selectProject = function(projNum, historied = true) {
 		// Check if selecting the project that is already selected.
 		if (projectSelected != projNum) {
 			// Update visuals to the list of projects by icon
-			TweenLite.to(projects_list, 0.5, {height: 190, textAlign: "left", width: projects_list.getElementsByTagName("li").length * 163});
+			TweenLite.to(projects_list, 0.5, {height: 190, textAlign: "left", width: projects_list.getElementsByTagName("li").length * 165});
 			TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {cursor: "pointer", width: 155, margin: "8px 4px"});
 			TweenLite.to(projects_iconCircle, 0.5, {height: 70, width: 70});
 			TweenLite.to(projects_icon, 0.5, {height: 78, width: 78});

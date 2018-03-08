@@ -17,11 +17,6 @@ var about_profile_subtext = document.getElementById('about--profile-subtext');
   var scene_about = document.getElementById("scene-about");
   var about_header = document.getElementById("about--header");
 
-  var newHeight = scene_about.offsetHeight - (about_header.offsetTop + about_header.offsetHeight);
-  // TweenLite.set(scrollContainer, {height: newHeight});
-  scrollContainer.style.height = newHeight + "px";
-  // about_content_profile.style.height = 0;
-
   var parallax = function() {
     return function() {
       var offset = Math.min(-scrollContainer.scrollTop * 0.4, 0);
