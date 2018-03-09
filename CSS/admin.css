@@ -40,25 +40,50 @@ header {
   width: 100%;
 }
 
-header form input {
-  background: url("/images/hxr-logo-active@2x.png") no-repeat center/103px;
-  background-color: var(--color-foreground);
+header ul {
+  display: table;
+  list-style-type: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.header--button {
   border: 1px solid transparent;
   border-bottom-style: hidden;
   border-radius: 6px 6px 0 0;
   cursor: pointer;
-  display: block;
-  height: 38px;
-  margin: 0 auto;
-  padding: auto;
+  display: table-cell;
+  height: 100%;
   text-align: center;
-  width: 200px;
+  vertical-align: middle;
 }
-header form input:hover {
-  border-color: var(--color-dominant);
+
+.header--button p {
+  color: var(--color-foreground);
+  display: block;
+  font-size: 14px;
+  margin: 0;
+  padding: 9px 0;
 }
-header form input:active {
-  border-color: var(--color-accent);
+
+.header--button.large {
+	width: 41%;
+}
+
+.header--button.home {
+  background: url("/images/hxr-logo-active@2x.png") no-repeat center/103px;
+  background-color: var(--color-foreground);
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+  min-width: 103px;
+  padding: 0 4px;
+}
+
+#header-button-right {
+  cursor: default;
 }
 
 /* - - - - - - - - - CONTENT - - - - - - - - - */
@@ -67,39 +92,50 @@ header form input:active {
   background-color: var(--color-foreground);
   bottom: 38px;
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   padding: 0;
   position: fixed;
+  text-align: center;
   top: 38px;
   width: 100%;
 }
-
-.content p {
-    color: var(--color-background);
-    max-width: 600px;
-    margin: 40px auto;
-    text-align: center;
-    width: 80%;
-}
-.content-title {
+.content-welcome {
+  color: var(--color-background);
+  cursor: default;
+  font-size: 30px;
   font-weight: bolder;
-  font-size: 22px;
-}
-.content-body {
-  font-weight: normal;
-  font-size: 16px;
-}
-.content-body a {
-  color: var(--color-dominant);
+  margin: 240px auto 60px auto;
+  width: 80%;
 }
 
-.graphic {
-  background: url(/images/avatar_confused@2x.png) no-repeat center/contain;
-  display: inline-block;
-  height: 277px;
-  margin: 40px 0 20px 0;
-  width: 100%;
+.password-p {
+  margin: 0;
+  padding: 0;
 }
+.password-input {
+  border: 0px;
+  background-color: transparent;
+  font-size: 26px;
+  max-width: 300px;
+  text-align: center;
+  width: 80%;
+}
+.password-input:focus {
+  outline: none;
+}
+
+.password-description {
+  border-top: 2px solid var(--color-background);
+  color: lightgray;
+  cursor: default;
+  font-size: 12px;
+  margin: 1px auto;
+  max-width: 300px;
+  padding-top: 6px;
+  width: 80%;
+}
+
 
 /* - - - - - - - - - FOOTER - - - - - - - - - */
 
