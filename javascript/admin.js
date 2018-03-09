@@ -10,19 +10,18 @@ var returnButton = document.getElementById('header-button-left');
        if (httpRequest.status == 200) {
          // Successful login!
          console.log("Passed middleware: " + httpRequest.responseText);
-         //
-         // // Update address bar
-         // if (history.replaceState) {
-         //   var newurl = window.location.protocol + "//" + window.location.host + "/" + "admin/";
-         //   console.log("pathname: "+window.location.pathname);
-         //   console.log("href: "+window.location.href);
-         //   window.history.replaceState({path:newurl}, null, newurl);
-         // }
+
+         // Update address bar
+         if (history.replaceState) {
+           var newurl = window.location.protocol + "//" + window.location.host + "/" + "admin/";
+           console.log("pathname: "+window.location.pathname);
+           console.log("href: "+window.location.href);
+           window.history.replaceState({path:newurl}, null, newurl);
+         }
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
-         alert('Bad or expired credentials: 403!');
-         // window.location.href = "index.html";
+         window.location.href = "index.html";
        }
        else if (httpRequest.status == 400) {
           alert('An error occurred: 400');

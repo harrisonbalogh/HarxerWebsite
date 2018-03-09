@@ -12,7 +12,6 @@ var textFieldPassword = document.getElementById("password-input");
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
-         window.location.href = "index.html";
        }
        else if (httpRequest.status == 400) {
           alert('An error occurred: 400');
