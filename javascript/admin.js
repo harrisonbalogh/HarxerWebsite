@@ -18,10 +18,10 @@ function submit() {
        }
     }
   };
-
-  httpRequest.setRequestHeader('Content-Type', 'application/json');
   httpRequest.open('POST', 'https://www.harxer.com/api/login1/');
-  httpRequest.send("{\"name\": \"hb\"}");
+  httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  // httpRequest.send("{\"name\": \"hb\"}");
+  httpRequest.send(JSON.stringify({ name: "hb"}));
 };
 
 document.onkeypress = function(e) {
@@ -30,7 +30,6 @@ document.onkeypress = function(e) {
 	console.log("    or " + e);
 	if (e.code == "Enter" || e.key == "Enter" || e.keyCode  == 13 || e.charCode == 13) { // charCode is for firefox
     // var pass = textFieldPassword.value;
-    // submit();
-    // var httpRequest = new XMLHttpRequest();
+    submit();
 	}
 };
