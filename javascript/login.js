@@ -1,6 +1,32 @@
 
-
 var textFieldPassword = document.getElementById("password-input");
+
+(function checkAccess() {
+  var httpRequest = new XMLHttpRequest();
+
+  httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+       if (httpRequest.status == 200) {
+         // Successful login!
+         window.location.href = "projects.html";
+
+       } else if (httpRequest.status == 403) {
+         // Bad or expired credentials
+         window.location.href = "index.html";
+       }
+       else if (httpRequest.status == 400) {
+          alert('An error occurred: 400');
+       }
+       else {
+         alert('An unknown error occurred.');
+       }
+    }
+  };
+
+  httpRequest.open('GET', 'https://www.harxer.com/api/validate/');
+  httpRequest.send();
+})();
+
 
 function login1() {
   var httpRequest = new XMLHttpRequest();

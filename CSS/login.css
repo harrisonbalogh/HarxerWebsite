@@ -82,6 +82,10 @@ header ul {
   padding: 0 4px;
 }
 
+#header-button-right {
+  cursor: default;
+}
+
 /* - - - - - - - - - CONTENT - - - - - - - - - */
 
 .content {
@@ -104,6 +108,34 @@ header ul {
   margin: 240px auto 60px auto;
   width: 80%;
 }
+
+.password-p {
+  margin: 0;
+  padding: 0;
+}
+.password-input {
+  border: 0px;
+  background-color: transparent;
+  font-size: 26px;
+  max-width: 300px;
+  text-align: center;
+  width: 80%;
+}
+.password-input:focus {
+  outline: none;
+}
+
+.password-description {
+  border-top: 2px solid var(--color-background);
+  color: lightgray;
+  cursor: default;
+  font-size: 12px;
+  margin: 1px auto;
+  max-width: 300px;
+  padding-top: 6px;
+  width: 80%;
+}
+
 
 /* - - - - - - - - - FOOTER - - - - - - - - - */
 
