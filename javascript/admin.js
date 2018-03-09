@@ -2,16 +2,6 @@
 
 var textFieldPassword = document.getElementById("password-input");
 
-document.onkeypress = function(e) {
-	console.log(e);
-	e = e || window.event;
-	console.log("    or " + e);
-	if (e.code == "Enter" || e.key == "Enter" || e.keyCode  == 13 || e.charCode == 13) { // charCode is for firefox
-    var pass = textFieldPassword.value;
-    submit();
-	}
-};
-
 function submit() {
   var httpRequest = new XMLHttpRequest()
 
@@ -32,4 +22,14 @@ function submit() {
   httpRequest.setRequestHeader('Content-Type', 'application/json');
   httpRequest.open('POST', 'https://www.harxer.com/api/login1/');
   httpRequest.send(JSON.stringify({name: hb}));
-}
+};
+
+document.onkeypress = function(e) {
+	console.log(e);
+	e = e || window.event;
+	console.log("    or " + e);
+	if (e.code == "Enter" || e.key == "Enter" || e.keyCode  == 13 || e.charCode == 13) { // charCode is for firefox
+    // var pass = textFieldPassword.value;
+    submit();
+	}
+};
