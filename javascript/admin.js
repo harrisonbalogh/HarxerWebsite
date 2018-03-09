@@ -20,10 +20,12 @@ var returnButton = document.getElementById('header-button-left');
          window.location.href = "index.html";
        }
        else if (httpRequest.status == 400) {
-          alert('An error occurred: 400');
+         window.location.href = "index.html";
+          // alert('An error occurred: 400');
        }
        else {
-         alert('An unknown error occurred.');
+         window.location.href = "index.html";
+         // alert('An unknown error occurred.');
        }
     }
   };
