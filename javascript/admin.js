@@ -9,6 +9,7 @@ function submit() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
            console.log(httpRequest.responseText);
+           console.log(textFieldPassword.value);
        }
        else if (httpRequest.status == 400) {
           alert('An error occurred: 400');
@@ -18,6 +19,7 @@ function submit() {
        }
     }
   };
+
   httpRequest.open('POST', 'https://www.harxer.com/api/login1/');
   httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   // httpRequest.send("{\"name\": \"hb\"}");
