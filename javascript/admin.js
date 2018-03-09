@@ -14,7 +14,6 @@ document.onkeypress = function(e) {
 
 function submit() {
   var httpRequest = new XMLHttpRequest()
-  httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
@@ -30,6 +29,7 @@ function submit() {
     }
   };
 
+  httpRequest.setRequestHeader('Content-Type', 'application/json');
   httpRequest.open('POST', 'https://www.harxer.com/api/login1/');
   httpRequest.send(JSON.stringify({name: hb}));
 }
