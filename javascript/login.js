@@ -14,10 +14,10 @@ var textFieldPassword = document.getElementById("password-input");
          // Bad or expired credentials
        }
        else if (httpRequest.status == 400) {
-          alert('An error occurred: 400');
+          // alert('An error occurred: 400');
        }
        else {
-         alert('An unknown error occurred.');
+         // alert('An unknown error occurred.');
        }
     }
   };
@@ -48,10 +48,10 @@ function login1() {
          login2(hmac);
        }
        else if (httpRequest.status == 400) {
-          alert('An error occurred: 400');
+          // alert('An error occurred: 400');
        }
        else {
-         alert('An unknown error occurred.');
+         // alert('An unknown error occurred.');
        }
     }
   };
@@ -79,10 +79,12 @@ function login2(postTag) {
          }
        }
        else if (httpRequest.status == 400) {
-          alert('An error occurred: 400');
+          // alert('An error occurred: 400');
+          textFieldPassword.select();
        }
        else {
-         alert('An unknown error occurred.');
+         // alert('An unknown error occurred.');
+         textFieldPassword.select();
        }
     }
   };
