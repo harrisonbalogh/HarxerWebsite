@@ -8,7 +8,8 @@ function submit() {
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
-           console.log(httpRequest.responseText);
+         var response = JSON.parse(httpRequest.responseText);
+           console.log(response.salt);
            console.log(textFieldPassword.value);
        }
        else if (httpRequest.status == 400) {
