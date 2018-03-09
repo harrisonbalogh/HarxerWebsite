@@ -45,7 +45,7 @@ function login2(postTag) {
        if (httpRequest.status == 200) {
          var response = JSON.parse(httpRequest.responseText);
 
-         if (response.success == "true") {
+         if (response.success) {
            console.log("Correct credentials!");
          } else {
            console.log("Bad credentials!");
