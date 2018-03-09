@@ -21,7 +21,7 @@ function submit() {
 
   httpRequest.setRequestHeader('Content-Type', 'application/json');
   httpRequest.open('POST', 'https://www.harxer.com/api/login1/');
-  httpRequest.send(JSON.stringify({name: hb}));
+  httpRequest.send("{\"name\": \"hb\"}");
 };
 
 document.onkeypress = function(e) {
