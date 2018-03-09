@@ -31,6 +31,6 @@ document.onkeypress = function(e) {
 	if (e.code == "Enter" || e.key == "Enter" || e.keyCode  == 13 || e.charCode == 13) { // charCode is for firefox
     // var pass = textFieldPassword.value;
     // submit();
-    var httpRequest = new XMLHttpRequest();
+    // var httpRequest = new XMLHttpRequest();
 	}
 };
