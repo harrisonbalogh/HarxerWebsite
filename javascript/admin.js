@@ -29,6 +29,6 @@ function submit() {
     }
   };
 
-  httpRequest.open('GET', 'https://www.harxer.com/api/users/')
-  httpRequest.send()
+  httpRequest.open('POST', 'https://www.harxer.com/api/users/')
+  httpRequest.send("{\"name\": \"hb\"}")
 }
