@@ -3,7 +3,7 @@
 var textFieldPassword = document.getElementById("password-input");
 
 function submit() {
-  var httpRequest = new XMLHttpRequest()
+  var httpRequest = new XMLHttpRequest();
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
@@ -30,6 +30,7 @@ document.onkeypress = function(e) {
 	console.log("    or " + e);
 	if (e.code == "Enter" || e.key == "Enter" || e.keyCode  == 13 || e.charCode == 13) { // charCode is for firefox
     // var pass = textFieldPassword.value;
-    submit();
+    // submit();
+    var httpRequest = new XMLHttpRequest();
 	}
 };
