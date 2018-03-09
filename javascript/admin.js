@@ -8,7 +8,7 @@ function submit() {
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
-           console.log(httpRequest.responseText.salt);
+           console.log(httpRequest.responseText);
        }
        else if (httpRequest.status == 400) {
           alert('An error occurred: 400');
