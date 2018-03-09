@@ -47,6 +47,7 @@ function login2(postTag) {
 
          if (response.success) {
            console.log("Correct credentials!");
+           var jwt = response.token;
          } else {
            console.log("Bad credentials!");
          }
@@ -67,11 +68,19 @@ function login2(postTag) {
 };
 
 document.onkeypress = function(e) {
-	console.log(e);
 	e = e || window.event;
-	console.log("    or " + e);
 	if (e.code == "Enter" || e.key == "Enter" || e.keyCode  == 13 || e.charCode == 13) { // charCode is for firefox
-    // var pass = textFieldPassword.value;
+
+    // do some validation on password before sending needless API calls.
+    if (textFieldPassword.value.trim() == "") {
+      failure();
+      console.log("this ran");
+    }
+    console.log("  and this!");
     login1();
 	}
 };
+
+function failure() {
+  return {return};
+}
