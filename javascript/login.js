@@ -71,6 +71,7 @@ function login2(postTag) {
          var response = JSON.parse(httpRequest.responseText);
 
          if (response.success == false) {
+           textFieldPassword.select();
            console.log("Bad credentials!");
            failure();
          } else {

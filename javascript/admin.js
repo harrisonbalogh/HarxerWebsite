@@ -9,13 +9,9 @@ var returnButton = document.getElementById('header-button-left');
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
          // Successful login!
-         console.log("Passed middleware: " + httpRequest.responseText);
-
          // Update address bar
          if (history.replaceState) {
            var newurl = window.location.protocol + "//" + window.location.host + "/" + "admin/";
-           console.log("pathname: "+window.location.pathname);
-           console.log("href: "+window.location.href);
            window.history.replaceState({path:newurl}, null, newurl);
          }
 
