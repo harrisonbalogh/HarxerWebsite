@@ -9,9 +9,6 @@ function login1() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
          var response = JSON.parse(httpRequest.responseText);
-         console.log(response.salt); // concat to pass before hmac sha 256
-         console.log(response.challenge); // key for hmac
-         console.log(textFieldPassword.value);
 
          // https://github.com/Caligatio/jsSHA
          var shaObj = new jsSHA("SHA-256", "TEXT");
@@ -22,7 +19,7 @@ function login1() {
          shaObj.setHMACKey(pass_hash, "TEXT");
          shaObj.update(response.challenge+"");
          var hmac = shaObj.getHMAC("HEX");
-         console.log(hmac);
+
          login2(hmac);
        }
        else if (httpRequest.status == 400) {
@@ -47,7 +44,12 @@ function login2(postTag) {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
          var response = JSON.parse(httpRequest.responseText);
-         console.log(response);
+
+         if (response.success == "true") {
+           console.log("Correct credentials!");
+         } else {
+           console.log("Bad credentials!");
+         }
        }
        else if (httpRequest.status == 400) {
           alert('An error occurred: 400');
