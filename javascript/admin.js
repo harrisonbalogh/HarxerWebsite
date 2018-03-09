@@ -14,8 +14,8 @@ function login1() {
            console.log(textFieldPassword.value);
            // https://github.com/Caligatio/jsSHA
            var shaObj = new jsSHA("SHA-256", "TEXT");
-           shaObj.setHMACKey(response.challenge, "TEXT");
-           shaObj.update(textFieldPassword + "" + response.salt);
+           shaObj.setHMACKey(response.challenge+"", "TEXT");
+           shaObj.update(textFieldPassword+""+response.salt);
            var hmac = shaObj.getHMAC("HEX");
            console.log(hmac);
            login2(hmac);
