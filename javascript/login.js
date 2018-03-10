@@ -3,6 +3,7 @@ var textFieldPassword = document.getElementById("password-input");
 
 (function checkAccess() {
   var httpRequest = new XMLHttpRequest();
+  httpRequest.withCredentials = true;
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
