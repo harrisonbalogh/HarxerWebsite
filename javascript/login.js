@@ -13,6 +13,7 @@ var textFieldPassword = document.getElementById("password-input");
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
+         console.log("Bad creds.");
        }
        else if (httpRequest.status == 400) {
           // alert('An error occurred: 400');
@@ -76,7 +77,8 @@ function login2(postTag) {
            console.log("Bad credentials!");
            failure();
          } else {
-           window.location.href = "projects.html";
+           console.log("Success!");
+           // window.location.href = "projects.html";
          }
        }
        else if (httpRequest.status == 400) {
