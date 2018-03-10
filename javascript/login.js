@@ -16,7 +16,7 @@ var textFieldPassword = document.getElementById("password-input");
          console.log("Bad creds.");
        }
        else if (httpRequest.status == 400) {
-          // alert('An error occurred: 400');
+        // alert('An error occurred: 400');
        }
        else {
          // alert('An unknown error occurred.');
@@ -77,8 +77,8 @@ function login2(postTag) {
            console.log("Bad credentials!");
            failure();
          } else {
-           console.log("Success!");
-           // window.location.href = "projects.html";
+           // console.log("Success!");
+           window.location.href = "projects.html";
          }
        }
        else if (httpRequest.status == 400) {

@@ -19,16 +19,16 @@ var returnButton = document.getElementById('header-button-left');
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
-         // window.location.href = "index.html";
-         alert('Bad creds.');
+         window.location.href = "index.html";
+         // alert('Bad creds.');
        }
        else if (httpRequest.status == 400) {
-         // window.location.href = "index.html";
-          alert('An error occurred: 400');
+         window.location.href = "index.html";
+          // alert('An error occurred: 400');
        }
        else {
-         // window.location.href = "index.html";
-         alert('An unknown error occurred: ' + httpRequest.status);
+         window.location.href = "index.html";
+         // alert('An unknown error occurred: ' + httpRequest.status);
        }
     }
   };
@@ -61,10 +61,10 @@ function logout() {
          window.location.href = "index.html";
        }
        else if (httpRequest.status == 400) {
-          alert('An error occurred: 400');
+          // alert('An error occurred: 400');
        }
        else {
-         alert('An unknown error occurred.');
+         // alert('An unknown error occurred.');
        }
     }
   };
