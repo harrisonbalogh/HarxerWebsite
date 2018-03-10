@@ -4,6 +4,8 @@ var returnButton = document.getElementById('header-button-left');
 
 (function validateAccess() {
   var httpRequest = new XMLHttpRequest();
+  httpRequest.withCredentials = true;
+  // httpRequest.
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
