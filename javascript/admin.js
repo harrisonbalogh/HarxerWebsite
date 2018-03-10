@@ -17,7 +17,8 @@ var returnButton = document.getElementById('header-button-left');
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
-         window.location.href = "index.html";
+         // window.location.href = "index.html";
+         alert('Bad creds.');
        }
        else if (httpRequest.status == 400) {
          // window.location.href = "index.html";
