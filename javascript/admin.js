@@ -163,9 +163,8 @@ var logout = function() {
 function populateProjects() {
 
   // Clear out list
-  console.log("This many listed: " + projectList.getElementsByTagName("li").length);
-  for (var p = 0; p < projectList.getElementsByTagName("li").length - 1; p++) {
-    console.log("   Removing " + p);
+  var projectCount = projectList.getElementsByTagName("li").length
+  for (var x = 0; x < projectCount - 1; x++) {
     projectList.removeChild(projectList.getElementsByTagName("li")[0]);
   }
 
