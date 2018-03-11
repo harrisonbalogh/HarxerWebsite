@@ -248,44 +248,7 @@ var upsertProject = function() {
 
            var response = JSON.parse(httpRequest.responseText)
            if (response.success == false) {
-             var httpRequest = new XMLHttpRequest();
-
-             httpRequest.onreadystatechange = function() {
-               if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-                  if (httpRequest.status == 200) {
-
-                    var response = JSON.parse(httpRequest.responseText);
-                    if (response.success != true) {
-                      alert("Error saving " + pe_id.value);
-                    } else {
-                      closeProject()();
-                    }
-
-                  } else if (httpRequest.status == 403) {
-                    // Bad or expired credentials
-                    window.location.href = "index.html";
-                  } else {
-                    // Should try again after a time...
-                  }
-               }
-             };
-
-             httpRequest.open('POST', 'https://www.harxer.com/api/project/');
-             httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-             httpRequest.send(JSON.stringify({
-               id: selectedProjectId,
-               project: {
-                 id: pe_id.value,
-                 title: pe_title.value,
-                 architecture: pe_architecture.value,
-                 platform: pe_platform.value,
-                 description: pe_descrip.value,
-                 upload_date: (selectedProjectId == "new" ? new Date() : selectedProjectUploadDate),
-                 update_date: new Date(),
-                 github_link: pe_github.value,
-                 youtube_link: pe_youtube.value
-               }
-             }));
+             uploadProject();
            }  else {
              error("That identifier is already in use.");
            }
@@ -302,6 +265,47 @@ var upsertProject = function() {
     httpRequest.open('GET', 'https://www.harxer.com/api/project/');
     httpRequest.send(JSON.stringify({ id: pe_id.value.trim() }));
   }
+}
+
+function uploadProject() {
+  var httpRequest = new XMLHttpRequest();
+
+  httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+       if (httpRequest.status == 200) {
+
+         var response = JSON.parse(httpRequest.responseText);
+         if (response.success != true) {
+           alert("Error saving " + pe_id.value);
+         } else {
+           closeProject()();
+         }
+
+       } else if (httpRequest.status == 403) {
+         // Bad or expired credentials
+         window.location.href = "index.html";
+       } else {
+         // Should try again after a time...
+       }
+    }
+  };
+
+  httpRequest.open('POST', 'https://www.harxer.com/api/project/');
+  httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  httpRequest.send(JSON.stringify({
+    id: selectedProjectId,
+    project: {
+      id: pe_id.value,
+      title: pe_title.value,
+      architecture: pe_architecture.value,
+      platform: pe_platform.value,
+      description: pe_descrip.value,
+      upload_date: (selectedProjectId == "new" ? new Date() : selectedProjectUploadDate),
+      update_date: new Date(),
+      github_link: pe_github.value,
+      youtube_link: pe_youtube.value
+    }
+  }));
 }
 
 function deleteProject() {
