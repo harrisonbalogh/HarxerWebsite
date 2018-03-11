@@ -128,7 +128,6 @@ function getProjects() {
 }
 
 function upsertProject() {
-  console.log("Upsert... ");
   var httpRequest = new XMLHttpRequest();
 
   httpRequest.onreadystatechange = function() {
@@ -142,12 +141,9 @@ function upsertProject() {
          window.location.href = "index.html";
        } else {
          // Should try again after a time...
-         console.log("    Unknown error... ");
        }
     }
   };
-
-  console.log("Update plz: " + document.getElementById('test-input-get-projects-id').value);
 
   httpRequest.open('POST', 'https://www.harxer.com/api/projects/');
   httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -162,7 +158,6 @@ function upsertProject() {
 }
 
 function deleteProject() {
-  console.log("Delete... ");
   var httpRequest = new XMLHttpRequest();
 
   httpRequest.onreadystatechange = function() {
@@ -181,6 +176,7 @@ function deleteProject() {
   };
 
   httpRequest.open('DELETE', 'https://www.harxer.com/api/projects/');
+  httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   httpRequest.send(JSON.stringify({
     id: document.getElementById('test-input-delete-projects-id').value
   }));
