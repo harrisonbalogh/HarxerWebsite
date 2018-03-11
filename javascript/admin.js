@@ -18,9 +18,6 @@ var selectedProjectId = "";
 var selectedProjectUploadDate = "";
 var manualIdentifierEntry = false;
 
-//temp
-var projects;
-
 // ======================================================= Project Convenience Functions
 
 function parseProject(project) {
