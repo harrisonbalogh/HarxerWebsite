@@ -164,7 +164,7 @@ function populateProjects() {
 
   // Clear out list
   for (var p = 0; p < projectList.childNodes.length - 1; p++) {
-    projectList.removeChild(list.childNodes[0]);
+    projectList.removeChild(projectList.childNodes[0]);
   }
 
   var httpRequest = new XMLHttpRequest();
