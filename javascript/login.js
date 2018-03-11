@@ -77,7 +77,6 @@ function login2(postTag) {
            console.log("Bad credentials!");
            failure();
          } else {
-           // console.log("Success!");
            window.location.href = "projects.html";
          }
        }
