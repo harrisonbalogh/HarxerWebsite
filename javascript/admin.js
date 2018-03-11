@@ -95,7 +95,6 @@ var closeProject = function() {
 function produceIdentifierFromTitle(title) {
   title = title.trim()
   title = title.toLowerCase();
-  // title = title.replace(" ", "_");
   title = title.split(" ").join("_");
   return title;
 }
@@ -105,7 +104,6 @@ function produceIdentifierFromTitle(title) {
 function validateAccess() {
   var httpRequest = new XMLHttpRequest();
   httpRequest.withCredentials = true;
-  // httpRequest.
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) { // == 4
@@ -165,6 +163,7 @@ var logout = function() {
 function populateProjects() {
 
   // Clear out list
+  console.log("This many listed: " + projectList.childNodes.length);
   for (var p = 0; p < projectList.childNodes.length - 1; p++) {
     projectList.removeChild(projectList.childNodes[0]);
   }
