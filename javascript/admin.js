@@ -83,7 +83,7 @@ var closeProject = function() {
 	return function() {
     selectedProjectId = "";
     selectedProjectUploadDate = "";
-    populateProjects()();
+    populateProjects();
     projectEditorCover.style.zIndex = -8;
 	};
 };
