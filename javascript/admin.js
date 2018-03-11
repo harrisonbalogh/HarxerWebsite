@@ -21,18 +21,15 @@ var projectList = document.getElementById('project-list');
   // }
 
   document.getElementById('test-button-get-projects').onclick = function() {
-    var projects = getProjects();
-    console.log(projects);
+    getProjects();
   };
 
   document.getElementById('test-button-upsert-projects').onclick = function() {
-    var project = upsertProject();
-    console.log(project);
+    upsertProject();
   };
 
   document.getElementById('test-button-delete-projects').onclick = function() {
-    var reponse = deleteProject();
-    console.log(reponse);
+    deleteProject();
   };
 
 
@@ -115,7 +112,7 @@ function getProjects() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
 
-         return JSON.parse(httpRequest.responseText);
+         console.log(JSON.parse(httpRequest.responseText));
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
@@ -137,8 +134,8 @@ function upsertProject() {
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
-         console.log("    Success... ");
-         return JSON.parse(httpRequest.responseText);
+
+         console.log(JSON.parse(httpRequest.responseText));
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
@@ -169,7 +166,7 @@ function deleteProject() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
 
-         return JSON.parse(httpRequest.responseText);
+         console.log(JSON.parse(httpRequest.responseText));
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
