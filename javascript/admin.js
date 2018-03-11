@@ -165,6 +165,7 @@ function populateProjects() {
   // Clear out list
   console.log("This many listed: " + projectList.getElementsByTagName("li").length);
   for (var p = 0; p < projectList.getElementsByTagName("li").length - 1; p++) {
+    console.log("   Removing " + p);
     projectList.removeChild(projectList.getElementsByTagName("li")[0]);
   }
 
