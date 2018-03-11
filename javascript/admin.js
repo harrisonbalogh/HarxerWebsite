@@ -91,7 +91,9 @@ var closeProject = function() {
 function produceIdentifierFromTitle(title) {
   title = title.trim()
   title = title.toLowerCase();
-  title = title.replace(" ", "_");
+  // title = title.replace(" ", "_");
+  title = title.split(" ").join("_");
+  return title;
 }
 
 // ======================================================= API Interactions
@@ -199,6 +201,13 @@ function populateProjectEditor(id) {
          var proj = JSON.parse(httpRequest.responseText)
          pe_title.value = proj.title;
          pe_id.value = proj.id;
+         if (pe_id.value == produceIdentifierFromTitle(pe_title.value)) {
+           manualIdentifierEntry = false;
+           pe_id.style.opacity = 0.5;
+         } else {
+           manualIdentifierEntry = true;
+            pe_id.style.opacity = 1;
+         }
          pe_architecture.value = proj.architecture;
          pe_platform.value = proj.platform;
          pe_github.value = proj.github_link;
@@ -221,6 +230,16 @@ function populateProjectEditor(id) {
 
 var upsertProject = function() {
   return function() {
+
+    if (pe_id.value.trim() == "") {
+      if (pe_title.value.trim() == "") {
+        alert("Identifier is required");
+        return;
+      }
+      pe_id.value = produceIdentifierFromTitle(pe_title.value);
+    }
+    var id = pe_id.value.trim();
+
     var httpRequest = new XMLHttpRequest();
 
     httpRequest.onreadystatechange = function() {
@@ -295,7 +314,7 @@ function deleteProject() {
 
            var response = JSON.parse(httpRequest.responseText);
 
-           if (response.sucess != true) {
+           if (response.success != true) {
              alert("Error deleting project " + selectedProjectId);
            } else {
              closeProject()();
@@ -323,10 +342,10 @@ function deleteProject() {
 (function init() {
 
   // Redirect if a valid JWT is not present.
-  validateAccess();
+  // validateAccess();
 
   // GET all projects and populate list
-  populateProjects();
+  // populateProjects();
 
   // Init new project button
   document.getElementById("project-list-add").onclick = newProject();
