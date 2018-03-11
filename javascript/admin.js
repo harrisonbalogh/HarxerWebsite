@@ -163,7 +163,7 @@ var logout = function() {
 function populateProjects() {
 
   // Clear out list
-  var projectCount = projectList.getElementsByTagName("li").length
+  var projectCount = projectList.getElementsByTagName("li").length;
   for (var x = 0; x < projectCount - 1; x++) {
     projectList.removeChild(projectList.getElementsByTagName("li")[0]);
   }
