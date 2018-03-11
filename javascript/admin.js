@@ -147,7 +147,10 @@ function upsertProject() {
     }
   };
 
+  console.log("Update plz: " + document.getElementById('test-input-get-projects-id').value);
+
   httpRequest.open('POST', 'https://www.harxer.com/api/projects/');
+  httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   httpRequest.send(JSON.stringify({
     id: document.getElementById('test-input-get-projects-id').value,
     title: document.getElementById('test-input-get-projects-title').value,
