@@ -41,10 +41,16 @@ function parseProject(project) {
 
   var icon_youtube = document.createElement("div");
   icon_youtube.setAttribute("class", "project-list-youtube");
+  if (project.youtube_link == "") {
+    icon_youtube.style.opacity = 0;
+  }
   li.appendChild(icon_youtube);
 
   var icon_github = document.createElement("div");
   icon_github.setAttribute("class", "project-list-github");
+  if (project.github_link == "") {
+    icon_github.style.opacity = 0;
+  }
   li.appendChild(icon_github);
 
   li.onclick = selectProject(project.id);
@@ -84,7 +90,6 @@ var closeProject = function() {
 	return function() {
     selectedProjectId = "";
     selectedProjectUploadDate = "";
-    populateProjects();
     projectEditorCover.style.zIndex = -8;
 	};
 };
@@ -278,6 +283,7 @@ function uploadProject() {
          if (response.success != true) {
            alert("Error saving " + pe_id.value);
          } else {
+           populateProjects();
            closeProject()();
          }
 
@@ -297,13 +303,13 @@ function uploadProject() {
     project: {
       id: pe_id.value,
       title: pe_title.value,
-      architecture: pe_architecture.value,
-      platform: pe_platform.value,
+      architecture: pe_architecture.value.trim(),
+      platform: pe_platform.value.trim(),
       description: pe_descrip.value,
       upload_date: (selectedProjectId == "new" ? new Date() : selectedProjectUploadDate),
       update_date: new Date(),
-      github_link: pe_github.value,
-      youtube_link: pe_youtube.value
+      github_link: pe_github.value.trim(),
+      youtube_link: pe_youtube.value.trim()
     }
   }));
 }
@@ -321,6 +327,7 @@ function deleteProject() {
            if (response.success != true) {
              alert("Error deleting project " + selectedProjectId);
            } else {
+             populateProjects();
              closeProject()();
            }
 
