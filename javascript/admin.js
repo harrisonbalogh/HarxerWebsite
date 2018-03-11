@@ -25,6 +25,16 @@ var projectList = document.getElementById('project-list');
     console.log(projects);
   };
 
+  document.getElementById('test-button-upsert-projects').onclick = function() {
+    var project = upsertProject();
+    console.log(project);
+  };
+
+  document.getElementById('test-button-delete-projects').onclick = function() {
+    var reponse = deleteProject();
+    console.log(reponse);
+  };
+
 
 })();
 
@@ -118,4 +128,57 @@ function getProjects() {
 
   httpRequest.open('GET', 'https://www.harxer.com/api/projects/');
   httpRequest.send();
+}
+
+function upsertProject() {
+  var httpRequest = new XMLHttpRequest();
+
+  httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+       if (httpRequest.status == 200) {
+
+         return JSON.parse(httpRequest.responseText);
+
+       } else if (httpRequest.status == 403) {
+         // Bad or expired credentials
+         window.location.href = "index.html";
+       } else {
+         // Should try again after a time...
+       }
+    }
+  };
+
+  httpRequest.open('POST', 'https://www.harxer.com/api/projects/');
+  httpRequest.send(JSON.stringify({
+    id: document.getElementById('test-input-get-projects-id').value,
+    title: document.getElementById('test-input-get-projects-title').value,
+    description: document.getElementById('test-input-get-projects-description').value,
+    upload_date: document.getElementById('test-input-get-projects-date').value,
+    github_link: document.getElementById('test-input-get-projects-github').value,
+    youtube_link: document.getElementById('test-input-get-projects-youtube').value
+  }));
+}
+
+function deleteProject() {
+  var httpRequest = new XMLHttpRequest();
+
+  httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+       if (httpRequest.status == 200) {
+
+         return JSON.parse(httpRequest.responseText);
+
+       } else if (httpRequest.status == 403) {
+         // Bad or expired credentials
+         window.location.href = "index.html";
+       } else {
+         // Should try again after a time...
+       }
+    }
+  };
+
+  httpRequest.open('DELETE', 'https://www.harxer.com/api/projects/');
+  httpRequest.send(JSON.stringify({
+    id: document.getElementById('test-input-delete-projects-id').value
+  }));
 }
