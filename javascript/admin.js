@@ -131,12 +131,13 @@ function getProjects() {
 }
 
 function upsertProject() {
+  console.log("Upsert... ");
   var httpRequest = new XMLHttpRequest();
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
-
+         console.log("    Success... ");
          return JSON.parse(httpRequest.responseText);
 
        } else if (httpRequest.status == 403) {
@@ -144,6 +145,7 @@ function upsertProject() {
          window.location.href = "index.html";
        } else {
          // Should try again after a time...
+         console.log("    Unknown error... ");
        }
     }
   };
@@ -160,6 +162,7 @@ function upsertProject() {
 }
 
 function deleteProject() {
+  console.log("Delete... ");
   var httpRequest = new XMLHttpRequest();
 
   httpRequest.onreadystatechange = function() {
