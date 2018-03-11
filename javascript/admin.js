@@ -71,6 +71,7 @@ var newProject = function() {
 
 var selectProject = function(id) {
 	return function() {
+    console.log("Selecting project " + id);
     selectedProjectId = id;
     projectEditorCover.style.zIndex = 8;
 
@@ -224,8 +225,8 @@ function populateProjectEditor(id) {
     }
   };
 
-  httpRequest.open('GET', 'https://www.harxer.com/api/project/');
-  httpRequest.send(JSON.stringify({ id: id }));
+  httpRequest.open('GET', 'https://www.harxer.com/api/project/?id=' + id);
+  httpRequest.send();
 }
 
 var upsertProject = function() {
