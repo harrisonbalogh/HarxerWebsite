@@ -92,17 +92,310 @@ header ul {
   overflow-y: scroll;
   padding: 0;
   position: fixed;
-  text-align: center;
   top: 38px;
   width: 100%;
 }
-.content-welcome {
+
+.project-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  margin-top: 100px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.project-list li {
   color: var(--color-background);
-  cursor: default;
-  font-size: 30px;
-  font-weight: bolder;
-  margin: 240px auto 60px auto;
+  cursor: pointer;
+  display: inline-block;
+  height: 264px;
+  margin: 6px;
+  padding: 0 0;
+  text-align: center;
+  vertical-align: top;
+  width: 257px;
+}
+
+.project-list-frame {
+  background: url("/images/admin/project_frame@2x.png") no-repeat center/257px;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+.project-list-title {
+  color: var(--color-foreground);
+  font-weight: bold;
+  font-size: 18px;
+  bottom: 70px;
+  height: 22px;
+  margin: 0 auto;
+  max-width: 170px;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+.project-list-date {
+  color: var(--color-foreground);
+  bottom: 254px;
+  font-size: 14px;
+  font-weight: lighter;
+  height: 16px;
+  left: 44px;
+  max-width: 62px;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.project-list-github {
+  background: url("/images/admin/project_icon_github@2x.png") no-repeat center/50px;
+  bottom: 248px;
+  height: 50px;
+  left: 16px;
+  position: relative;
+  width: 50px;
+}
+
+.project-list-youtube {
+  background: url("/images/admin/project_icon_youtube@2x.png") no-repeat center/50px;
+  bottom: 238px;
+  height: 50px;
+  left: 16px;
+  position: relative;
+  width: 50px;
+}
+
+.project-list-add {
+  background: url("/images/admin/project_new@2x.png") no-repeat center/257px;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+
+
+/* - - - - - - - - - Project Editor  - - - - - - - - */
+
+.project-editor-cover {
+	background-color: rgba(0,0,0,0.4);
+	height: 100%;
+	position: fixed;
+  text-align: center;
+	width: 100%;
+	z-index: -8;
+}
+
+.project-editor-container {
+	background-color: var(--color-foreground);
+  border-radius: 8px 8px 0 0;
+  height: 70%;
+  margin: 80px auto 0 auto;
+  max-width: 800px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 2px 10px;
+  text-align: left;
   width: 80%;
+}
+
+.text-input {
+  border: 0px;
+  border-bottom: 2px solid var(--color-background);
+  background-color: transparent;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+.text-input:focus {
+  outline: none;
+}
+
+.text-input.title {
+}
+.title-p {
+  display: inline-block;
+  width: 64%;
+  z-index: 9;
+}
+
+.text-input.id {
+  text-align: right;
+}
+.id-p {
+  display: inline-block;
+  width: 34%;
+}
+
+.descrip {
+  display: inline-block;
+  opacity: 0.2;
+  margin: 0;
+  padding: 0;
+}
+.descrip.title {
+  height: 20px;
+  transform: translateY(-16px);
+  width: 64%;
+}
+.descrip.id {
+  transform: translateY(-16px);
+  text-align: right;
+  width: 34%;
+}
+
+.text-input.architecture {
+
+}
+.architecture-p {
+  display: inline-block;
+  width: 49%;
+}
+.text-input.platform {
+
+}
+.platform-p {
+  display: inline-block;
+  width: 49%;
+}
+.descrip.platform {
+  transform: translateY(-16px);
+  width: 49%;
+}
+.descrip.architecture {
+  transform: translateY(-16px);
+  width: 49%;
+}
+
+.text-input.github-link {
+  width: 100%;
+}
+.github-link-p {
+  display: inline-block;
+  width: 80%;
+}
+.text-input.youtube-link {
+  text-align: right;
+  width: 100%;
+}
+.youtube-link-p {
+  display: inline-block;
+  width: 18%;
+}
+
+.descrip.github-link {
+  transform: translateY(-16px);
+  width: 80%;
+}
+.descrip.youtube-link {
+  transform: translateY(-16px);
+  text-align: right;
+  width: 18%;
+}
+
+.youtube-link-input {
+
+}
+.video-thumbnail-input {
+  border: 2px solid var(--color-background);
+  display: inline-block;
+  height: 100px;
+  width: 18%;
+}
+.image-input-container {
+  border: 2px solid var(--color-background);
+  display: inline-block;
+  height: 100px;
+  margin-top: 30px;
+  width: 80%;
+}
+.descrip.image {
+  transform: translateY(-4px);
+  width: 80%;
+}
+.descrip.youtube-thumbnail {
+  transform: translateY(-4px);
+  text-align: right;
+  width: 18%;
+}
+
+.description-textarea {
+  border: 2px solid var(--color-background);
+  height: 200px;
+  margin: 30px 0 0 0;
+  padding: 4px;
+  max-width: 98.9%;
+  width: 98.9%;
+}
+.descrip.description {
+}
+
+
+/* CONTROLS */
+
+.project-editor-controls-container {
+  background-color: rgb(204,206,208);
+  border-top: 1px solid gray;
+  border-radius: 0 0 8px 8px;
+  height: 10%;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 2px 10px;
+  width: 80%;
+}
+.project-editor-control {
+  border: 1px solid var(--color-background);
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  margin-top: 18px;
+  text-align: center;
+  width: 100px;
+  vertical-align: middle;
+}
+.project-editor-control p {
+  line-height: 8px;
+}
+.project-editor-control.cancel {
+  float: left;
+}
+.project-editor-control.cancel:hover {
+  background-color: var(--color-background);
+  color: white;
+}
+
+.project-editor-control.delete {
+  border-color: red;
+  color: red;
+  float: right;
+  opacity: 0.5;
+}
+.project-editor-control.delete:hover {
+  background-color: red;
+  color: white;
+  opacity: 1;
+}
+
+.project-editor-control.save {
+  background-color: var(--color-dominant);
+  border-color: var(--color-dominant);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  width: 240px;
+}
+.project-editor-control.save:hover {
+  background-color: var(--color-background);
+  border-color: var(--color-background);
+}
+.project-editor-control.save p {
+  line-height: 2px;
 }
 
 /* - - - - - - - - - FOOTER - - - - - - - - - */

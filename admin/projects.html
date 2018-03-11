@@ -18,27 +18,57 @@
       </ul>
     </header>
 
+
     <!-- ==================== CONTENT ==================== -->
+
+    <!-- Project Editor -->
+    <div class="project-editor-cover" id="project-editor-cover">
+      <div class="project-editor-container" id="project-editor-container">
+
+        <p class="title-p"><input class="text-input title" id="title-input" type="text" value=""/></p>
+        <p class="id-p"><input class="text-input id" id="id-input" type="text" value=""/></p>
+
+        <p class="descrip title">Title</p>
+        <p class="descrip id">Identifier</p>
+
+        <p class="architecture-p"><input class="text-input architecture" id="architecture-input" type="text" value=""/></p>
+        <p class="platform-p"><input class="text-input platform" id="platform-input" type="text" value=""/></p>
+
+        <p class="descrip architecture">architecture</p>
+        <p class="descrip platform">platform</p>
+
+        <p class="github-link-p"><input class="text-input github-link" id="github-link-input" type="text" value=""/></p>
+        <p class="youtube-link-p"><input class="text-input youtube-link" id="youtube-link-input" type="text" value=""/></p>
+
+        <p class="descrip github-link">GitHub Link</p>
+        <p class="descrip youtube-link">YouTube Link</p>
+
+        <div class="image-input-container" id="image-input-container"></div>
+        <div class="video-thumbnail-input" id="video-thumbnail-input"></div>
+
+        <p class="descrip image">Images</p>
+        <p class="descrip youtube-thumbnail">Video Thumbnail</p>
+
+
+        <textarea rows="4" cols="50" class="description-textarea" id="description-textarea"></textarea>
+        <p class="descrip description">Description</p>
+
+      </div>
+      <div class="project-editor-controls-container">
+        <div class="project-editor-control cancel" id="pe-control-cancel"><p>Cancel</p></div>
+        <div class="project-editor-control save" id="pe-control-save"><p>Save</p></div>
+        <div class="project-editor-control delete" id="pe-control-delete"><p>Delete</p></div>
+      </div>
+    </div>
+
+
     <div class="content">
 
-      <p class="content-welcome">Projects</p>
-
-      <button type="button" id="test-button-get-projects">Get Projects</button>
-
-      <!-- <form action="https://www.harxer.com/api/projects" method="post"> -->
-      <p>ID: <input type="text" id="test-input-get-projects-id" value=""> </p><br>
-      <p>Title: <input type="text" id="test-input-get-projects-title" value=""></p><br>
-      <p>Description: <input type="text" id="test-input-get-projects-description" value=""></p><br>
-      <p>GitHub Link: <input type="text" id="test-input-get-projects-github" value=""></p><br>
-      <p>YouTube Link: <input type="text" id="test-input-get-projects-youtube" value=""></p><br>
-      <button type="button" id="test-button-upsert-projects">Update/Create Project</button>
-
-      <!-- <form action="https://www.harxer.com/api/projects" method="delete"> -->
-      <p>Delete Project ID: <input type="text" id="test-input-delete-projects-id" value=""></p><br>
-      <button type="button" id="test-button-delete-projects">Delete Project</button>
-
-      <!-- <ul class="project-list" id="project-list">
-      </ul> -->
+      <ul class="project-list" id="project-list">
+        <li>
+          <div class="project-list-add" id="project-list-add"></div>
+        </li>
+      </ul>
 
     </div>
 

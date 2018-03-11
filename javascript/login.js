@@ -77,8 +77,8 @@ function login2(postTag) {
            console.log("Bad credentials!");
            failure();
          } else {
-           console.log("Success!");
-           // window.location.href = "projects.html";
+           // console.log("Success!");
+           window.location.href = "projects.html";
          }
        }
        else if (httpRequest.status == 400) {
@@ -94,7 +94,6 @@ function login2(postTag) {
 
   httpRequest.open('POST', 'https://www.harxer.com/api/login2/');
   httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  // httpRequest.send("{\"name\": \"hb\"}");
   httpRequest.send(JSON.stringify({ name: "hb", tag: postTag}));
 };
 

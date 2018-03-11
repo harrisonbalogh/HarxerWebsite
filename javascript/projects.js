@@ -15,7 +15,7 @@ const GITLINK				= 8;
 
 // ** NOTE: The PROJECT 2d array has an empty 0 index.
 
-// FILE_NAME				DISPLAY_NAME								ARCHIECTURE(S)							DESCRIPTION		PLATFORM		UPDATED			IMAGE_COUNT  	VIDEO_ID	GITHUB
+// FILE_NAME				DISPLAY_NAME								ARCHIECTURE(S)							DESCRIPTION		PLATFORM		UPDATED			IMAGE_COUNT  	VIDEO_ID				GITHUB
 var PROJECT = [[],
 	["website", 			"Website", 									"HTML5, Javascript, CSS", 	"descrip",		"WEB",			"2/26/18", 	18, 					"",							""],
 	["encryptedChat", "Encrypted Chat", 					"Swift, NodeJS",						"descrip",		"DESKTOP", 	"12/14/17", 3, 						"qmoNRhd8Ifs",	"https://github.com/harrisonbalogh/Whisper_Server"],

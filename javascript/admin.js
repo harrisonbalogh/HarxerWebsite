@@ -4,45 +4,97 @@ var returnButton = document.getElementById('header-button-left');
 
 var projectList = document.getElementById('project-list');
 
-// ======================================================= Init
+var projectEditorCover = document.getElementById('project-editor-cover');
+var projectEditorContainer = document.getElementById('project-editor-container');
+var pe_title = document.getElementById('title-input');
+var pe_id = document.getElementById('id-input');
+var pe_architecture = document.getElementById('architecture-input');
+var pe_platform = document.getElementById('platform-input');
+var pe_github = document.getElementById('github-link-input');
+var pe_youtube = document.getElementById('youtube-link-input');
+var pe_descrip = document.getElementById('description-textarea');
 
-(function init() {
+var selectedProjectId = "";
+var selectedProjectUploadDate = "";
+var manualIdentifierEntry = false;
 
-  // Redirect if a valid JWT is not present.
-  validateAccess();
-
-  // Initialize header buttons
-  logoutButton.onclick = function() { logout(); };
-
-  // var projects = getProjects();
-  //
-  // for (var p = 0; p < projects.length; p++) {
-  //   projectList.appendChild = parseProject(projects[p]);
-  // }
-
-  document.getElementById('test-button-get-projects').onclick = function() {
-    getProjects();
-  };
-
-  document.getElementById('test-button-upsert-projects').onclick = function() {
-    upsertProject();
-  };
-
-  document.getElementById('test-button-delete-projects').onclick = function() {
-    deleteProject();
-  };
-
-
-})();
+//temp
+var projects;
 
 // ======================================================= Project Convenience Functions
 
 function parseProject(project) {
 
+  var li = document.createElement("li");
+  li.setAttribute("id", "project-list-" + project.id);
+
+  var frame = document.createElement("div");
+  frame.setAttribute("class", "project-list-frame");
+  li.appendChild(frame);
+
+  var title = document.createElement("p");
+  title.setAttribute("class", "project-list-title");
+  title.innerHTML = project.title;
+  li.appendChild(title);
+
+  var date = document.createElement("p");
+  date.setAttribute("class", "project-list-date");
+  date.innerHTML = project.upload_date;
+  li.appendChild(date);
+
+  var icon_youtube = document.createElement("div");
+  icon_youtube.setAttribute("class", "project-list-youtube");
+  li.appendChild(icon_youtube);
+
+  var icon_github = document.createElement("div");
+  icon_github.setAttribute("class", "project-list-github");
+  li.appendChild(icon_github);
+
+  li.onclick = selectProject(project.id);
+
+  return li;
 }
 
-function newProject() {
+var newProject = function() {
+  return function() {
 
+    selectedProjectId = "new";
+    projectEditorCover.style.zIndex = 8;
+
+    pe_title.value = "";
+    pe_id.value = "";
+    pe_architecture.value = "";
+    pe_platform.value = "";
+    pe_github.value = "";
+    pe_youtube.value = "";
+    pe_descrip.value = "";
+
+  }
+}
+
+var selectProject = function(id) {
+	return function() {
+    selectedProjectId = id;
+    projectEditorCover.style.zIndex = 8;
+
+    populateProjectEditor(id);
+
+  };
+};
+
+var closeProject = function() {
+	return function() {
+    selectedProjectId = "";
+    selectedProjectUploadDate = "";
+    populateProjects()();
+    projectEditorCover.style.zIndex = -8;
+	};
+};
+
+function produceIdentifierFromTitle(title) {
+  title = title.trim()
+  title = title.toLowerCase();
+  title = title.replace(" ", "_");
 }
 
 // ======================================================= API Interactions
@@ -82,7 +134,10 @@ function validateAccess() {
   httpRequest.send();
 }
 
-function logout() {
+var logout = function() {
+  return function () {
+
+  }
   var httpRequest = new XMLHttpRequest();
 
   httpRequest.onreadystatechange = function() {
@@ -105,14 +160,24 @@ function logout() {
   httpRequest.send();
 }
 
-function getProjects() {
+function populateProjects() {
+
+  // Clear out list
+  for (var p = 0; p < projectList.childNodes.length - 1; p++) {
+    projectList.removeChild(list.childNodes[0]);
+  }
+
   var httpRequest = new XMLHttpRequest();
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
 
-         console.log(JSON.parse(httpRequest.responseText));
+         var projects = JSON.parse(httpRequest.responseText)
+         // GET all projects
+         for (var p = 0; p < projects.length; p++) {
+           projectList.insertBefore(parseProject(projects[p]), projectList.firstChild);
+         }
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
@@ -127,14 +192,22 @@ function getProjects() {
   httpRequest.send();
 }
 
-function upsertProject() {
+function populateProjectEditor(id) {
   var httpRequest = new XMLHttpRequest();
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
        if (httpRequest.status == 200) {
 
-         console.log(JSON.parse(httpRequest.responseText));
+         var proj = JSON.parse(httpRequest.responseText)
+         pe_title.value = proj.title;
+         pe_id.value = proj.id;
+         pe_architecture.value = proj.architecture;
+         pe_platform.value = proj.platform;
+         pe_github.value = proj.github_link;
+         pe_youtube.value = proj.youtube_link;
+         pe_descrip.value = proj.description;
+         selectedProjectUploadDate = proj.upload_date;
 
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
@@ -145,39 +218,201 @@ function upsertProject() {
     }
   };
 
-  httpRequest.open('POST', 'https://www.harxer.com/api/projects/');
-  httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  httpRequest.send(JSON.stringify({
-    id: document.getElementById('test-input-get-projects-id').value,
-    title: document.getElementById('test-input-get-projects-title').value,
-    description: document.getElementById('test-input-get-projects-description').value,
-    upload_date: new Date(),
-    github_link: document.getElementById('test-input-get-projects-github').value,
-    youtube_link: document.getElementById('test-input-get-projects-youtube').value
-  }));
+  httpRequest.open('GET', 'https://www.harxer.com/api/project/');
+  httpRequest.send(JSON.stringify({ id: id }));
+}
+
+var upsertProject = function() {
+  return function() {
+    var httpRequest = new XMLHttpRequest();
+
+    httpRequest.onreadystatechange = function() {
+      if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+         if (httpRequest.status == 200) {
+
+           var response = JSON.parse(httpRequest.responseText)
+           if (response.success == false) {
+             var httpRequest = new XMLHttpRequest();
+
+             httpRequest.onreadystatechange = function() {
+               if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+                  if (httpRequest.status == 200) {
+
+                    var response = JSON.parse(httpRequest.responseText);
+                    if (response.success != true) {
+                      alert("Error saving " + pe_id.value);
+                    } else {
+                      closeProject()();
+                    }
+
+                  } else if (httpRequest.status == 403) {
+                    // Bad or expired credentials
+                    window.location.href = "index.html";
+                  } else {
+                    // Should try again after a time...
+                  }
+               }
+             };
+
+             httpRequest.open('POST', 'https://www.harxer.com/api/project/');
+             httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+             httpRequest.send(JSON.stringify({
+               id: selectedProjectId,
+               project: {
+                 id: pe_id.value,
+                 title: pe_title.value,
+                 architecture: pe_architecture.value,
+                 platform: pe_platform.value,
+                 description: pe_descrip.value,
+                 upload_date: (selectedProjectId == "new" ? new Date() : selectedProjectUploadDate),
+                 update_date: new Date(),
+                 github_link: pe_github.value,
+                 youtube_link: pe_youtube.value
+               }
+             }));
+           }  else {
+             error("That identifier is already in use.");
+           }
+
+         } else if (httpRequest.status == 403) {
+           // Bad or expired credentials
+           window.location.href = "index.html";
+         } else {
+           // Should try again after a time...
+         }
+      }
+    };
+
+    httpRequest.open('GET', 'https://www.harxer.com/api/project/');
+    httpRequest.send(JSON.stringify({ id: pe_id.value.trim() }));
+  }
 }
 
 function deleteProject() {
-  var httpRequest = new XMLHttpRequest();
+  return function() {
+    var httpRequest = new XMLHttpRequest();
 
-  httpRequest.onreadystatechange = function() {
-    if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-       if (httpRequest.status == 200) {
+    httpRequest.onreadystatechange = function() {
+      if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+         if (httpRequest.status == 200) {
 
-         console.log(JSON.parse(httpRequest.responseText));
+           var response = JSON.parse(httpRequest.responseText);
 
-       } else if (httpRequest.status == 403) {
-         // Bad or expired credentials
-         window.location.href = "index.html";
-       } else {
-         // Should try again after a time...
-       }
-    }
-  };
+           if (response.sucess != true) {
+             alert("Error deleting project " + selectedProjectId);
+           } else {
+             closeProject()();
+           }
 
-  httpRequest.open('DELETE', 'https://www.harxer.com/api/projects/');
-  httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  httpRequest.send(JSON.stringify({
-    id: document.getElementById('test-input-delete-projects-id').value
-  }));
+         } else if (httpRequest.status == 403) {
+           // Bad or expired credentials
+           window.location.href = "index.html";
+         } else {
+           // Should try again after a time...
+         }
+      }
+    };
+
+    httpRequest.open('DELETE', 'https://www.harxer.com/api/project/');
+    httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    httpRequest.send(JSON.stringify({
+      id: selectedProjectId
+    }));
+  }
 }
+
+// ======================================================= Init
+
+(function init() {
+
+  // Redirect if a valid JWT is not present.
+  validateAccess();
+
+  // GET all projects and populate list
+  populateProjects();
+
+  // Init new project button
+  document.getElementById("project-list-add").onclick = newProject();
+
+  // Initialize header buttons
+  logoutButton.onclick = logout();
+
+  // Initialize editor
+  document.getElementById('pe-control-cancel').onclick = closeProject();
+  document.getElementById('pe-control-save').onclick = upsertProject();
+  document.getElementById('pe-control-delete').onclick = deleteProject();
+
+  //pe-control-delete
+
+  pe_id.onfocus = function() {
+    pe_id.style.opacity = 1;
+  }
+  pe_id.onfocusout = function() {
+    var id = pe_id.value.trim()
+    if (id == produceIdentifierFromTitle(pe_title.value) || id == "") {
+      manualIdentifierEntry = false;
+      pe_id.style.opacity = 0.5;
+      pe_id.value = produceIdentifierFromTitle(pe_title.value);
+    } else {
+      manualIdentifierEntry = true;
+      pe_id.value = id; //trimmed
+    }
+  }
+  pe_id.oninput = function() {
+    var id = pe_id.value.trim()
+    if (id == produceIdentifierFromTitle(pe_title.value) || id == "") {
+      manualIdentifierEntry = false;
+    } else {
+      manualIdentifierEntry = true;
+    }
+  }
+  pe_title.onfocusout = function() {
+    if (!manualIdentifierEntry) {
+      pe_id.value = produceIdentifierFromTitle(pe_title.value)
+    }
+  }
+
+  // TESTING STUFF
+
+  // temp
+  // projects = [
+  //   {
+  //     id: "first_one",
+  //     title: "First One",
+  //     upload_date: "12/13/93",
+  //     description: "Cookin' bebe",
+  //     github_link: "www.github.com/harrisonbalogh/firstone",
+  //     youtube_link: "/asdf8s0d9f8"
+  //   },
+  //   {
+  //     id: "second_guy",
+  //     title: "Second Guy",
+  //     upload_date: "12/13/94",
+  //     description: "Materialism bebe",
+  //     github_link: "www.github.com/harrisonbalogh/secondguy",
+  //     youtube_link: "/s8df88fs9"
+  //   },
+  //   {
+  //     id: "second_guy",
+  //     title: "This is a Very Long Title Eh?",
+  //     upload_date: "12/13/94",
+  //     description: "Materialism bebe",
+  //     github_link: "www.github.com/harrisonbalogh/secondguy",
+  //     youtube_link: "/s8df88fs9"
+  //   },
+  //   {
+  //     id: "second_guy",
+  //     title: "Second Guy",
+  //     upload_date: "12/13/94",
+  //     description: "Materialism bebe",
+  //     github_link: "www.github.com/harrisonbalogh/secondguy",
+  //     youtube_link: "/s8df88fs9"
+  //   }
+  // ];
+
+  // temp
+  // for (var p = 0; p < projects.length; p++) {
+  //   projectList.insertBefore(parseProject(projects[p]), projectList.firstChild);
+  // }
+
+})();
