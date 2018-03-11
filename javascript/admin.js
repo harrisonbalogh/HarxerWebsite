@@ -136,28 +136,27 @@ function validateAccess() {
 
 var logout = function() {
   return function () {
+    var httpRequest = new XMLHttpRequest();
 
+    httpRequest.onreadystatechange = function() {
+      if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+         if (httpRequest.status == 200) {
+
+           // Deleted cookie
+           window.location.href = "index.html";
+
+         } else if (httpRequest.status == 403) {
+           // Bad or expired credentials
+           window.location.href = "index.html";
+         } else {
+           // Should try again after a time...
+         }
+      }
+    };
+
+    httpRequest.open('GET', 'https://www.harxer.com/api/invalidate/');
+    httpRequest.send();
   }
-  var httpRequest = new XMLHttpRequest();
-
-  httpRequest.onreadystatechange = function() {
-    if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
-       if (httpRequest.status == 200) {
-
-         // Deleted cookie
-         window.location.href = "index.html";
-
-       } else if (httpRequest.status == 403) {
-         // Bad or expired credentials
-         window.location.href = "index.html";
-       } else {
-         // Should try again after a time...
-       }
-    }
-  };
-
-  httpRequest.open('GET', 'https://www.harxer.com/api/invalidate/');
-  httpRequest.send();
 }
 
 function populateProjects() {
@@ -347,10 +346,10 @@ function deleteProject() {
 (function init() {
 
   // Redirect if a valid JWT is not present.
-  // validateAccess();
+  validateAccess();
 
   // GET all projects and populate list
-  // populateProjects();
+  populateProjects();
 
   // Init new project button
   document.getElementById("project-list-add").onclick = newProject();
