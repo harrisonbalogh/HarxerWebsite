@@ -77,11 +77,9 @@ var newProject = function() {
 
 var selectProject = function(id) {
 	return function() {
-    console.log("Selecting project " + id);
     selectedProjectId = id;
-    projectEditorCover.style.zIndex = 8;
-
     populateProjectEditor(id);
+    projectEditorCover.style.zIndex = 8;
 
   };
 };
@@ -283,8 +281,8 @@ function uploadProject() {
          if (response.success != true) {
            alert("Error saving " + pe_id.value);
          } else {
-           populateProjects();
            closeProject()();
+           populateProjects();
          }
 
        } else if (httpRequest.status == 403) {
@@ -327,8 +325,8 @@ function deleteProject() {
            if (response.success != true) {
              alert("Error deleting project " + selectedProjectId);
            } else {
-             populateProjects();
              closeProject()();
+             populateProjects();
            }
 
          } else if (httpRequest.status == 403) {
