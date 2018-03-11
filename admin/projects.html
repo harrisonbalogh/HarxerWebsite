@@ -23,6 +23,26 @@
 
       <p class="content-welcome">Projects</p>
 
+      <button type="button" id="test-button-get-projects">Get Projects</button>
+
+      <form action="https://www.harxer.com/api/projects" method="post">
+        ID: <input type="text" name="id" value=""><br>
+        Title: <input type="text" name="title" value=""><br>
+        Description: <input type="text" name="description" value=""><br>
+        Date: <input type="date" name="upload_date" value=""><br>
+        GitHub Link: <input type="text" name="github_link" value=""><br>
+        YouTube Link: <input type="text" name="youtube_link" value=""><br>
+        <input type="submit" value="Update/Create Project">
+      </form>
+
+      <form action="https://www.harxer.com/api/projects" method="delete">
+        Delete Project ID: <input type="text" name="id" value="Mickey"><br>
+        <input type="submit" value="Submit">
+      </form>
+
+      <!-- <ul class="project-list" id="project-list">
+      </ul> -->
+
     </div>
 
     <!-- ==================== FOOTER ==================== -->

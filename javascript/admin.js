@@ -2,13 +2,51 @@
 var logoutButton = document.getElementById('header-button-right');
 var returnButton = document.getElementById('header-button-left');
 
-(function validateAccess() {
+var projectList = document.getElementById('project-list');
+
+// ======================================================= Init
+
+(function init() {
+
+  // Redirect if a valid JWT is not present.
+  validateAccess();
+
+  // Initialize header buttons
+  logoutButton.onclick = function() { logout(); };
+
+  // var projects = getProjects();
+  //
+  // for (var p = 0; p < projects.length; p++) {
+  //   projectList.appendChild = parseProject(projects[p]);
+  // }
+
+  document.getElementById('test-button-get-projects').onclick = function() {
+    var projects = getProjects();
+    console.log(projects);
+  };
+
+
+})();
+
+// ======================================================= Project Convenience Functions
+
+function parseProject(project) {
+
+}
+
+function newProject() {
+
+}
+
+// ======================================================= API Interactions
+
+function validateAccess() {
   var httpRequest = new XMLHttpRequest();
   httpRequest.withCredentials = true;
   // httpRequest.
 
   httpRequest.onreadystatechange = function() {
-    if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+    if (httpRequest.readyState == XMLHttpRequest.DONE) { // == 4
        if (httpRequest.status == 200) {
          // Successful login!
          // Update address bar
@@ -35,16 +73,7 @@ var returnButton = document.getElementById('header-button-left');
 
   httpRequest.open('GET', 'https://www.harxer.com/api/validate/');
   httpRequest.send();
-})();
-
-(function initHeaderButtons() {
-  logoutButton.onclick = function() {
-    logout();
-  };
-  // sceneButtons[s].onmouseenter  = mouseEnter_headerButton(s);
-  // sceneButtons[s].onmouseleave  = mouseLeave_headerButton(s);
-
-})();
+}
 
 function logout() {
   var httpRequest = new XMLHttpRequest();
@@ -59,16 +88,34 @@ function logout() {
        } else if (httpRequest.status == 403) {
          // Bad or expired credentials
          window.location.href = "index.html";
-       }
-       else if (httpRequest.status == 400) {
-          // alert('An error occurred: 400');
-       }
-       else {
-         // alert('An unknown error occurred.');
+       } else {
+         // Should try again after a time...
        }
     }
   };
 
   httpRequest.open('GET', 'https://www.harxer.com/api/invalidate/');
+  httpRequest.send();
+}
+
+function getProjects() {
+  var httpRequest = new XMLHttpRequest();
+
+  httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+       if (httpRequest.status == 200) {
+
+         return JSON.parse(httpRequest.responseText);
+
+       } else if (httpRequest.status == 403) {
+         // Bad or expired credentials
+         window.location.href = "index.html";
+       } else {
+         // Should try again after a time...
+       }
+    }
+  };
+
+  httpRequest.open('GET', 'https://www.harxer.com/api/projects/');
   httpRequest.send();
 }
