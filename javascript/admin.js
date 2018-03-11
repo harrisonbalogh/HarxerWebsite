@@ -155,7 +155,7 @@ function upsertProject() {
     id: document.getElementById('test-input-get-projects-id').value,
     title: document.getElementById('test-input-get-projects-title').value,
     description: document.getElementById('test-input-get-projects-description').value,
-    upload_date: document.getElementById('test-input-get-projects-date').value,
+    upload_date: new Date(),
     github_link: document.getElementById('test-input-get-projects-github').value,
     youtube_link: document.getElementById('test-input-get-projects-youtube').value
   }));
