@@ -89,8 +89,8 @@ var mouseDown_headerButton = function(scene, push = true) {
 			var newurl = window.location.protocol + "//" + window.location.host + "/" + SCENE_NAMES[scene];
 			var newTitle = "Harxer"
 			if (scene == PROJECTS_SCENE && selected.index != -1) {
-				newurl += "/" + PROJECT[projectSelected][FILE_NAME];
-				newTitle += " - " + PROJECT[projectSelected][DISPLAY_NAME];
+				newurl += "/" + selected.project.id;
+				newTitle += " - " + selected.project.title;
 			} else {
 				newTitle += (scene == HOME_SCENE ? "" : " - " + (SCENE_NAMES[scene].charAt(0).toUpperCase() + SCENE_NAMES[scene].slice(1)));
 			}
