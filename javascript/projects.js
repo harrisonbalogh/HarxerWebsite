@@ -159,7 +159,6 @@ function populateProjectView(project, historied) {
 // Updates information fields and performs various animations to expand details about the selected project.
 var selectProject = function(id, index, historied = true) {
 	return function() {
-		console.log("Select project is called. id: " + id);
 		// If id is undefined, it indicates to close project view
 		if (id == undefined) {
 			// Reset text
@@ -290,8 +289,7 @@ function populateProjectItems() {
 				 projectsLoaded = true;
 				 projects_containerList.style.backgroundImage = "url()";
 				 if (initProjectOpen !== undefined) {
-					 console.log("initProjectOpen was set. id: " + initProjectOpen.id);
-					 selectProject(initProjectOpen.id, undefined, initProjectOpen.historied);
+					 selectProject(initProjectOpen.id, undefined, initProjectOpen.historied)();
 				 }
 			 } else {
 				 alert("Network hiccup! There was a problem retrieving project data. Please check the projects tab later.");
