@@ -54,7 +54,7 @@ var project_imageZoom_left = document.getElementById('project-imageZoom-left');
 
 // Quick Project Opening
 var projectsLoaded = false;
-var initProjectOpen = undefined;
+var initProjectOpen = undefined; // {id, historied}
 
 function projectsRefit() {
 	var containerHeight = document.getElementById('scene-projects').offsetHeight - (projects_search.offsetTop + projects_search.offsetHeight);
@@ -288,9 +288,7 @@ function populateProjectItems() {
 				 }
 				 projectsLoaded = true;
 				 if (initProjectOpen !== undefined) {
-					 selectProject(initProjectOpen, undefined, false)();
-				 } else if (initProjectOpen == null) {
-					 selectProject(undefined, undefined, null)();
+					 selectProject(initProjectOpen.id, undefined, initProjectOpen.historied);
 				 }
 			 } else {
 				 alert("Network hiccup! Problems getting project. Please try again later.");
