@@ -37,6 +37,7 @@ function quickOpenScene() {
 		if (projectsLoaded) {
 			selectProject(open.substr(open.indexOf("=")+1), undefined, false)();
 		} else {
+			console.log("Quick open project by id: " + open.substr(open.indexOf("=")+1));
 			initProjectOpen = {id: open.substr(open.indexOf("=")+1), historied: false};
 		}
 	}

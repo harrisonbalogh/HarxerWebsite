@@ -289,6 +289,7 @@ function populateProjectItems() {
 				 projectsLoaded = true;
 				 projects_containerList.style.backgroundImage = "url()";
 				 if (initProjectOpen !== undefined) {
+					 console.log("initProjectOpen was set. id: " + initProjectOpen.id);
 					 selectProject(initProjectOpen.id, undefined, initProjectOpen.historied);
 				 }
 			 } else {
