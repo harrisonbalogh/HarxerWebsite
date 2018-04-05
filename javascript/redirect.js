@@ -26,7 +26,6 @@ function quickOpenScene() {
 			if (open == "scene=" + scene) {
 				// Simulate the clicking of the appropriate header button
 				mouseDown_headerButton(sceneIndex, false)();
-				console.log("Directed to scene: " + scene);
 				return;
 			}
 			sceneIndex++;

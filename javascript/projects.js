@@ -197,7 +197,7 @@ var selectProject = function(id, index, historied = true) {
 				 if (httpRequest.status == 200) {
 					 // Retrieve Project by id and popualte detail view
 					 var proj = JSON.parse(httpRequest.responseText)
-					 if (index == undefined) { // This happens if coming from quickOpenScene
+					 if (index == undefined) { // This happens if coming from quickOpenScene or history popstate (all in redirect.js)
 						 var i = 0;
 						 var lis = projects_list.getElementsByTagName("li");
 						 for (var l = 0; l < lis.length; l++) {
@@ -292,7 +292,7 @@ function populateProjectItems() {
 					 selectProject(initProjectOpen.id, undefined, initProjectOpen.historied);
 				 }
 			 } else {
-				 alert("Network hiccup! Problems getting project. Please try again later.");
+				 alert("Network hiccup! There was a problem retrieving project data. Please check the projects tab later.");
 				 // Should try again after a time...
 			 }
 		}
