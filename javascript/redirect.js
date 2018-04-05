@@ -34,7 +34,7 @@ function quickOpenScene() {
 
 	if (open.substr(0,open.indexOf("=")) == "project") {
 		mouseDown_headerButton(PROJECTS_SCENE, false)();
-		preProjectOpen = open.substr(open.indexOf("=")+1)
+		initProjectOpen = open.substr(open.indexOf("=")+1)
 		// selectProject(, undefined, false)();
 	}
 
@@ -57,7 +57,7 @@ window.onpopstate = function(event) {
 			// Simulate the clicking of the appropriate header button
 			mouseDown_headerButton(sceneIndex, false)();
 			if (sceneIndex == PROJECTS_SCENE)
-				preProjectOpen = null;
+				initProjectOpen = null;
 			// selectProject(-1, undefined, null)();
 			return;
 		}
@@ -69,7 +69,7 @@ window.onpopstate = function(event) {
 	if (window.location.pathname.substr(0, 10) == "/projects/") {
 		mouseDown_headerButton(PROJECTS_SCENE, null)();
 		// selectProject(projId, false)();
-		preProjectOpen = projId;
+		initProjectOpen = projId;
 		return;
 	}
 };

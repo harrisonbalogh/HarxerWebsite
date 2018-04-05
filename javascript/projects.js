@@ -289,7 +289,7 @@ function populateProjectItems() {
 				 projectsLoaded = true;
 				 if (initProjectOpen !== undefined) {
 					 selectProject(initProjectOpen, undefined, false)();
-				 } else (preProjectOpen == null) {
+				 } else if (initProjectOpen == null) {
 					 selectProject(undefined, undefined, null)();
 				 }
 			 } else {
