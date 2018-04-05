@@ -1,7 +1,7 @@
 var domain =  "https://www.harxer.com"; //  "http://localhost"; //
 
 // Populates projects "scene"
-// ========================================================================================================== Variables =====
+// ========================================================================================================== Variables ====
 
 // Expanded container
 const CONTAINER_EXPAND_HEIGHT = 416;
@@ -51,6 +51,10 @@ var project_imageZoom_image = document.getElementById('project-imageZoom-image')
 var project_imageZoom_close = document.getElementById('project-imageZoom-close');
 var project_imageZoom_right = document.getElementById('project-imageZoom-right');
 var project_imageZoom_left = document.getElementById('project-imageZoom-left');
+
+// Quick Project Opening
+var projectsLoaded = false;
+var initProjectOpen = undefined;
 
 function projectsRefit() {
 	var containerHeight = document.getElementById('scene-projects').offsetHeight - (projects_search.offsetTop + projects_search.offsetHeight);
@@ -281,6 +285,12 @@ function populateProjectItems() {
 				 // Populate project list
 				 for (var p = 0; p < projects.length; p++) {
 					 projects_list.appendChild(parseProjectItem(projects[p]));
+				 }
+				 projectsLoaded = true;
+				 if (initProjectOpen !== undefined) {
+					 selectProject(initProjectOpen, undefined, false)();
+				 } else (preProjectOpen == null) {
+					 selectProject(undefined, undefined, null)();
 				 }
 			 } else {
 				 alert("Network hiccup! Problems getting project. Please try again later.");

@@ -13,7 +13,8 @@
 // 	}
 // }
 
-// Allows for www.harxer.com/projects to jump you to www.harxer.com with the projects tab open.
+// This is used when user enters www.harxer.com/projects[/id] into the address bar, it will jump
+// the user to the projects page and, if specified, open a project.
 function quickOpenScene() {
 
 	var open = window.location.search.substr(1);
@@ -33,12 +34,15 @@ function quickOpenScene() {
 
 	if (open.substr(0,open.indexOf("=")) == "project") {
 		mouseDown_headerButton(PROJECTS_SCENE, false)();
-		selectProject(open.substr(open.indexOf("=")+1), undefined, false)();
+		preProjectOpen = open.substr(open.indexOf("=")+1)
+		// selectProject(, undefined, false)();
 	}
 
 }
 quickOpenScene(); // <--- CALLED HERE
 
+
+// The following is used when the user uses back or forward buttons:
 // We don't want back and forward buttons to actually reload the page, simply navigate through the site.
 // NOTE: When a popstate occurs, we don't want to push a new state, we want to replace a new state.
 // So the navigation functions like selectProject and mouseDown_headerButton have optional arguments that
@@ -46,24 +50,26 @@ quickOpenScene(); // <--- CALLED HERE
 // If history is not to be affected, a null value can be sent to skip all history affects.
 window.onpopstate = function(event) {
 
+	// Check if navigating to a specific scene
 	var sceneIndex = 0;
 	SCENE_NAMES.forEach(function(scene) {
 		if (window.location.pathname == "/" + scene) {
 			// Simulate the clicking of the appropriate header button
 			mouseDown_headerButton(sceneIndex, false)();
 			if (sceneIndex == PROJECTS_SCENE)
-				selectProject(-1, null)();
+				preProjectOpen = null;
+			// selectProject(-1, undefined, null)();
 			return;
 		}
-
 		sceneIndex++;
 	});
 
-	for (var p = 1; p < PROJECT.length; p++) {
-		if (window.location.pathname == "/projects/" + PROJECT[p][FILE_NAME]) {
-			mouseDown_headerButton(PROJECTS_SCENE, null)();
-			selectProject(p, false)();
-			return;
-		}
+	// Check if navigating to a specific project
+	var projId = window.location.pathname.substr(10); // Assuming '/projects/'
+	if (window.location.pathname.substr(0, 10) == "/projects/") {
+		mouseDown_headerButton(PROJECTS_SCENE, null)();
+		// selectProject(projId, false)();
+		preProjectOpen = projId;
+		return;
 	}
 };
