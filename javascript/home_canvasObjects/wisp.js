@@ -63,11 +63,11 @@ class Wisp {
     if (this.waypoint.pathX[0] == null) {
       this.waypoint.xVector = this.waypoint.x - this.position.x;
       this.waypoint.yVector = this.waypoint.y - this.position.y;
-      console.log("- this.waypoint.xVector/yVector: " + parseInt(this.waypoint.xVector) + ", " + parseInt(this.waypoint.yVector));
+      // console.log("- this.waypoint.xVector/yVector: " + parseInt(this.waypoint.xVector) + ", " + parseInt(this.waypoint.yVector));
     } else {
       this.waypoint.xVector = this.waypoint.pathX[0] - this.position.x;
       this.waypoint.yVector = this.waypoint.pathY[0] - this.position.y;
-      console.log("this.waypoint.xVector/yVector: " + parseInt(this.waypoint.xVector) + ", " + parseInt(this.waypoint.yVector));
+      // console.log("this.waypoint.xVector/yVector: " + parseInt(this.waypoint.xVector) + ", " + parseInt(this.waypoint.yVector));
     }
 
     // this.waypoint.xVector = this.waypoint.x - this.position.x;
@@ -454,7 +454,7 @@ class Wisp {
       this.context.beginPath();
       this.context.moveTo(this.position.x, this.position.y);
       this.context.lineTo(this.waypoint.pathX[0], this.waypoint.pathY[0]);
-      console.log("path[0] x: " + this.waypoint.pathX[0] + "  y: " + this.waypoint.pathY[0]);
+      // console.log("path[0] x: " + this.waypoint.pathX[0] + "  y: " + this.waypoint.pathY[0]);
       this.context.stroke();
       // TESTING USAGE __________________________________/
 

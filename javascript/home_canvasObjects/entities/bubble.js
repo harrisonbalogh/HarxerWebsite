@@ -33,7 +33,6 @@ class Bubble extends Particle {
 	update() {
 		super.update();
 
-		console.log("Line opacity" + this.lineOpacity)
 		if (this.lineOpacity > 0 && this.speed <= 0) {
 			this.lineOpacity -= 0.08
 		}

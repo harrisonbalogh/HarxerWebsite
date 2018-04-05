@@ -88,7 +88,7 @@ var mouseDown_headerButton = function(scene, push = true) {
 		if (history.pushState && push !== undefined) {
 			var newurl = window.location.protocol + "//" + window.location.host + "/" + SCENE_NAMES[scene];
 			var newTitle = "Harxer"
-			if (scene == PROJECTS_SCENE && projectSelected != -1) {
+			if (scene == PROJECTS_SCENE && selected.index != -1) {
 				newurl += "/" + PROJECT[projectSelected][FILE_NAME];
 				newTitle += " - " + PROJECT[projectSelected][DISPLAY_NAME];
 			} else {

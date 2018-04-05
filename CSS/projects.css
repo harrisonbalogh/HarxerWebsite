@@ -158,7 +158,7 @@
 }
 
 .projects-list-icon-innerCircle {
-	background: url("/images/hxr-logo-active@2x.png") no-repeat center/100%;
+	background: url("/images/hxr-logo-active@2x.png") no-repeat center/100% 100%;
 	border: 1px solid rgb(70,70,70);
 	border-radius: 50%;
 	/*box-shadow: inset 0 0 10px 2px black;*/
@@ -271,7 +271,7 @@
 }
 
 .projects-expanded-imageContainer ul li {
-	background: url("/images/loader3@2x.gif") no-repeat center/contain;
+	background: url("/images/loader3@2x.gif") no-repeat center/100% 100%;
 	border: 1px solid transparent;
 	cursor: pointer;
 	display: inline-block;

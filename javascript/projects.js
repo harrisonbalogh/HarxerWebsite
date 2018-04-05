@@ -1,43 +1,14 @@
+var domain =  "https://www.harxer.com"; //  "http://localhost"; //
+
 // Populates projects "scene"
-
-// =========================================================================================================== Projects Constants =====
-
-// EXAMPLE: var projNameOne = PROJECT[1][FILE_NAME]
-const FILE_NAME 		= 0;
-const DISPLAY_NAME 	= 1;
-const ARCHITECTURES = 2;
-const DESCRIPTION 	= 3;
-const PLATFORM 			= 4;
-const UPDATED 		  = 5;
-const IMAGE_COUNT 	= 6;
-const VIDEO					= 7;
-const GITLINK				= 8;
-
-// ** NOTE: The PROJECT 2d array has an empty 0 index.
-
-// FILE_NAME				DISPLAY_NAME								ARCHIECTURE(S)							DESCRIPTION		PLATFORM		UPDATED			IMAGE_COUNT  	VIDEO_ID				GITHUB
-var PROJECT = [[],
-	["website", 			"Website", 									"HTML5, Javascript, CSS", 	"descrip",		"WEB",			"2/26/18", 	18, 					"",							""],
-	["encryptedChat", "Encrypted Chat", 					"Swift, NodeJS",						"descrip",		"DESKTOP", 	"12/14/17", 3, 						"qmoNRhd8Ifs",	"https://github.com/harrisonbalogh/Whisper_Server"],
-	["javaPhysics", 	"2D World Template", 				"Java", 										"descrip",		"DESKTOP",	"10/5/16", 	1, 						"",							"https://github.com/harrisonbalogh/java-2d-template"],
-	["messenger",			"Messenger",								"Java", 										"descrip",		"DESKTOP",	"7/30/17", 	4, 						"lH9r2jlbAXE",	"https://github.com/harrisonbalogh/server-client-messenger"],
-	["swiftPhysics",	"Physics Animator", 				"Swift",										"descrip",		"MOBILE", 	"7/29/17", 	7,						"CfA7l1JJYDc",	"https://github.com/harrisonbalogh/spriteKit-dynamicAnimations"],
-	["pathing", 			"Pathing in 2D", 						"JavaScript", 							"descrip",		"WEB",			"7/29/17", 	3,						"BFeYEenAshg",	"https://github.com/harrisonbalogh/js-2d-pathing"],
-	["munch", 				"Munch",										"Java",											"descrip",		"DESKTOP",	"10/5/16", 	6,						"",							""],
-	["art", 					"Art Assets",								"_",												"descrip",		"UNIVERSAL","1/28/17", 	13,						"",							""],
-	["collision", 		"2D Colliders",							"Java",											"descrip",		"DESKTOP",	"10/5/16", 	1,						"61Fctqe4ciA",	"https://github.com/harrisonbalogh/java-2d-colliders"],
-	["earthMap", 			"Earth Map",								"Java",											"descrip",		"DESKTOP",	"10/5/16", 	1,						"MMTMMQx4eeo",	"https://github.com/harrisonbalogh/java-2d-template"]
-];
-//Whitespace tabs: &nbsp &nbsp
-
 // ========================================================================================================== Variables =====
 
 // Expanded container
 const CONTAINER_EXPAND_HEIGHT = 416;
 const CONTAINER_DESCRIP_HEIGHT = 180;
 
-// These values are set to -1 if a project/image is not selected
-var projectSelected = -1;
+// These values are set to undefined if a project/image is not selected
+var selected = {project: undefined, index: -1};
 var imageSelected = -1;
 
 // Image list dragging
@@ -63,9 +34,9 @@ var projects_list_container = document.getElementById('projects-list-container')
 var projects_list = document.getElementById('projects-list');
 var projects_search = document.getElementById('projects-search');
 var projects_header_title = document.getElementById('projects-header-title');
-var projects_icon = [""];
-var projects_iconCircle = [""];
-var projects_icon_OuterCircle = [""];
+var projects_icon = [];
+var projects_iconCircle = [];
+var projects_icon_OuterCircle = [];
 var projects_containerExpanded = document.getElementById('projects-container-expanded');
 var projects_expanded_title = document.getElementById('projects-expanded-title');
 var projects_expanded_details = document.getElementById('projects-expanded-details');
@@ -81,15 +52,6 @@ var project_imageZoom_close = document.getElementById('project-imageZoom-close')
 var project_imageZoom_right = document.getElementById('project-imageZoom-right');
 var project_imageZoom_left = document.getElementById('project-imageZoom-left');
 
-// ============================================================================================= Init scrollable list =========
-
-(function init() {
-	// Projects container height has to be manually set due to position and display limitations
-	var containerHeight = document.getElementById('scene-projects').offsetHeight - (projects_search.offsetTop + projects_search.offsetHeight);
-	// TweenLite.set(projects_containerList, {height: containerHeight});
-	projects_containerList.style.height = containerHeight + "px";
-})();
-
 function projectsRefit() {
 	var containerHeight = document.getElementById('scene-projects').offsetHeight - (projects_search.offsetTop + projects_search.offsetHeight);
 	// TweenLite.set(projects_containerList, {height: containerHeight});
@@ -98,23 +60,103 @@ function projectsRefit() {
 
 // ============================================================================================== Init project items =========
 
-// Used by href's in descriptions of projects. So they can jump to a project by file name and not number (incase order changes).
-var jumpToProject = function(projFileName) {
-	return function() {
-		for (x = 1; x < PROJECT.length; x++) {
-			if (PROJECT[x][FILE_NAME] == projFileName) {
-				selectProject(x)();
-				break;
-			}
+function populateProjectView(project, historied) {
+	// Check if selecting the project that is already selected.
+	if (selected.project != project) {
+		// If there is already a selected project, reset its icon
+		if (selected.index != -1) {
+			TweenLite.to(projects_iconCircle[selected.index], 0.5, {opacity: 1});
+			projects_icon_OuterCircle[selected.index].style.backgroundImage = "url(/images/icon_outerCircle@2x.png)";
+			TweenLite.to(projects_list.getElementsByTagName("li")[selected.index], 0.5, {opacity: 1, backgroundColor: "tranparent", color: __color_background});
 		}
-	};
-};
+		// Update visuals to the list of projects by icon
+		TweenLite.to(projects_list, 0.5, {height: 190, textAlign: "left", width: projects_list.getElementsByTagName("li").length * 165});
+		TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {cursor: "pointer", width: 155, margin: "8px 4px"});
+		TweenLite.to(projects_iconCircle, 0.5, {height: 70, width: 70});
+		TweenLite.to(projects_icon, 0.5, {height: 78, width: 78});
+		// Update the newly selected project icon
+		TweenLite.to(projects_iconCircle[project.index], 0.5, {opacity: 0});
+		projects_icon_OuterCircle[project.index].style.backgroundImage = "url(/images/icon_outerCircle_selected@2x.png)";
+		TweenLite.to(projects_list.getElementsByTagName("li")[project.index], 0.5, {opacity: 0.70, cursor: "default"});
+		TweenLite.set(projects_icon[project.index], {scale: 0.9, ease: Back.easeInOut});
+		projects_expanded_title.innerHTML = project.title;
+		// Don't display a dash "-" if the architectures field is empty
+		if (project.architecture == "_") {
+			projects_expanded_details.innerHTML = project.platform;
+		} else {
+			projects_expanded_details.innerHTML = project.architecture + " - " + project.platform;
+		}
+		projects_header_title.innerHTML = "Close Project";
+		TweenLite.to(projects_header_title, 0.5, {opacity: 0.25, cursor: "pointer"});
+		// Reset scroller for images to the left, caused offset glitches in the past.
+		projects_expanded_container_image.scrollLeft = 0;
+		// Reset image dragging movement
+		imageDragging_velX = 0;
+		// Flush out previous images in list
+		projects_expanded_imageList.innerHTML = "";
+		// CSS can't be used to size up the list, must be done here
+		var imageListWidth = 160 * project.images.length;
+		// Check if the project has a video preview
+		if (project.youtube_link != "") {
+			imageListWidth += 160;
+			// Create li
+			var li = document.createElement("li");
+			li.style.backgroundImage = "url(https://img.youtube.com/vi/"+project.youtube_link+"/0.jpg)";
+			li.onmouseup = videoZoomed_open(project.youtube_link);
+			var div = document.createElement("div");
+			div.setAttribute("class", "projects-expanded-imageContainer-play");
+			li.appendChild(div);
+			projects_expanded_imageList.appendChild(li);
+		}
+		TweenLite.set(projects_expanded_imageList, {width: (imageListWidth)});
+
+		// Check if the project has a github linkElements
+		if (project.github_link != "") {
+			projects_exapnded_description_gitLink.innerHTML = "<b>GitHub Link:</b> <a href=\""+project.github_link+"\" target=\"_blank\"> "+project.github_link+" </a>"
+		} else {
+			projects_exapnded_description_gitLink.innerHTML = ""
+		}
+
+		// Set images for each li and add to ul
+		for (p = 0; p < project.images.length; p++) {
+			// Create li
+			var li = document.createElement("li");
+			li.style.backgroundImage = "url(data:"+project.images[p].type+";base64,"+project.images[p].buffer+")";
+			li.onmouseup = imageZoomed_open(p);
+			clearMouseDrag();
+			// Add li
+			projects_expanded_imageList.appendChild(li);
+		}
+		// Open up the container for viewing a project
+		var hContainer = projects_containerList.offsetHeight - 190;
+		TweenLite.to(projects_containerExpanded, 0.5, {height: Math.max(hContainer, 300)});
+		var hDescrip = Math.max(hContainer, 300) - (projects_expanded_description_container.offsetTop - projects_containerExpanded.offsetTop);
+		TweenLite.to(projects_expanded_description_container, 0.5, {height: hDescrip});
+
+		TweenLite.to(projects_containerList, 0.3, {scrollTo: 0});
+		projects_expanded_description.innerHTML = project.description;
+		// Update reference to which project is now selected
+		selected.project = project;
+		selected.index = project.index;
+		// Update the address bar
+		if (history.pushState && historied !== undefined) {
+			var newurl = window.location.protocol + "//" + window.location.host + "/projects/" + project.id;
+			var newTitle = "Harxer - " + project.title;
+			if (historied) {
+				window.history.pushState({path:newurl}, newTitle, newurl);
+			} else {
+				window.history.replaceState({path:newurl}, newTitle, newurl);
+			}
+			document.title = newTitle; // In case the replace/push history state didn't update the page title.
+		}
+	}
+}
 
 // Updates information fields and performs various animations to expand details about the selected project.
-var selectProject = function(projNum, historied = true) {
+var selectProject = function(id, index, historied = true) {
 	return function() {
-		// If no project is selected...
-		if (projNum == -1) {
+		// If id is undefined, it indicates to close project view
+		if (id == undefined) {
 			// Reset text
 			projects_header_title.innerHTML = "Select a project";
 			// Reset button visuals
@@ -122,16 +164,15 @@ var selectProject = function(projNum, historied = true) {
 			// Close container (make it flat)
 			TweenLite.to(projects_containerExpanded, 0.5, {height: 0});
 			// Update all the list items
-			TweenLite.to(projects_iconCircle, 0.5, {height: 92, width: 92});
+			TweenLite.to(projects_iconCircle, 0.5, {height: 92, opacity: 1, width: 92});
 			TweenLite.to(projects_icon, 0.5, {height: 100, width: 100});
-			TweenLite.to(projects_iconCircle[projectSelected], 0.5, {opacity: 1})
-			projects_icon_OuterCircle[projectSelected].style.backgroundImage = "url(/images/icon_outerCircle@2x.png)";
+			projects_icon_OuterCircle[selected.index].style.backgroundImage = "url(/images/icon_outerCircle@2x.png)";
 			TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {opacity: 1, cursor: "pointer", width: 200, margin: "20px 20px", backgroundColor: "tranparent", color: __color_background});
 			// Reset the list visuals
 			TweenLite.to(projects_list_container, 0.5, {scrollTo: 0});
 			TweenLite.to(projects_list, 0.5, {height: "auto", textAlign: "center", width: "auto"});
-			// Reseting projectSelected to -1 implies that no project is selected
-			projectSelected = -1;
+			// Reset selected
+			selected = {project: undefined, index: -1};
 			// Update the address bar
 			if (history.pushState && historied !== undefined) { // break historied and it works perfectly!
 				var newurl = window.location.protocol + "//" + window.location.host + "/projects";
@@ -145,126 +186,43 @@ var selectProject = function(projNum, historied = true) {
 			}
 			return;
 		}
-		// Check if selecting the project that is already selected.
-		if (projectSelected != projNum) {
-			// Update visuals to the list of projects by icon
-			TweenLite.to(projects_list, 0.5, {height: 190, textAlign: "left", width: projects_list.getElementsByTagName("li").length * 165});
-			TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {cursor: "pointer", width: 155, margin: "8px 4px"});
-			TweenLite.to(projects_iconCircle, 0.5, {height: 70, width: 70});
-			TweenLite.to(projects_icon, 0.5, {height: 78, width: 78});
-			// If there is already a selected project, reset its icon
-			if (projectSelected != -1) {
-				TweenLite.to(projects_iconCircle[projectSelected], 0.5, {opacity: 1});
-				projects_icon_OuterCircle[projectSelected].style.backgroundImage = "url(/images/icon_outerCircle@2x.png)";
-				TweenLite.to(projects_list.getElementsByTagName("li")[projectSelected-1], 0.5, {opacity: 1, backgroundColor: "tranparent", color: __color_background});
+		// Retrieve project
+		var httpRequest = new XMLHttpRequest();
+		httpRequest.onreadystatechange = function() {
+			if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+				 if (httpRequest.status == 200) {
+					 // Retrieve Project by id and popualte detail view
+					 var proj = JSON.parse(httpRequest.responseText)
+					 if (index == undefined) { // This happens if coming from quickOpenScene
+						 var i = 0;
+						 var lis = projects_list.getElementsByTagName("li");
+						 for (var l = 0; l < lis.length; l++) {
+							 var pTitle = lis[l].getElementsByClassName("projects-list-title")[0];
+							 if (pTitle.innerHTML == proj.title) {
+								 index = i;
+							 }
+							 i++;
+						 }
+					 }
+					 proj.index = index;
+					 populateProjectView(proj, historied);
+				 } else {
+					 alert("Network hiccup! Problems getting project. Please try again later.");
+					 // Should try again after a time...
+				 }
 			}
-			// Update the newly selected project icon
-			TweenLite.to(projects_iconCircle[projNum], 0.5, {opacity: 0});
-			// TweenLite.to(projects_list.getElementsByTagName("li")[projNum-1], 0.5, {backgroundColor: __color_background, color: __color_foreground});
-			projects_icon_OuterCircle[projNum].style.backgroundImage = "url(/images/icon_outerCircle_selected@2x.png)";
-			TweenLite.to(projects_list.getElementsByTagName("li")[projNum-1], 0.5, {opacity: 0.70, cursor: "default"});
-			TweenLite.set(projects_icon[projNum], {scale: 0.9, ease: Back.easeInOut});
-			projects_expanded_title.innerHTML = PROJECT[projNum][DISPLAY_NAME];
-			// Don't display a dash "-" if the architectures field is empty
-			if (PROJECT[projNum][ARCHITECTURES] == "_") {
-				projects_expanded_details.innerHTML = PROJECT[projNum][PLATFORM];
-			} else {
-				projects_expanded_details.innerHTML = PROJECT[projNum][ARCHITECTURES] + " - " + PROJECT[projNum][PLATFORM];
-			}
-			projects_header_title.innerHTML = "Close Project";
-			TweenLite.to(projects_header_title, 0.5, {opacity: 0.25, cursor: "pointer"});
-			// Reset scroller for images to the left, caused offset glitches in the past.
-			projects_expanded_container_image.scrollLeft = 0;
-			// Reset image dragging movement
-			imageDragging_velX = 0;
-			// Flush out previous images in list
-			projects_expanded_imageList.innerHTML = "";
-			// CSS can't be used to size up the list, must be done here
-			var imageListWidth = 160 * PROJECT[projNum][IMAGE_COUNT];
-			// Check if the project has a video preview
-			if (PROJECT[projNum][VIDEO] != "") {
-				imageListWidth += 160;
-				// Create li
-				var li = document.createElement("li");
-				li.style.backgroundImage = "url(/projects/" + PROJECT[projNum][FILE_NAME] + "/video_thumb@2x.jpg)";
-				li.onmouseup = videoZoomed_open();
-				var div = document.createElement("div");
-				div.setAttribute("class", "projects-expanded-imageContainer-play");
-				li.appendChild(div);
-				projects_expanded_imageList.appendChild(li);
-			}
-			TweenLite.set(projects_expanded_imageList, {width: (imageListWidth)});
-
-			// Check if the project has a github linkElements
-			if (PROJECT[projNum][GITLINK] != "") {
-				projects_exapnded_description_gitLink.innerHTML = "<b>GitHub Link:</b> <a href=\"" + PROJECT[projNum][GITLINK] + "\" target=\"_blank\"> " + PROJECT[projNum][GITLINK] + " </a>"
-			} else {
-				projects_exapnded_description_gitLink.innerHTML = ""
-			}
-
-			// Set images for each li and add to ul
-			for (p = 0; p < PROJECT[projNum][IMAGE_COUNT]; p++) {
-				// Load images
-				var theImg = new Image();
-				theImg.src = "/projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "_thumb@2x.png";
-				// Create li
-				var li = document.createElement("li");
-				li.style.backgroundImage = "url(/projects/" + PROJECT[projNum][FILE_NAME] + "/p" + (p+1) + "_thumb@2x.png)";
-				li.onmouseup = imageZoomed_open(p);
-				clearMouseDrag();
-				// Add li
-				projects_expanded_imageList.appendChild(li);
-			}
-			// Open up the container for viewing a project
-			var hContainer = projects_containerList.offsetHeight - 190;
-			TweenLite.to(projects_containerExpanded, 0.5, {height: Math.max(hContainer, 300)});
-			var hDescrip = Math.max(hContainer, 300) - (projects_expanded_description_container.offsetTop - projects_containerExpanded.offsetTop);
-			TweenLite.to(projects_expanded_description_container, 0.5, {height: hDescrip});
-
-			TweenLite.to(projects_containerList, 0.3, {scrollTo: 0});
-			projects_expanded_description.innerHTML = PROJECT[projNum][DESCRIPTION];
-			// Update reference to which project is now selected
-			projectSelected = projNum;
-			// Simulate a mouse leave of the project
-			projects_list.getElementsByTagName("li")[projNum-1].onmouseleave();
-			// Update the address bar
-			if (history.pushState && historied !== undefined) {
-				var newurl = window.location.protocol + "//" + window.location.host + "/projects/" + PROJECT[projNum][FILE_NAME];
-				var newTitle = "Harxer - " + PROJECT[projNum][DISPLAY_NAME];
-				if (historied) {
-					window.history.pushState({path:newurl}, newTitle, newurl);
-				} else {
-					window.history.replaceState({path:newurl}, newTitle, newurl);
-				}
-				document.title = newTitle; // In case the replace/push history state didn't update the page title.
-			}
-		}
+		};
+		httpRequest.open('GET', domain+'/api/project/?id=' + id);
+		httpRequest.send();
 	};
 };
 
-(function initProjectItems() {
+function parseProjectItem(project) {
 
-	for (x = 1; x < PROJECT.length; x++) {initializeProjectItem(x);}
-
-	// Button for closing the currently opened project
-	projects_header_title.onclick = selectProject(-1);
-	projects_header_title.onmouseenter = function() {
-		if (projectSelected != -1) {
-			TweenLite.to(projects_header_title, 0.3, {opacity: 1});
-		}
-	};
-	projects_header_title.onmouseleave = function() {
-		if (projectSelected != -1) {
-			TweenLite.to(projects_header_title, 0.3, {opacity: 0.25});
-		}
-	};
-
-})();
-
-function initializeProjectItem(x) {
+	project.index = projects_icon.length;
 
 	var li = document.createElement("li");
-	li.setAttribute("id", "projects-list-" + PROJECT[x][FILE_NAME]);
+	li.setAttribute("id", "projects-list-" + project.id);
 
 	var pLogo = document.createElement("div");
 	pLogo.setAttribute("class", "projects-list-icon");
@@ -278,12 +236,12 @@ function initializeProjectItem(x) {
 	pInnerCircle.setAttribute("class", "projects-list-icon-innerCircle");
 	pOuterCircle.appendChild(pInnerCircle);
 	projects_iconCircle.push(pInnerCircle);
-	if (PROJECT[x][IMAGE_COUNT] > 0) {
-		pInnerCircle.style.backgroundImage = "url(/projects/" + PROJECT[x][FILE_NAME] + "/p1_thumb@2x.png)";
+	if (project.imageOne != undefined) {
+		pInnerCircle.style.backgroundImage = "url(data:"+project.imageOne.type+";base64,"+project.imageOne.buffer+")";
 	}
 	var pTitle = document.createElement("p");
 	pTitle.setAttribute("class", "projects-list-title");
-	pTitle.innerHTML = PROJECT[x][DISPLAY_NAME];
+	pTitle.innerHTML = project.title;
 	li.appendChild(pTitle);
 	var pExpand = document.createElement("p");
 	pExpand.setAttribute("class", "projects-list-expand");
@@ -291,94 +249,49 @@ function initializeProjectItem(x) {
 	li.appendChild(pExpand);
 	var pArchitecture = document.createElement("p");
 	pArchitecture.setAttribute("class", "projects-list-architecture");
-	pArchitecture.innerHTML = PROJECT[x][ARCHITECTURES];
+	pArchitecture.innerHTML = project.architecture;
 	li.appendChild(pArchitecture);
 	var pPlatform = document.createElement("p");
 	pPlatform.setAttribute("class", "projects-list-platform");
-	pPlatform.innerHTML = PROJECT[x][PLATFORM];
+	pPlatform.innerHTML = project.platform;
 	li.appendChild(pPlatform);
 	var pDate = document.createElement("p");
 	pDate.setAttribute("class", "projects-list-date");
-	pDate.innerHTML = PROJECT[x][UPDATED];
+	if (project.update_date != undefined) {
+		var yr = project.update_date.substr(0,project.update_date.indexOf("-"));
+		yr = project.update_date.substr(2, 2);
+		project.update_date = project.update_date.substr(project.update_date.indexOf("-")+1);
+		var month = project.update_date.substr(0,project.update_date.indexOf("-"));
+		project.update_date = project.update_date.substr(project.update_date.indexOf("-")+1);
+		var day = project.update_date.substr(0, 2);
+		pDate.innerHTML = month+"/"+day+"/"+yr;
+	}
 	li.appendChild(pDate);
 
-	// NOTE: OPEN() IS NOT BEING RUN ASYNCHRONOUSLY (false param) - SLOWS DOWN LOAD TIME
-	// READ IN DESCRIPTION FROM TEXT FILE
-	if (window.XMLHttpRequest) {
-		var rawFile = new XMLHttpRequest();
-		rawFile.onreadystatechange = function ()
-		{
-				if(rawFile.readyState === 4)
-				{
-						if(rawFile.status === 200 || rawFile.status == 0)
-						{
-								var allText = rawFile.responseText;
-								PROJECT[x][DESCRIPTION] = allText;
-						}
-				}
-		};
-		rawFile.open("GET", "projects/" + PROJECT[x][FILE_NAME] +"/descrip.txt", false);
-		rawFile.send(null);
-	}
-	// END FILE READ
+	li.onclick = selectProject(project.id, project.index);
 
-	li.onclick = selectProject(x);
-
-	li.onmouseenter = function() {
-		if (x != projectSelected) {
-			pArchitecture.style.borderColor =  __color_background;
-			TweenLite.to(li, 0.25, {marginBottom: 0});
-			TweenLite.to(pExpand, 0.25, {height: 16});
-			// TweenLite.to(pOuterCircle, PROJECT[x][IMAGE_COUNT], {rotation: 360, ease: Power0.easeNone});
-			TweenLite.to(pLogo, 0.4, {scale: 1.1, ease: Back.easeInOut});
-			TweenLite.to(pOuterCircle);
-			slideshowProject = x;
-			slideshowStart(x);
+	return li;
+}
+function populateProjectItems() {
+	var httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = function() {
+		if (httpRequest.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+			 if (httpRequest.status == 200) {
+				 var projects = JSON.parse(httpRequest.responseText)
+				 // Populate project list
+				 for (var p = 0; p < projects.length; p++) {
+					 projects_list.appendChild(parseProjectItem(projects[p]));
+				 }
+			 } else {
+				 alert("Network hiccup! Problems getting project. Please try again later.");
+				 // Should try again after a time...
+			 }
 		}
 	};
-	li.onmouseleave = function() {
-		TweenLite.to(pArchitecture, 0.05, {borderColor: "transparent", delay: 0.20});
-		TweenLite.to(li, 0.25, {marginBottom: 16});
-		// if (projectSelected != -1 && x != projectSelected) {
-		// 	TweenLite.to(li, 0.25, {opacity: 0.25});
-		// }
-		TweenLite.to(pExpand, 0.25, {height: 0});
-		TweenLite.to(pLogo, 0.6, {scale: 0.9, ease: Back.easeInOut});
-		// TweenLite.to(pOuterCircle, 0.75, {rotation: 0, ease: Power4.easeInOut});
-		slideshowStop();
-	};
 
-	projects_list.appendChild(li);
-}
-
-// ================================================================================= Init Icon Slideshow Functionality =========
-
-function slideshowStart(project) {
-	slideshowProject = project;
-	if (PROJECT[slideshowProject][IMAGE_COUNT] > 1) {
-		slideshowTransitionTimer = setTimeout(function(){slideshowContinue()}, SLIDESHOW_TRANSITION_TIME * 1000);
-	}
-}
-function slideshowContinue(project) {
-	if (PROJECT[slideshowProject][IMAGE_COUNT] > slideshowImage) {
-		slideshowImage++;
-		projects_iconCircle[slideshowProject].style.backgroundImage = "url(/projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p" + slideshowImage + "_thumb@2x.png)";
-		slideshowTransitionTimer = setTimeout(function(){slideshowContinue()}, SLIDESHOW_TRANSITION_TIME * 1000);
-	} else {
-		projects_iconCircle[slideshowProject].style.backgroundImage = "url(/projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p" + slideshowImage + "_thumb@2x.png)";
-		slideshowImage = 1;
-	}
-}
-function slideshowStop() {
-	clearTimeout(slideshowTransitionTimer);
-	slideshowImage = 1;
-	if (slideshowProject != -1) {
-		if (PROJECT[slideshowProject][IMAGE_COUNT] > 0) {
-			projects_iconCircle[slideshowProject].style.backgroundImage = "url(/projects/" + PROJECT[slideshowProject][FILE_NAME] + "/p1_thumb@2x.png)";
-		}
-		slideshowProject = -1;
-	}
-}
+	httpRequest.open('GET', domain+'/api/projects/');
+	httpRequest.send();
+};
 
 // ================================================================================= Init image container dragging  =========
 
@@ -435,19 +348,19 @@ function clearMouseDrag() {
 var imageZoomed_open = function(imageNumber) {
 	return function() {
 		if (!imageDragging) {
-			project_imageZoom_image.style.backgroundImage = "url(/projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageNumber+1) + "@2x.png)";
+			project_imageZoom_image.style.backgroundImage = "url(data:"+selected.project.images[imageNumber].type+";base64,"+selected.project.images[imageNumber].buffer+")";
 			project_imageZoom_cover.style.zIndex = 8;
 			TweenLite.to(project_imageZoom_cover, 0.25, {opacity: 0.6});
 			project_imageZoom_container.style.zIndex = 9;
 			TweenLite.to(project_imageZoom_container, 0.25, {transform: "scale(1)"});
 			if (imageNumber == 0) {
 				TweenLite.set(project_imageZoom_left, {zIndex: -9, opacity: 0});
-				if (imageNumber == PROJECT[projectSelected][IMAGE_COUNT]-1) {
+				if (imageNumber == selected.project.images.length-1) {
 					TweenLite.set(project_imageZoom_right, {zIndex: -9, opacity: 0});
 				} else {
 					TweenLite.set(project_imageZoom_right, {zIndex: 9, opacity: 1});
 				}
-			} else if (imageNumber == PROJECT[projectSelected][IMAGE_COUNT]-1) {
+			} else if (imageNumber == selected.project.images.length-1) {
 				TweenLite.set(project_imageZoom_left, {zIndex: 9, opacity: 1});
 				TweenLite.set(project_imageZoom_right, {zIndex: -9, opacity: 0});
 			} else {
@@ -459,7 +372,7 @@ var imageZoomed_open = function(imageNumber) {
 	};
 };
 // Open the image zoomer overlay but override to display a video. This assumes there is only one video allowed.
-var videoZoomed_open = function() {
+var videoZoomed_open = function(link) {
 	return function() {
 		if (!imageDragging) {
 			project_imageZoom_image.style.backgroundImage = "";
@@ -471,9 +384,7 @@ var videoZoomed_open = function() {
 			TweenLite.set(project_imageZoom_right, {zIndex: -9, opacity: 0});
 			// Create the iFrame
 			var iframe = document.createElement("iframe");
-			// iframe.setAttribute('width', '500');
-			// iframe.setAttribute('height', '500');
-			iframe.setAttribute('src', "https://www.youtube.com/embed/" + PROJECT[projectSelected][VIDEO]);
+			iframe.setAttribute('src', "https://www.youtube.com/embed/" + link);
 			project_imageZoom_image.appendChild(iframe);
 		}
 		clearMouseDrag();
@@ -504,22 +415,22 @@ var imageZoomed_left = function() {
 			}
 			imageBrowseSelectionRight = false;
 			imageSelected--;
-			project_imageZoom_image.style.backgroundImage = "url(/projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageSelected+1) + "@2x.png)";
+			project_imageZoom_image.style.backgroundImage = "url(data:"+selected.project.images[imageSelected].type+";base64,"+selected.project.images[imageSelected].buffer+")";
 		}
 	};
 };
 // Display the image indexed at the next number with the image zoomer
 var imageZoomed_right = function() {
 	return function() {
-		if (imageSelected < PROJECT[projectSelected][IMAGE_COUNT]-1) {
-			if (PROJECT[projectSelected][IMAGE_COUNT]-2 == imageSelected) {
+		if (imageSelected < selected.project.images.length-1) {
+			if (selected.project.images.length-2 == imageSelected) {
 				TweenLite.set(project_imageZoom_right, {zIndex: -9, opacity: 0});
 			} else {
 				TweenLite.set(project_imageZoom_left, {zIndex: 9, opacity: 1});
 			}
 			imageBrowseSelectionRight = true;
 			imageSelected++;
-			project_imageZoom_image.style.backgroundImage = "url(/projects/" + PROJECT[projectSelected][FILE_NAME] + "/p" + (imageSelected+1) + "@2x.png)";
+			project_imageZoom_image.style.backgroundImage = "url(data:"+selected.project.images[imageSelected].type+";base64,"+selected.project.images[imageSelected].buffer+")";
 		}
 	};
 };
@@ -534,3 +445,28 @@ project_imageZoom_image.onclick = function() {
 // Scroll through images using left and right buttons
 project_imageZoom_left.onclick = imageZoomed_left();
 project_imageZoom_right.onclick = imageZoomed_right();
+
+
+// ============================================================================================= Init =========
+
+(function init() {
+	// Projects container height has to be manually set due to position and display limitations
+	var containerHeight = document.getElementById('scene-projects').offsetHeight - (projects_search.offsetTop + projects_search.offsetHeight);
+	// TweenLite.set(projects_containerList, {height: containerHeight});
+	projects_containerList.style.height = containerHeight + "px";
+
+	populateProjectItems();
+
+	// Button for closing the currently opened project
+	projects_header_title.onclick = selectProject();
+	projects_header_title.onmouseenter = function() {
+		if (selected.index != -1) {
+			TweenLite.to(projects_header_title, 0.3, {opacity: 1});
+		}
+	};
+	projects_header_title.onmouseleave = function() {
+		if (selected.index != -1) {
+			TweenLite.to(projects_header_title, 0.3, {opacity: 0.25});
+		}
+	};
+})();

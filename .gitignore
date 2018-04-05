@@ -1,4 +1,11 @@
-
 Harxer Site Map.txt
-
 Backlog.rtf
+
+# Ignore everything in projects folder since
+# project directories are automatically generated...
+
+projects/*
+
+# But inclide index.html changes
+
+!projects/index.html

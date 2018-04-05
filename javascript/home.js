@@ -153,9 +153,7 @@ document.getElementById('scene-home-info').onmouseleave = function() {
 
 // Spacebar acts like pressing 'Toggle Canvas Drawing' button
 document.onkeypress = function(e) {
-	console.log(e);
 	e = e || window.event;
-	console.log("    or " + e);
 	if (e.keyCode  == 32 || e.charCode == 32) { // charCode is for firefox
 		toggleCanvasDrawing();
 	}
@@ -192,7 +190,6 @@ window.requestAnimFrame =
 	};
 
 function update(delta) {
-	console.log("Update, bebe");
 	if (canvasFlush) {
 		canvasMasterContext.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
 	}
@@ -256,6 +253,7 @@ function update(delta) {
 	};
 
 	mouseTracker.onmouseleave = function (e) {
+		canvasDrawing = false;
 		mouse.x = 0;
 		mouse.y = 0;
 	};
