@@ -35,9 +35,12 @@ function quickOpenScene() {
 
 	if (open.substr(0,open.indexOf("=")) == "project") {
 		mouseDown_headerButton(PROJECTS_SCENE, false)();
-		initProjectOpen = {id: open.substr(open.indexOf("=")+1), historied: false};
+		if (projectsLoaded) {
+			selectProject(open.substr(open.indexOf("=")+1), undefined, false)();
+		} else {
+			initProjectOpen = {id: open.substr(open.indexOf("=")+1), historied: false};
+		}
 		console.log("Directed to id: " + open.substr(open.indexOf("=")+1));
-		// selectProject(open.substr(open.indexOf("=")+1), undefined, false)();
 	}
 
 }
@@ -58,9 +61,13 @@ window.onpopstate = function(event) {
 		if (window.location.pathname == "/" + scene) {
 			// Simulate the clicking of the appropriate header button
 			mouseDown_headerButton(sceneIndex, false)();
-			if (sceneIndex == PROJECTS_SCENE)
-				initProjectOpen = {id: undefined, historied: null};
-			// selectProject(-1, undefined, null)();
+			if (sceneIndex == PROJECTS_SCENE) {
+				if (projectsLoaded) {
+					selectProject(undefined, undefined, null)();
+				} else {
+					initProjectOpen = {id: undefined, historied: null};
+				}
+			}
 			console.log("Popstate to scene: " + scene);
 			return;
 		}
@@ -70,10 +77,13 @@ window.onpopstate = function(event) {
 	// Check if navigating to a specific project
 	var projId = window.location.pathname.substr(10); // Assuming '/projects/'
 	if (window.location.pathname.substr(0, 10) == "/projects/") {
-		console.log("Popstate to id: " + projId);
 		mouseDown_headerButton(PROJECTS_SCENE, null)();
-		// selectProject(projId, undefined, false)();
-		initProjectOpen = {id: projId, historied: false};
+		if (projectsLoaded) {
+			selectProject(projId, undefined, false)();
+		} else {
+			initProjectOpen = {id: projId, historied: false};
+		}
+		console.log("Popstate to id: " + projId);
 		return;
 	}
 };
