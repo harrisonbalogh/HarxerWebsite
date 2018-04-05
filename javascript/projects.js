@@ -287,6 +287,7 @@ function populateProjectItems() {
 					 projects_list.appendChild(parseProjectItem(projects[p]));
 				 }
 				 projectsLoaded = true;
+				 projects_containerList.style.backgroundImage = "";
 				 if (initProjectOpen !== undefined) {
 					 selectProject(initProjectOpen.id, undefined, initProjectOpen.historied);
 				 }

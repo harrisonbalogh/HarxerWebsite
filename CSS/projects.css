@@ -105,6 +105,7 @@
 /* - - - - - - - - - Projects List  - - - - - - - - */
 
 .projects-container-list {
+	background: url("/images/loader_new@2x.gif") no-repeat center/135px 135px;
 	display: block;
 	margin: 0;
 	overflow-y: auto;

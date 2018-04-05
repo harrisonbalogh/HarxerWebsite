@@ -40,7 +40,6 @@ function quickOpenScene() {
 		} else {
 			initProjectOpen = {id: open.substr(open.indexOf("=")+1), historied: false};
 		}
-		console.log("Directed to id: " + open.substr(open.indexOf("=")+1));
 	}
 
 }
@@ -68,7 +67,6 @@ window.onpopstate = function(event) {
 					initProjectOpen = {id: undefined, historied: null};
 				}
 			}
-			console.log("Popstate to scene: " + scene);
 			return;
 		}
 		sceneIndex++;
@@ -83,7 +81,6 @@ window.onpopstate = function(event) {
 		} else {
 			initProjectOpen = {id: projId, historied: false};
 		}
-		console.log("Popstate to id: " + projId);
 		return;
 	}
 };
