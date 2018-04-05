@@ -159,6 +159,7 @@ function populateProjectView(project, historied) {
 // Updates information fields and performs various animations to expand details about the selected project.
 var selectProject = function(id, index, historied = true) {
 	return function() {
+		console.log("Select project is called. id: " + id);
 		// If id is undefined, it indicates to close project view
 		if (id == undefined) {
 			// Reset text
