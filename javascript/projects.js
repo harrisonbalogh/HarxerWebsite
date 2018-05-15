@@ -1,4 +1,5 @@
-var domain =  "https://www.harxer.com"; //  "http://localhost"; //
+var domain =  "https://www.harxer.com";
+// var domain =  "http://localhost";
 
 // Populates projects "scene"
 // ========================================================================================================== Variables ====
