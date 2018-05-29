@@ -59,8 +59,15 @@ var initProjectOpen = undefined; // {id, historied}
 
 function projectsRefit() {
 	var containerHeight = document.getElementById('scene-projects').offsetHeight - (projects_search.offsetTop + projects_search.offsetHeight);
-	// TweenLite.set(projects_containerList, {height: containerHeight});
 	projects_containerList.style.height = containerHeight + "px";
+
+	// Adjust size of container if it is open
+	if (selected.project !== undefined) {
+		var hContainer = projects_containerList.offsetHeight - 190;
+		projects_containerExpanded.style.height = Math.max(hContainer, 300);
+		var hDescrip = Math.max(hContainer, 300) - (projects_expanded_description_container.offsetTop - projects_containerExpanded.offsetTop);
+		projects_expanded_description_container.style.height = hDescrip;
+	}
 }
 
 // ============================================================================================== Init project items =========
@@ -68,23 +75,12 @@ function projectsRefit() {
 function populateProjectView(project, historied) {
 	// Check if selecting the project that is already selected.
 	if (selected.project != project) {
-		// If there is already a selected project, reset its icon
-		if (selected.index != -1) {
-			TweenLite.to(projects_iconCircle[selected.index], 0.5, {opacity: 1});
-			projects_icon_OuterCircle[selected.index].style.backgroundImage = "url(/images/icon_outerCircle@2x.png)";
-			TweenLite.to(projects_list.getElementsByTagName("li")[selected.index], 0.5, {opacity: 1, backgroundColor: "tranparent", color: __color_background});
-		}
-		// Update visuals to the list of projects by icon
-		TweenLite.to(projects_list, 0.5, {height: 190, textAlign: "left", width: projects_list.getElementsByTagName("li").length * 165});
-		TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {cursor: "pointer", width: 155, margin: "8px 4px"});
-		TweenLite.to(projects_iconCircle, 0.5, {height: 70, width: 70});
-		TweenLite.to(projects_icon, 0.5, {height: 78, width: 78});
+		projects_expanded_title.innerHTML = project.title;
 		// Update the newly selected project icon
 		TweenLite.to(projects_iconCircle[project.index], 0.5, {opacity: 0});
 		projects_icon_OuterCircle[project.index].style.backgroundImage = "url(/images/icon_outerCircle_selected@2x.png)";
 		TweenLite.to(projects_list.getElementsByTagName("li")[project.index], 0.5, {opacity: 0.70, cursor: "default"});
 		TweenLite.set(projects_icon[project.index], {scale: 0.9, ease: Back.easeInOut});
-		projects_expanded_title.innerHTML = project.title;
 		// Don't display a dash "-" if the architectures field is empty
 		if (project.architecture == "_") {
 			projects_expanded_details.innerHTML = project.platform;
@@ -132,11 +128,14 @@ function populateProjectView(project, historied) {
 			// Add li
 			projects_expanded_imageList.appendChild(li);
 		}
-		// Open up the container for viewing a project
-		var hContainer = projects_containerList.offsetHeight - 190;
-		TweenLite.to(projects_containerExpanded, 0.5, {height: Math.max(hContainer, 300)});
-		var hDescrip = Math.max(hContainer, 300) - (projects_expanded_description_container.offsetTop - projects_containerExpanded.offsetTop);
-		TweenLite.to(projects_expanded_description_container, 0.5, {height: hDescrip});
+
+		/* Container is now opened before project is downloaded */
+
+		// // Open up the container for viewing a project
+		// var hContainer = projects_containerList.offsetHeight - 190;
+		// TweenLite.to(projects_containerExpanded, 0.5, {height: Math.max(hContainer, 300)});
+		// var hDescrip = Math.max(hContainer, 300) - (projects_expanded_description_container.offsetTop - projects_containerExpanded.offsetTop);
+		// TweenLite.to(projects_expanded_description_container, 0.5, {height: hDescrip});
 
 		TweenLite.to(projects_containerList, 0.3, {scrollTo: 0});
 		projects_expanded_description.innerHTML = project.description;
@@ -191,6 +190,33 @@ var selectProject = function(id, index, historied = true) {
 			}
 			return;
 		}
+
+		// Reset text inside the project view container
+		projects_expanded_title.innerHTML = "Loading";
+		projects_expanded_details.innerHTML = "One moment...";
+		projects_exapnded_description_gitLink.innerHTML = "";
+		projects_expanded_imageList.innerHTML = "";
+		projects_expanded_description.innerHTML = "";
+
+		// Expand the container to show initial activity
+		var hContainer = projects_containerList.offsetHeight - 190;
+		TweenLite.to(projects_containerExpanded, 0.5, {height: Math.max(hContainer, 300)});
+		var hDescrip = Math.max(hContainer, 300) - (projects_expanded_description_container.offsetTop - projects_containerExpanded.offsetTop);
+		TweenLite.to(projects_expanded_description_container, 0.5, {height: hDescrip});
+
+		// Update visuals to the list of projects by icon
+		TweenLite.to(projects_list, 0.5, {height: 190, textAlign: "left", width: projects_list.getElementsByTagName("li").length * 165});
+		TweenLite.to(projects_list.getElementsByTagName("li"), 0.5, {cursor: "pointer", width: 155, margin: "8px 4px"});
+		TweenLite.to(projects_iconCircle, 0.5, {height: 70, width: 70});
+		TweenLite.to(projects_icon, 0.5, {height: 78, width: 78});
+
+		// If there is already a selected project, reset its icon
+		if (selected.index != -1) {
+			TweenLite.to(projects_iconCircle[selected.index], 0.5, {opacity: 1});
+			projects_icon_OuterCircle[selected.index].style.backgroundImage = "url(/images/icon_outerCircle@2x.png)";
+			TweenLite.to(projects_list.getElementsByTagName("li")[selected.index], 0.5, {opacity: 1, backgroundColor: "tranparent", color: __color_background});
+		}
+
 		// Retrieve project
 		var httpRequest = new XMLHttpRequest();
 		httpRequest.onreadystatechange = function() {
