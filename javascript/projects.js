@@ -118,6 +118,7 @@ function populateProjectView(project, historied) {
 			projects_exapnded_description_gitLink.innerHTML = ""
 		}
 
+		projects_expanded_container_image.style.backgroundImage = "url()";
 		// Set images for each li and add to ul
 		for (p = 0; p < project.images.length; p++) {
 			// Create li
@@ -139,6 +140,7 @@ function populateProjectView(project, historied) {
 
 		TweenLite.to(projects_containerList, 0.3, {scrollTo: 0});
 		projects_expanded_description.innerHTML = project.description;
+		projects_expanded_description_container.style.backgroundImage = "url()";
 		// Update reference to which project is now selected
 		selected.project = project;
 		selected.index = project.index;
@@ -197,6 +199,8 @@ var selectProject = function(id, index, historied = true) {
 		projects_exapnded_description_gitLink.innerHTML = "";
 		projects_expanded_imageList.innerHTML = "";
 		projects_expanded_description.innerHTML = "";
+		projects_expanded_description_container.style.backgroundImage = "url(/images/loader_beat_background@2x.gif)";//"url()";
+		projects_expanded_container_image.style.backgroundImage = "url(/images/loader_beat_dark@2x.gif)";//"url()";
 
 		// Expand the container to show initial activity
 		var hContainer = projects_containerList.offsetHeight - 190;

@@ -250,6 +250,7 @@
 }
 
 .projects-expanded-imageContainer {
+	background: url("/images/loader_beat_dark@2x.gif") no-repeat center/39px 39px;
 	background-color: rgb(37,37,37);
 	border-top: 2px solid rgb(35,35,35);
 	border-bottom: 2px solid rgb(35,35,35);
@@ -297,6 +298,7 @@
 }
 
 .projects-expanded-description-container {
+	background: url("/images/loader_beat_background@2x.gif") no-repeat center/39px 39px;
 	display: block;
 	margin: 5px auto 0 auto;
 	max-width: 800px;
