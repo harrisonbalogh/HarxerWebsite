@@ -52,7 +52,7 @@ var productZoom = function(url) {
 			};
 			child.onmouseenter = enterImage();
 			child.onmouseleave = leaveImage();
-			child.onmouseup = productZoom("url(/images/product_"+productNames[i].innerHTML+"_p" + (c+1) + "@2x.png)");
+			child.onmouseup = productZoom("url(/images/product_"+productNames[i].innerHTML.toLowerCase()+"_p" + (c+1) + "@2x.png)");
 			project_imageZoom_right.style.opacity = 0;
 			project_imageZoom_left.style.opacity = 0;
 		}
