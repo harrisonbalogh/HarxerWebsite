@@ -1,84 +1,116 @@
 @charset "UTF-8";
 /* CSS Document */
 
-.products-stickyHeader {
-	background-color: var(--color-foreground);
-	border-bottom: 1px solid var(--color-background);
-	display: block;
-	opacity: 0;
-	position: fixed;
-	width: 100%;
-	z-index: 3;
-}
-.product-stickyHeaderName {
-	font-size: 80px;
-	font-weight: bolder;
-	margin: 0;
-	padding: 0;
-	transform: translateY(-8px);
-	width: 100%;
-}
-
 .products-scroller {
 	overflow-x: hidden;
 	overflow-y: scroll;
 	height: 100%;
-}
-.product-icon {
-	background: url(/images/product_icon@2x.png) no-repeat center/contain;
-	display: inline-block;
-	height: 221px;
-	margin: 80px 0 16px 0;
-	padding: 0;
+	margin: 0 auto;
+	padding: 60px 0 0 0;
 	width: 100%;
 }
 
-.product-author {
-	font-size: 18px;
+/* ======== Header ======== */
+.products-stickyHeader {
+	background-color: var(--color-foreground);
+	border-bottom: 1px solid var(--color-background);
+	display: block;
+	height: 30px;
+	margin: 0;
+	overflow-y: hidden;
+	padding: 0 0 8px 0;
+	text-align: center;
+	width: 100%;
+}
+.products-stickyHeader ul {
+	color: var(--color-dominant);
+	cursor: default;
+	font-size: 16px;
 	font-weight: bolder;
+	list-style: none;
+	margin: 10px;
+	padding: 0;
+	width: 100%;
+}
+.products-stickyHeader ul li {
+	color: var(--color-background);
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+.products-stickyHeader ul li:hover {
+	/* color: var(--color-dominant);
+	cursor: default; */
+}
+
+/* ======== Product Item ======== */
+
+.product-container {
+	display: table;
+	height: 424px;
 	margin: 0 auto;
 	padding: 0;
-	text-align: left;
-	transform: translateY(12px);
-	width: 100%;
-	max-width: 322px;
+	width: 96%;
+}
+.product-container li {
+	display: table-cell;
+	vertical-align: middle;
+}
+.product-copy-container {
+	padding: 0 0 80px 0;
 }
 
+.product-icon {
+	background-size: cover;
+	background-position: center;
+	display: inline-block;
+	float: left;
+	height: 92px;
+	margin: 0 10px;
+	padding: 0 0 0 0;
+	width: 92px;
+}
 .product-name {
+	display: inline-block;
 	font-size: 80px;
 	font-weight: bolder;
 	margin: 0;
 	padding: 0;
-	width: 100%;
 }
-
-.product-platform {
-	font-size: 18px;
-	margin: 0 auto 20px auto;
-	padding: 0;
-	text-align: right;
-	width: 100%;
-	max-width: 322px;
-	transform: translateY(-12px);
-}
-
 .product-description {
-	font-size: 16px;
-	font-weight: lighter;
-	line-height: 140%;
-	margin: 10px auto 30px auto;
-	max-width: 800px;
+	font-size: 18px;
+	margin: 20px 24px 0 0;
+	padding: 0 0 0 12px;
 	text-align: justify;
+	width: 100% - 24px;
+}
+.product-description-readMore {
+	color: var(--color-dominant);
+	font-size: 16px;
+	font-weight: bold;
+	margin: 20px auto 0 auto;
+	padding: 0;
+	text-align: center;
+	width: 100% - 24px;
+}
+
+.product-image-frame {
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 	width: 100%;
 }
 
 .product-imageContainer {
 	background-color: var(--color-background);
 	display: block;
-	height: 320px;
+	height: 0px; /*320px*/
 	overflow-x: auto;
 	overflow-y: hidden;
-	margin: 20px 0 40px 0;
+	margin: 20px 0 160px 0;
 	text-align: left;
 	width: 100%;
 }
@@ -89,7 +121,6 @@
 	margin: 0;
 	padding: 0;
 	height: 100%;
-	width: 200px;
 }
 
 .product-imageContainer ul li {
@@ -99,7 +130,8 @@
 	background-size: 90%;
 	display: inline-block;
 	height: 100%;
-	margin: 0 20px;
+	margin: 0;
+	padding: 0 20px;
 	transform: scale(1);
 	width: 560px;
 }
@@ -107,29 +139,9 @@
 	cursor: pointer;
 }
 
-.product-documentation-header {
-	font-size: 22px;
-	font-weight: bolder;
-	margin: 20px auto 40px auto;
-}
-
-.product-documentation {
-	background: url(/images/product_documentation@2x.png) no-repeat top center/contain;
-	background-color: white;
-	border: 1px solid var(--color-background);
-	border-radius: 12px;
-	display: block;
-	height: 400px;
-	margin: 20px auto 80px auto;
-	max-width: 1000px;
-	width: 100%;
-}
-
-
-
 /* - - - - - - - - Base - - - - - - - - */
 
 .scene-products {
 	color: var(--color-background);
-	text-align: center;
+	text-align: left;
 }

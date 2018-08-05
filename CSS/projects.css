@@ -111,6 +111,9 @@
 	overflow-y: auto;
 	width: 100%;
 }
+.projects-container-list-error {
+	padding-top: 100px;
+}
 
 .projects-list-container {
 	display: inline-block;

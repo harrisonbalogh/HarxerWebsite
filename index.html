@@ -66,7 +66,7 @@
           <div class="about--profile-cover-shadow"></div>
           <div class="about--profile-picture" id="about--profile-picture"></div>
           <div class="about--container-content" id="about--container-content">
-            <!-- <div class="about--profile-picture-aligner"></div> -->
+
             <ul class="about--profile-links" id="about--profile-links">
               <li class="github"><a href="https://github.com/harrisonbalogh" target="_blank"><div></div></a></li>
               <li class="facebook"><a href="https://www.facebook.com/harrison.balogh" target="_blank"><div></div></a></li>
@@ -278,45 +278,85 @@
       <li class="scene-products content--scene" id="scene-products">
         <div class="scene-divider" id="scene-divider-products"></div>
 
-        <div class="products-stickyHeader" id="products-stickyHeader">
-          <h1 class="product-stickyHeaderName" id="products-stickyHeaderName">HXNotes</h1>
+        <div class="products-stickyHeader">
+          <ul>
+            <li>HXNotes</li> •
+            <li>HXDesknotes</li> •
+            <li>HXTheatre</li>
+          </ul>
         </div>
 
         <div class="products-scroller" id="products-scroller">
 
-          <div class="product-icon"></div>
-          <p class="product-author">Harxer</p>
-          <h1 class="product-name" id="product-name">HXNotes</h1>
-          <p class="product-platform">Mac OS X</p>
-          <p class="product-description">&nbsp &nbsp &nbsp &nbsp HXNotes is essentially
-            a college assistant. It rolls the functionality of a calendar, scheduler,
-            agenda, and note taker into one. Upon filling in a semester's schedule, the
-            app will automatically populate its notebook as the semester goes along.
-            It can remind you of work as well as exams - with optional alerts. Knowing
-            your schedule allows you to select lectures as due dates rather than ambigous
-            calendar dates. It will also note when the application was not opened during
-            a lecture period and use this to keep track of lectures that were note attended.
-            This is something I want to take beyond just being a project and eventually publish
-            it to the Mac App Store. I currently use this app and will distribute it to others
-            for testing soon. This is still very much under development.
-          </p>
+          <!-- HXNotes -->
+          <ul class="product-container" id="product-container">
+            <li class="product-copy-container" style="width: 480px;">
+              <div class="product-icon" style="background-image: url(/images/product_icon_hxnotes@2x.png);"></div>
+              <h1 class="product-name">HXNotes</h1>
+              <p class="product-description"><b>HXNotes</b> rolls the functionality of a calendar, scheduler,
+                agenda, and note taker into one. After filling in a semester's schedule, the
+                app will automatically populate its notebook as the semester goes along.
+              </p>
+              <p class="product-description-readMore">Expand Images</p>
+            </li>
+            <li class="product-image">
+              <div class="product-image-frame" style="background-image: url(./images/product_image_hxnotes@2x.png);"></div>
+            </li>
+          </ul>
           <div class="product-imageContainer">
-            <ul id="product-imageList">
-                <li style="background-image: url(./images/product_p1@2x.png);"></li>
-                <li style="background-image: url(./images/product_p2@2x.png);"></li>
-                <li style="background-image: url(./images/product_p3@2x.png);"></li>
-                <li style="background-image: url(./images/product_p4@2x.png);"></li>
+            <ul class="product-imageList">
+                <li style="background-image: url(/images/product_hxnotes_p1@2x.png);"></li>
+                <li style="background-image: url(/images/product_hxnotes_p2@2x.png);"></li>
+                <li style="background-image: url(/images/product_hxnotes_p3@2x.png);"></li>
+                <li style="background-image: url(/images/product_hxnotes_p4@2x.png);"></li>
             </ul>
           </div>
 
-          <p class="product-documentation-header"> Documentation<br><i>Work In Progress</i> </p>
-          <div class="product-documentation"></div>
+          <!-- HXDesknotes -->
+          <ul class="product-container">
+            <li class="product-image">
+              <div class="product-image-frame" style="background-image: url(./images/product_image_hxdesknotes@2x.png);"></div>
+            </li>
+            <li class="product-copy-container" style="width: 660px;">
+              <div class="product-icon" style="background-image: url(/images/product_icon_hxdesknotes@2x.png);"></div>
+              <h1 class="product-name">HXDesknotes</h1>
+              <p class="product-description"><b>HXDesknotes</b> pins editable text space to the Mac desktop. It's
+              style matches that of the dock and other desktop interface features and has a minimal application
+              footprint. This software makes taking a quick note easy and intuitive.
+              </p>
+              <p class="product-description-readMore">Expand Images</p>
+            </li>
+          </ul>
+          <div class="product-imageContainer">
+            <ul class="product-imageList">
+            </ul>
+          </div>
+
+          <!-- HXTheatre -->
+          <ul class="product-container">
+            <li class="product-copy-container" style="width: 550px;">
+              <div class="product-icon" style="background-image: url(/images/product_icon_hxtheatre@2x.png);"></div>
+              <h1 class="product-name">HXTheatre</h1>
+              <p class="product-description"><b>HXTheatre</b> is a video media player. The software uses features like
+              resuming from pause point when application is quit, autoplaying next sequential media, and skipping repeated
+              intros for media of the same title. This software makes viewing chronological video files more in line with
+              modern video players.
+              </p>
+              <p class="product-description-readMore">Expand Images</p>
+            </li>
+            <li class="product-image">
+              <div class="product-image-frame" style="background-image: url(./images/product_image_hxtheatre@2x.png);"></div>
+            </li>
+          </ul>
+          <div class="product-imageContainer">
+            <ul class="product-imageList">
+            </ul>
+          </div>
 
         </div>
-
-      </li>
-    </ul>
-  </div>
+      </li> <!-- Close Products List Item -->
+    </ul> <!-- Close Content Scenes List-->
+  </div> <!-- Close Content (versus Header and Footer) Div -->
 
   <!-- ==================== FOOTER ==================== -->
 

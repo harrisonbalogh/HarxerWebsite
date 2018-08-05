@@ -242,7 +242,7 @@ var selectProject = function(id, index, historied = true) {
 					 proj.index = index;
 					 populateProjectView(proj, historied);
 				 } else {
-					 alert("Network hiccup! Problems getting project. Please try again later.");
+					 alert("Network hiccup! Could not retrieve project. Please try again later.");
 					 // Should try again after a time...
 				 }
 			}
@@ -318,14 +318,14 @@ function populateProjectItems() {
 					 projects_list.appendChild(parseProjectItem(projects[p]));
 				 }
 				 projectsLoaded = true;
-				 projects_containerList.style.backgroundImage = "url()";
 				 if (initProjectOpen !== undefined) {
 					 selectProject(initProjectOpen.id, undefined, initProjectOpen.historied)();
 				 }
 			 } else {
-				 alert("Network hiccup! There was a problem retrieving project data. Please check the projects tab later.");
+				 projects_containerList.innerHTML = "<br><p><b>Network hiccup!</b><br>There was a problem retrieving project data. <br>Please try again or check the projects tab later.</p>"
 				 // Should try again after a time...
 			 }
+			 projects_containerList.style.backgroundImage = "url()";
 		}
 	};
 
