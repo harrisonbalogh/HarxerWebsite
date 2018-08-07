@@ -48,7 +48,7 @@
 	display: inline-block;
 	height: 20px;
 	margin: 0;
-	opacity: 0.6;
+	opacity: 0.1;
 	padding: 0;
 	transform: translateY(-100%);
 	width: 100%;
@@ -57,6 +57,7 @@
 
 .about--profile-cover {
 	background: url("/images/profile_cover2@2x.jpg") repeat top center/600px;
+	background-attachment: fixed;
 	display: inline-block;
 	height: 1000px;
 	/* min-width: 1418px; */

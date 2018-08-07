@@ -11,19 +11,32 @@ var about_profile_subtext = document.getElementById('about--profile-subtext');
 
 // ==================================== Init scrollable content region =========
 
+var hiddenProfile = false;
+
 (function init() {
 
   var scrollContainer = document.getElementById("about--scrollable");
   var scene_about = document.getElementById("scene-about");
   var about_header = document.getElementById("about--header");
 
-  var parallax = function() {
+
+  var profilePictureExit = function() {
     return function() {
-      var offset = Math.min(-scrollContainer.scrollTop * 0.4, 0);
-      about_profile_cover.style.transform = "translateY(" + offset + "px)";
+
+      if (scrollContainer.scrollTop > 156) {
+        if (!hiddenProfile) {
+          hiddenProfile = true;
+          TweenLite.to(about_profile_picture, 0.2, {transform: "translateY("+(-92 - about_profile_picture.offsetHeight)+"px)"});
+        }
+        // about_profile_picture.style.transform = ;
+      } else if (hiddenProfile) {
+        TweenLite.to(about_profile_picture, 0.2, {transform: "translateY(-92px)"});
+        hiddenProfile = false;
+      }
+
     };
   };
-  scrollContainer.onscroll = parallax();
+  scrollContainer.onscroll = profilePictureExit();
 
 })();
 
