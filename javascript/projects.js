@@ -313,12 +313,12 @@ function populateProjectItems() {
 				 var projects = JSON.parse(httpRequest.responseText)
 				 // Populate project list
 				 for (var p = 0; p < projects.length; p++) {
-					 if (projects[p].architecture !== undefined && projects[p].architecture != "") {
+					 if (projects[p].architecture !== undefined && projects[p].architecture != "" && projects[p].architecture != "_") {
 
 						 // Add new types
 						 var exists = false;
-						 for (var project_type in project_types) {
-							 if (project_type.type == projects[p].architecture) {
+						 for (var i = 0; i < project_types.length; i++) {
+							 if (project_types[i].type == projects[p].architecture) {
 								 exists = true;
 								 break;
 							 }
@@ -330,7 +330,16 @@ function populateProjectItems() {
 							 });
 						 } else {
 							 // Store type
-							 project_types[project_types.indexOf(projects[p].architecture)].indices.push(p);
+							 var index;
+							 for (var i = 0; i < project_types.length; i++) {
+								 if (project_types[i].type == projects[p].architecture) {
+									 index = i;
+									 break;
+								 }
+							 }
+							 if (index !== undefined) {
+								 project_types[index].indices.push(p);
+							 }
 						 }
 					 }
 					 projects_list.appendChild(parseProjectItem(projects[p]));
