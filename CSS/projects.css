@@ -149,13 +149,17 @@
 	width: 140px;
 }
 .projects-list-title {
+	background-color: rgba(44,54,64, 0.75);
 	color: var(--color-foreground);
-	display: block;
-	line-height: 130px;
-	margin: 0;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: bold;
+	/* height: 30px; */
+	margin: 56px 0 0 0;
 	padding: 6px 0;
 	text-align: center;
 	text-shadow: 0 0 6px black;
+	width: 100%;
 }
 
 .projects-list-icon-innerCircle {
@@ -176,16 +180,6 @@
 	margin: 0;
 	opacity: 0;
 	text-shadow: 0 0 3px black;
-}
-
-.projects-list p {
-	margin: 0;
-}
-
-.projects-list-title {
-	font-size: 16px;
-	font-weight: bold;
-	margin: 3px 0;
 }
 
 .projects-list-architecture {
