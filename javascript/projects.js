@@ -132,8 +132,6 @@ function animateProjectSelection(index, selectionAnimationFinished) {
 	projects_expanded_icon.style.background = "url(/images/loader_beat_background@2x.gif) no-repeat center/39px 39px";
 	projects_expanded_icon.style.backgroundColor = __color_background;
 	projects_expanded_icon_title.innerHTML = projects_icon[index].children[0].innerHTML;
-	projects_icon[index].style.background = "url(/images/loader_beat_background@2x.gif) no-repeat center/39px 39px";
-	projects_icon[index].style.background = __color_background;
 
 	var childs = Array.prototype.slice.call(projects_list.children, 0);
 	childs.splice(index, 1);
