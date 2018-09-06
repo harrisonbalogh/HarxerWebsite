@@ -404,7 +404,7 @@ var highlightProjectTypes = (type) => {
 				TweenLite.to(projects_icon[i], 1, {opacity: 1});
 			} else {
 				// not highlighted
-				TweenLite.to(projects_icon[i], 1, {opacity: 0.5});
+				TweenLite.to(projects_icon[i], 1, {opacity: 0.38});
 			}
 		}
 		// Update header with selection
