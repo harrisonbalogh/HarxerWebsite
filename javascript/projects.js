@@ -167,7 +167,7 @@ function populateExpandedView(project, finishedPopulateCallback) {
 	if (project.github_link != "") {
 		projects_exapnded_description_gitLink.innerHTML = "<b>GitHub Link:</b> <a href=\""+project.github_link+"\" target=\"_blank\"> "+project.github_link+" </a>"
 	} else {
-		projects_exapnded_description_gitLink.innerHTML = "<i>No Code Link</i>"
+		projects_exapnded_description_gitLink.innerHTML = ""
 	}
 
 	// Flush out previous images in list
