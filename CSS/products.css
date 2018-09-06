@@ -1,28 +1,24 @@
 @charset "UTF-8";
 /* CSS Document */
 
-.products-scroller {
-	overflow-x: hidden;
-	overflow-y: scroll;
-	height: 100%;
-	margin: 0 auto;
-	padding: 60px 0 0 0;
-	width: 100%;
+.scene-products {
+	color: var(--color-background);
+	text-align: left;
 }
 
 /* ======== Header ======== */
-.products-stickyHeader {
+/* .products--header {
+	border-bottom: 1px solid rgba(44,54,64,0.5);
 	background-color: var(--color-foreground);
-	border-bottom: 1px solid var(--color-background);
 	display: block;
 	height: 30px;
-	margin: 0;
+	margin: 0 0 120px 0;
 	overflow-y: hidden;
 	padding: 0 0 8px 0;
 	text-align: center;
 	width: 100%;
-}
-.products-stickyHeader ul {
+} */
+.products--header ul, .products--header-content {
 	color: var(--color-dominant);
 	cursor: default;
 	font-size: 16px;
@@ -31,16 +27,13 @@
 	margin: 10px;
 	padding: 0;
 	width: 100%;
+	text-align: center;
 }
-.products-stickyHeader ul li {
+.products--header ul li, .products--header-content li {
 	color: var(--color-background);
 	display: inline;
 	margin: 0;
 	padding: 0;
-}
-.products-stickyHeader ul li:hover {
-	/* color: var(--color-dominant);
-	cursor: default; */
 }
 
 /* ======== Product Item ======== */
@@ -48,7 +41,7 @@
 .product-container {
 	display: table;
 	height: 424px;
-	margin: 0 auto;
+	margin: 80px auto 0 auto;
 	padding: 0;
 	width: 96%;
 }
@@ -110,7 +103,7 @@
 	height: 0px; /*320px*/
 	overflow-x: auto;
 	overflow-y: hidden;
-	margin: 20px 0 160px 0;
+	margin: 20px 0 0 0;
 	text-align: left;
 	width: 100%;
 }
@@ -139,9 +132,10 @@
 	cursor: pointer;
 }
 
-/* - - - - - - - - Base - - - - - - - - */
-
-.scene-products {
-	color: var(--color-background);
-	text-align: left;
+.scene-divider.products p {
+	color: var(--color-foreground);
+	line-height: 180px;
+	font-size: 40px;
+	font-weight: bolder;
+	text-align: center;
 }

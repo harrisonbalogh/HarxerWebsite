@@ -17,7 +17,6 @@ var productZoom = function(url) {
 
 (function initialize() {
 
-	let productsScroller = document.getElementById('products-scroller');
 	let productImageLists = document.getElementsByClassName('product-imageList');
 
 	// Initialize expanding feature of product images containers
@@ -67,11 +66,11 @@ var productZoom = function(url) {
 					productReadMoreButtons[i].innerHTML = "Hide Images";
 
 					let scrollToVisible = function() { // Make images visible in window
-						let goalYPos = productImageContainers[i].offsetTop - productsScroller.offsetTop + 320;
-						let viewHeight = productsScroller.offsetHeight - 60 - productsScroller.offsetTop;
-						if (productsScroller.scrollTop > goalYPos || goalYPos > productsScroller.scrollTop + viewHeight) {
+						let goalYPos = productImageContainers[i].offsetTop - content.offsetTop + 320;
+						let viewHeight = content.offsetHeight - 60 - content.offsetTop;
+						if (content.scrollTop > goalYPos || goalYPos > content.scrollTop + viewHeight) {
 							let padBot = 10;
-							TweenLite.to(productsScroller, 0.3, {scrollTo: (goalYPos - viewHeight + padBot)});
+							TweenLite.to(content, 0.3, {scrollTo: (goalYPos - viewHeight + padBot)});
 						}
 					}
 					TweenLite.to(productContainers[i], 0.3, {height: "200px", onComplete: scrollToVisible});

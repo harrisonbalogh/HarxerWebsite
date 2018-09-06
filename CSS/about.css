@@ -1,43 +1,57 @@
 @charset "UTF-8";
 /* CSS Document */
 
-.about--header {
-	border-bottom: 1px solid var(--color-background);
-	display: block;
-	height: 30px;
-	margin: 0;
-	overflow-y: hidden;
-	padding: 0 0 8px 0;
+.scene-about {
+	color: var(--color-background);
 	text-align: center;
-	width: 100%;
 }
 
-.about--header p {
+/* ============== scene content ============== */
+
+.about--header p, .about--header-content {
 	display: block;
 	font-size: 22px;
 	font-weight: bolder;
 	height: 100%;
-	margin: 10px;
-	padding: 0;
+	margin: 6px;
+	text-align: center;
 }
 
-.about--scrollable {
-	display: block;
-	height: 100%;
-	margin: 0;
-	overflow-y: auto;
-	width: 100%
-}
-
-.about--container-profile {
-	background-color: var(--color-background);
+.about--profile-cover {
+	background: url("/images/profile_cover2@2x.jpg") repeat top center/600px;
+	background-attachment: fixed;
 	border-bottom: 1px solid var(--color-background);
-	height: 226px;
-	margin: 0;
+	display: inline-block;
+	height: 170px;
 	overflow: hidden;
+	padding: 100px 0 0 0;
+	width: 100%;
+}
+.about--profile-cover h1 {
+	display: inline-block;
+	font-size: 60px;
+	color: var(--color-foreground);
+	margin: 0;
 	padding: 0;
-	position: relative;
-	width: 100.01%;
+}
+.about--profile-cover p {
+	display: inline-block;
+	color: var(--color-accent);
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	width: 70px;
+}
+#about--profile-prefix {
+	padding-top: 12px;
+	text-align: right;
+	vertical-align: top;
+}
+#about--profile-suffix {
+	height: 28px;
+	vertical-align: bottom;
+	text-align: left;
 }
 
 .about--profile-cover-shadow {
@@ -47,23 +61,10 @@
 	background-size: 20px 20px;
 	display: inline-block;
 	height: 20px;
-	margin: 0;
-	opacity: 0.1;
-	padding: 0;
+	opacity: 0;
 	transform: translateY(-100%);
 	width: 100%;
 	z-index: 2;
-}
-
-.about--profile-cover {
-	background: url("/images/profile_cover2@2x.jpg") repeat top center/600px;
-	background-attachment: fixed;
-	display: inline-block;
-	height: 1000px;
-	/* min-width: 1418px; */
-	text-align: center;
-	width: 100%;
-	z-index: 0;
 }
 
 .about--profile-picture {
@@ -74,7 +75,6 @@
 	padding: 0;
 	margin: 0 0 0 6.8%;
 	transform: translate(0, -92px);
-	/*width: 150px;*/
 	width: 20%;
 	z-index: 3;
 }
@@ -157,28 +157,28 @@
 }
 
 .about--container-content h1 {
+	border-bottom: 1px solid var(--color-background);
 	font-size: 18px;
 	margin: 12px 0 6px 0;
 	padding: 4px 0 0 8px;
-	text-align: center;
+	text-align: left;
 }
 
 .about--content-list {
 	border-bottom: 1px solid transparent;
 	display: table;
   margin: 0;
-  padding: 0 0 50px 0;
-  text-align: center;
+  padding: 0 0 20px 0;
+  text-align: left;
   width: 100%;
 }
 
 .about--content-list li {
 	border: 1px solid transparent;
-	/*border-left: 1px solid var(--color-accent-backup);*/
 	border: 1px solid rgba(204,206,208, 1);
   display: inline-table;
   font-size: 14px;
-  margin: 10px;
+  margin: 2px;
   overflow: visible;
 	padding: 6px;
   text-align: left;
@@ -258,14 +258,9 @@
 	width: 100px;
 	z-index: 1;
 }
+
 .about--content-list li .projectsIcon:hover div {
 	visibility: visible;
-}
-
-.about--content-copy-category {
-	font-size: 14px;
-	margin: 0 0 0 30px;
-	text-align: left;
 }
 
 .about-padding-bottom {
@@ -274,7 +269,9 @@
 	width: 100%;
 }
 
-.scene-about {
-	color: var(--color-background);
-	text-align: center;
+.scene-divider.about p {
+	color: var(--color-foreground);
+	line-height: 180px;
+	font-size: 40px;
+	font-weight: bolder;
 }

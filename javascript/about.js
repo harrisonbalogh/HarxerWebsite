@@ -1,55 +1,13 @@
 // initializes some about scene components
 
-// =========================================================== variables =======
-
-var about_profile_picture = document.getElementById("about--profile-picture");
-var about_profile_cover = document.getElementById("about--profile-cover");
-var about_profile_links = document.getElementById('about--profile-links').getElementsByTagName('li');
-var about_scrollable = document.getElementById("about--scrollable");
-var about_header_author = document.getElementById('about-header-author');
-var about_profile_subtext = document.getElementById('about--profile-subtext');
-
-// ==================================== Init scrollable content region =========
-
-var hiddenProfile = false;
-
-(function init() {
-
-  var scrollContainer = document.getElementById("about--scrollable");
-  var scene_about = document.getElementById("scene-about");
-  var about_header = document.getElementById("about--header");
-
-
-  var profilePictureExit = function() {
-    return function() {
-
-      if (scrollContainer.scrollTop > 156) {
-        if (!hiddenProfile) {
-          hiddenProfile = true;
-          TweenLite.to(about_profile_picture, 0.2, {transform: "translateY("+(-92 - about_profile_picture.offsetHeight)+"px)"});
-        }
-        // about_profile_picture.style.transform = ;
-      } else if (hiddenProfile) {
-        TweenLite.to(about_profile_picture, 0.2, {transform: "translateY(-92px)"});
-        hiddenProfile = false;
-      }
-
-    };
-  };
-  scrollContainer.onscroll = profilePictureExit();
-
-})();
-
 // ============================================= Init Link Category Clicks =====
 
 (function initLinks() {
 
-  var scrollContainer = document.getElementById("about--scrollable");
-
   var clickLink = function(elem) {
     return function() {
       var offset = elem.offsetTop - 60;
-      TweenLite.to(scrollContainer, 0.4, {scrollTo: offset, ease: Power2.easeIn});
+      TweenLite.to(content, 0.4, {scrollTo: offset, ease: Power2.easeIn});
       TweenLite.to(elem, 0.2, {delay: 0.4, color: __color_dominant});
       TweenLite.to(elem, 3, {delay: 1.5, color: __color_background});
     };

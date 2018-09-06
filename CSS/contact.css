@@ -1,18 +1,24 @@
 @charset "UTF-8";
 /* CSS Document */
 
-.contact-scroller {
-	overflow-x: hidden;
-	overflow-y: scroll;
-	height: 100%;
+.scene-contact {
+	color: var(--color-background);
+	margin-bottom: 140px;
+	text-align: center;
 }
 
-.contact-header {
-	font-size: 20px;
+/* ====== Content ====== */
+
+.contact--header p, .contact--header-content {
+	background-color: var(--color-foreground);
+  border-bottom: 1px solid var(--color-background);
+  font-size: 18px;
 	font-style: italic;
-	font-weight: bold;
-	margin-top:  40px;
-	margin-bottom: 0;
+  font-weight: bolder;
+  height: 100%;
+  margin: 8px 0;
+  padding: 0 0 4px 0;
+  text-align: center;
 	width: 100%;
 }
 
@@ -20,7 +26,7 @@
 	background: url(/images/avatar@2x) no-repeat center/contain;
 	display: inline-block;
 	height: 277px;
-	margin: 16px 0;
+	margin: 80px 0 16px 0;
 	padding: 0;
 	width: 100%;
 }
@@ -74,10 +80,4 @@
 }
 .clyde:after {
   content: "(" attr(data-one) ") " attr(data-two) "-" attr(data-three);
-}
-
-
-.scene-contact {
-	color: var(--color-background);
-	text-align: center;
 }
