@@ -1,5 +1,7 @@
 var domain =  "https://www.harxer.com";
-// var domain =  "http://localhost";
+if (window.location.host == "localhost") {
+	domain =  "http://localhost";
+}
 
 // Populates projects "scene"
 // ========================================================================================================== Variables ====
@@ -127,8 +129,11 @@ function downloadProject(id, index) {
 	});
 }
 function animateProjectSelection(index, selectionAnimationFinished) {
-	projects_expanded_icon.style.backgroundImage = projects_icon[index].style.backgroundImage;
+	projects_expanded_icon.style.background = "url(/images/loader_beat_background@2x.gif) no-repeat center/39px 39px";
+	projects_expanded_icon.style.backgroundColor = __color_background;
 	projects_expanded_icon_title.innerHTML = projects_icon[index].children[0].innerHTML;
+	projects_icon[index].style.background = "url(/images/loader_beat_background@2x.gif) no-repeat center/39px 39px";
+	projects_icon[index].style.background = __color_background;
 
 	var childs = Array.prototype.slice.call(projects_list.children, 0);
 	childs.splice(index, 1);
@@ -164,7 +169,7 @@ function populateExpandedView(project, finishedPopulateCallback) {
 	if (project.github_link != "") {
 		projects_exapnded_description_gitLink.innerHTML = "<b>GitHub Link:</b> <a href=\""+project.github_link+"\" target=\"_blank\"> "+project.github_link+" </a>"
 	} else {
-		projects_exapnded_description_gitLink.innerHTML = ""
+		projects_exapnded_description_gitLink.innerHTML = "<i>No Code Link</i>"
 	}
 
 	// Flush out previous images in list
@@ -198,6 +203,8 @@ function populateExpandedView(project, finishedPopulateCallback) {
 }
 
 function displayExpandedView() {
+	projects_expanded_icon.style.background = "url()";
+	projects_expanded_icon.style.backgroundColor = __color_background;
 	// Show updated container
 	var tll = new TimelineLite();
 	tll.to(projects_expanded_title, 0.4, {opacity: 1});

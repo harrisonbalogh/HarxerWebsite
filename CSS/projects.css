@@ -93,6 +93,10 @@
 	right: 5px;
 	top: 25px;
 }
+.project-imageZoom-image iframe {
+	height: 100%;
+	width: 100%;
+}
 
 .project-imageZoom-navigator {
 	cursor: pointer;
@@ -154,7 +158,6 @@
 	display: inline-block;
 	font-size: 16px;
 	font-weight: bold;
-	/* height: 30px; */
 	margin: 56px 0 0 0;
 	padding: 6px 0;
 	text-align: center;
@@ -255,12 +258,14 @@
 }
 .projects-expanded-description-container div p {
 	color: var(--color-foreground);
-	display: block;
-	line-height: 130px;
-	margin: 0;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 56px 0 0 0;
 	padding: 6px 0;
 	text-align: center;
 	text-shadow: 0 0 6px black;
+	width: 100%;
 }
 .projects-expanded-description {
 	opacity: 0;
