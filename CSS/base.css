@@ -24,16 +24,17 @@ body {
   width: 100%;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   height: 0;
   width: 0;
-}
+} */
 
 
 /* - - - - - - - - - HEADER - - - - - - - - - */
 
 header {
   background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-foreground);
   height: 38px;
   margin: 0;
   overflow-x: hidden;
@@ -138,7 +139,8 @@ header {
 
 .base--header-sticky {
   background-color: var(--color-foreground);
-  border-bottom: 1px solid var(--color-background);
+  /* border-bottom: 1px solid transparent; */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
   display: block;
   height: 30px;
   opacity: 0;
@@ -194,19 +196,29 @@ header {
   background-color: var(--color-background);
 	border-bottom: 1px solid var(--color-background);
   border-top: 1px solid var(--color-background);
-	display: inline-block;
+  box-shadow: 0 -30px 30px -30px black inset, 0 30px 30px -30px black inset;
+	display: block;
 	height: 260px;
-	margin: 80px 0 0 0;
+	margin: 0;
 	overflow: hidden;
 	padding: 0;
 	width: 100%;
 }
 
+.scene-divider p {
+	color: var(--color-foreground);
+	line-height: 180px;
+	font-size: 40px;
+	font-weight: bolder;
+	text-align: center;
+}
+
 /* - - - - - - - - - FOOTER - - - - - - - - - */
 
 footer {
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.4);
   background-color: var(--color-background);
-  border-top: 1px solid var(--color-foreground);
+  border-top: 1px solid var(--color-background);
   bottom: 0;
   height: 38px;
   margin: 0;

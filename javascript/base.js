@@ -20,7 +20,6 @@ var headerButtonsClippedContainer = document.getElementById('header--buttons-cli
 
 var stickyHeader = document.getElementById('base--header-sticky');
 
-var aboutProfileCoverShadow = document.getElementById('about--profile-cover-shadow');
 
 var footerContactLink = document.getElementById('footer--label-contact');
 
@@ -36,6 +35,7 @@ let HEADER_BUTTON_INDEX = {
 }
 var scenes = document.getElementsByClassName('content--scene');
 var sceneHeaders = document.getElementsByClassName('scene-header');
+var sceneDividers = document.getElementsByClassName('scene-divider');
 let SCENE_INDEX = {
 	ABOUT: 0,
 	PROJECTS: 1,
@@ -89,8 +89,11 @@ let COVER_HEIGHT = 274;
 		headerButtonsClipped[s].onclick = clickButton(s);
 	}
 })();
-var aboutProfileCoverShadowVisible = false;
+var stickyHeaderVisible = false;
 var hiddenProfile = false;
+
+// ================================================================================================= Sticky Header =====
+
 (function initStickyHeader() {
 
 	TweenLite.to(headerHighlighter, 0.3, {left: headerButtons[HEADER_BUTTON_INDEX.HOME].offsetLeft, width: headerButtons[HEADER_BUTTON_INDEX.HOME].offsetWidth});
@@ -128,10 +131,9 @@ var hiddenProfile = false;
 
 		// Hide sticky header when at top of page
 		if (content.scrollTop <= 0) {
-			if (aboutProfileCoverShadowVisible) {
+			if (stickyHeaderVisible) {
 				stickyHeader.style.opacity = 0;
-				aboutProfileCoverShadowVisible = false;
-				aboutProfileCoverShadow.style.opacity = 0;
+				stickyHeaderVisible = false;
 				setAddressBarAndTitle(HEADER_BUTTON_INDEX.HOME);
 			}
 			return; // Prevents sticky header from updating unnecessarily
@@ -141,10 +143,9 @@ var hiddenProfile = false;
 			} else if (content.scrollTop < scenes[SCENE_INDEX.ABOUT + 1].offsetTop) {
 				setAddressBarAndTitle(HEADER_BUTTON_INDEX.ABOUT);
 			}
-			if (!aboutProfileCoverShadowVisible) {
+			if (!stickyHeaderVisible) {
 				stickyHeader.style.opacity = 1;
-				aboutProfileCoverShadowVisible = true;
-				aboutProfileCoverShadow.style.opacity = 0.4;
+				stickyHeaderVisible = true;
 			}
 		}
 
@@ -154,13 +155,17 @@ var hiddenProfile = false;
 			let h = scenes[s].offsetHeight;
 			// Push sticky header out of the way
 			if (content.scrollTop > y + h - stickyHeader.offsetHeight && content.scrollTop < y + h) {
-				// ---- In push region
+				// ---- In displacement region
 				let gap = (y + scenes[s].offsetHeight - stickyHeader.offsetHeight) - content.scrollTop;
 				stickyHeader.style.transform = "translateY("+gap+"px)";
 				updateStickyHeaderWithScene(s);
 				break;
-			} else if (content.scrollTop < y + scenes[s].offsetHeight) {
-				// ---- Not in push region
+			} else if (content.scrollTop >= y && content.scrollTop < y + sceneDividers[s].offsetHeight) {
+				// ---- In divider region
+				stickyHeader.style.transform = "translateY("+(-stickyHeader.offsetHeight)+"px)";
+				break;
+			} else if (content.scrollTop < y + h) {
+				// ---- In content region
 				updateStickyHeaderWithScene(s);
 				stickyHeader.style.transform = "translateY(0px)";
 				break;

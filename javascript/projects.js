@@ -73,6 +73,8 @@ var selectProject = function(id, index, historied = true) {
 		var project = undefined;
 		var selectionAnimationFinished = false;
 
+		// Download_project and Animate_project_selection occur at same time. Whichever
+		// function finishes second will initiate populating the expanded view.
 		downloadProject(id, index).then((response) => {
 			if (selectionAnimationFinished) {
 				populateExpandedView(response, displayExpandedView);
@@ -129,8 +131,8 @@ function downloadProject(id, index) {
 	});
 }
 function animateProjectSelection(index, selectionAnimationFinished) {
-	projects_expanded_icon.style.background = "url(/images/loader_beat_background@2x.gif) no-repeat center/39px 39px";
-	projects_expanded_icon.style.backgroundColor = __color_background;
+	// projects_expanded_icon.style.background = "url(/images/loader_beat_background@2x.gif) no-repeat center/39px 39px";
+	// projects_expanded_icon.style.backgroundColor = __color_background;
 	projects_expanded_icon_title.innerHTML = projects_icon[index].children[0].innerHTML;
 
 	var childs = Array.prototype.slice.call(projects_list.children, 0);
@@ -143,15 +145,22 @@ function animateProjectSelection(index, selectionAnimationFinished) {
 	var tll = new TimelineLite();
 	// tll.staggerTo(childs, 0.4, {opacity: 0, scale: 0}, 0.05);
 	tll.to(childs, 0.2, {opacity: 0, scale: 0});
-	tll.to(projects_list.children[index], 0.2, {x: offsetX, y: offsetY});
-	tll.to(content, 0.2, {scrollTo: scenes[SCENE_INDEX.PROJECTS].offsetTop}, '-=0.2');
-	tll.to(projects_icon[index], 0.2, {borderRadius: "50%"}, '-=0.2');
-	tll.set(projects_containerExpanded, {display: "inline"});
-	tll.set(projects_list.children[index], {opacity: 0});
-	tll.set(projects_list, {height: 0, onComplete: selectionAnimationFinished});
+	tll.to(content, 1.2, {scrollTo: scenes[SCENE_INDEX.PROJECTS].offsetTop + sceneDividers[SCENE_INDEX.PROJECTS].offsetHeight}, '-=0.2');
+	tll.to(projects_list, 1, {height: 400}, '-=1.2');
+	tll.to(projects_list.children[index].children[1], 0.6, {opacity: 0}, '-=1.0')
+	tll.to(projects_list.children[index].children[2], 0.6, {opacity: 0}, '-=1.0')
+	tll.to(projects_icon[index], 0.6, {borderRadius: "50%"}, '-=1.2');
+	tll.to(projects_list.children[index], 1, {x: offsetX, y: offsetY, onComplete: selectionAnimationFinished}, '-=1.1');
+
+	// tll.set(projects_containerExpanded, {display: "inline"});
+	// tll.set(projects_list.children[index], {opacity: 0});
+	// tll.set(projects_list, {height: 0, onComplete: selectionAnimationFinished});
 }
 
 function populateExpandedView(project, finishedPopulateCallback) {
+
+	if (project.images.length != 0)
+		projects_expanded_icon.style.backgroundImage = "url(data:"+project.images[0].type+";base64,"+project.images[0].buffer+")";
 	projects_expanded_title.innerHTML = project.title;
 
 	// Don't display a dash "-" if the architectures field is empty
@@ -201,19 +210,23 @@ function populateExpandedView(project, finishedPopulateCallback) {
 }
 
 function displayExpandedView() {
-	projects_expanded_icon.style.background = "url()";
-	projects_expanded_icon.style.backgroundColor = __color_background;
 	// Show updated container
+	projects_containerExpanded.style.display = "inline";
+
 	var tll = new TimelineLite();
-	tll.to(projects_expanded_title, 0.4, {opacity: 1});
-	tll.to(projects_expanded_details, 0.4, {opacity: 1}, '-=0.2');
-	tll.to(projects_expanded_description, 0.4, {opacity: 1}, '-=0.2');
-	tll.to(projects_exapnded_description_gitLink, 0.4, {opacity: 1}, '-=0.2');
-	tll.to(projects_expanded_container_image, 0.4, {opacity: 1}, '-=0.2');
-	tll.to(projects_expanded_closeButton, 0.4, {opacity: 1}, '-=0.2');
+	// tll.to(projects_containerExpanded, 1, {height: "auto"});
+	tll.set(projects_list, {height: 0});
+	tll.to(projects_expanded_title, 0.4, {opacity: 1}, '-=1');
+	tll.to(projects_expanded_details, 0.4, {opacity: 1}, '-=0.3');
+	tll.to(projects_expanded_description, 0.4, {opacity: 1}, '-=0.3');
+	tll.to(projects_exapnded_description_gitLink, 0.4, {opacity: 1}, '-=0.3');
+	tll.to(projects_expanded_container_image, 0.4, {opacity: 1}, '-=0.3');
+	tll.to(projects_expanded_closeButton, 0.4, {opacity: 1}, '-=0.3');
+	tll.set(projects_containerExpanded, {display: "inline"});
 }
 function resetProjectSelection() {
 	createHeaderSearchTypes();
+
 	// Hide project tiles, show project window
 	var tll = new TimelineLite();
 	tll.to(projects_expanded_closeButton, 0.3, {opacity: 0});
@@ -222,7 +235,10 @@ function resetProjectSelection() {
 	tll.to(projects_expanded_description, 0.3, {opacity: 0}, '-=0.15');
 	tll.to(projects_expanded_details, 0.3, {opacity: 0}, '-=0.15');
 	tll.to(projects_expanded_title, 0.3, {opacity: 0}, '-=0.15');
+	tll.to(content, 1, {scrollTo: scenes[SCENE_INDEX.PROJECTS].offsetTop, ease: Power1.easeInOut}, '-=1');
 	tll.set(projects_list.children[selected.index], {opacity: 1});
+	tll.to(projects_list.children[selected.index].children[1], 0.6, {opacity: 1}, '-=1.0')
+	tll.to(projects_list.children[selected.index].children[2], 0.6, {opacity: 1}, '-=.6')
 	tll.set(projects_containerExpanded, {display: "block"});
 	tll.set(projects_list, {height: "auto"});
 	tll.to(projects_list.children[selected.index], 0.5, {x: 0, y: 0});
@@ -368,7 +384,7 @@ function populateProjectItems() {
 
 function createHeaderSearchTypes() {
 	projectsHighlightedType = undefined;
-	TweenLite.to(projects_icon, 1, {opacity: 1});
+	TweenLite.to(projects_list.children, 1, {opacity: 1});
 	projects_header_list.innerHTML = "";
 	for (var i = 0; i < project_types.length; i++) {
 		if (projects_header_list.innerHTML != "") {
@@ -403,13 +419,13 @@ var highlightProjectTypes = (type) => {
 			}
 		}
 		// Update list visuals
-		for (var i = 0; i < projects_icon.length; i++) {
+		for (var i = 0; i < projects_list.children.length; i++) {
 			if (indices.includes(i)) {
 				// highlight
-				TweenLite.to(projects_icon[i], 1, {opacity: 1});
+				TweenLite.to(projects_list.children[i], 1, {opacity: 1});
 			} else {
 				// not highlighted
-				TweenLite.to(projects_icon[i], 1, {opacity: 0.38});
+				TweenLite.to(projects_list.children[i], 1, {opacity: 0.38});
 			}
 		}
 		// Update header with selection

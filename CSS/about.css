@@ -20,7 +20,8 @@
 .about--profile-cover {
 	background: url("/images/profile_cover2@2x.jpg") repeat top center/600px;
 	background-attachment: fixed;
-	border-bottom: 1px solid var(--color-background);
+	box-shadow: 0 -30px 30px -30px rgba(0, 0, 0, 0.5) inset, 0 30px 30px -30px rgba(0, 0, 0, 0.5) inset;
+	/* border-bottom: 1px solid var(--color-background); */
 	display: inline-block;
 	height: 170px;
 	overflow: hidden;
@@ -68,14 +69,17 @@
 }
 
 .about--profile-picture {
+	background-color: var(--color-background);
 	background: url("/images/profilePic_noShadow2@2x.png") no-repeat left center/contain;
+	box-shadow: 0 0 4px rgba(0,0,0,0.5);
+	border-radius: 50%;
+	height: 150px;
 	display: block;
 	float: left;
-	height: 150px;
 	padding: 0;
 	margin: 0 0 0 6.8%;
 	transform: translate(0, -92px);
-	width: 20%;
+	width: 150px;
 	z-index: 3;
 }
 
@@ -125,9 +129,11 @@
 }
 
 .about--container-content {
-	margin: 0 auto;
+	/* border: 1px solid var(--color-background); */
+	box-shadow: 0 0 4px black;
+	margin: 20px auto 0 auto;
 	max-width: 800px;
-	padding: 0;
+	padding: 1px 30px 80px 30px;
 	z-index: 2;
 }
 
@@ -269,9 +275,12 @@
 	width: 100%;
 }
 
-.scene-divider.about p {
-	color: var(--color-foreground);
-	line-height: 180px;
-	font-size: 40px;
-	font-weight: bolder;
+.scene-divider.about {
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	width: 50%;
 }

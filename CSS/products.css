@@ -131,11 +131,3 @@
 .product-imageContainer ul li:hover {
 	cursor: pointer;
 }
-
-.scene-divider.products p {
-	color: var(--color-foreground);
-	line-height: 180px;
-	font-size: 40px;
-	font-weight: bolder;
-	text-align: center;
-}
