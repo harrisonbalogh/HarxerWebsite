@@ -145,16 +145,27 @@ function animateProjectSelection(index, selectionAnimationFinished) {
 	var tll = new TimelineLite();
 	// tll.staggerTo(childs, 0.4, {opacity: 0, scale: 0}, 0.05);
 	tll.to(childs, 0.2, {opacity: 0, scale: 0});
-	tll.to(content, 1.2, {scrollTo: scenes[SCENE_INDEX.PROJECTS].offsetTop + sceneDividers[SCENE_INDEX.PROJECTS].offsetHeight}, '-=0.2');
-	tll.to(projects_list, 1, {height: 400}, '-=1.2');
-	tll.to(projects_list.children[index].children[1], 0.6, {opacity: 0}, '-=1.0')
-	tll.to(projects_list.children[index].children[2], 0.6, {opacity: 0}, '-=1.0')
-	tll.to(projects_icon[index], 0.6, {borderRadius: "50%"}, '-=1.2');
-	tll.to(projects_list.children[index], 1, {x: offsetX, y: offsetY, onComplete: selectionAnimationFinished}, '-=1.1');
+	tll.to(content, 1.1, {scrollTo: scenes[SCENE_INDEX.PROJECTS].offsetTop + sceneDividers[SCENE_INDEX.PROJECTS].offsetHeight}, '-=0.2');
+	tll.to(projects_list, 1, {height: 400}, '-=1.1');
+	tll.to(projects_list.children[index].children[1], 0.6, {opacity: 0}, '-=0.9')
+	tll.to(projects_list.children[index].children[2], 0.6, {opacity: 0}, '-=0.9')
+	tll.to(projects_icon[index], 0.6, {borderRadius: "50%"}, '-=1.1');
+	tll.to(projects_list.children[index], 1, {x: offsetX, y: offsetY, onComplete: selectionAnimationFinished}, '-=1.0');
+	tll.set(projects_icon[index].children[0], {backgroundImage: "url(/images/loader_beat_background@2x.gif)"});
 
-	// tll.set(projects_containerExpanded, {display: "inline"});
-	// tll.set(projects_list.children[index], {opacity: 0});
-	// tll.set(projects_list, {height: 0, onComplete: selectionAnimationFinished});
+	// Update header with selection
+	projects_header_list.innerHTML = "";
+	var li = document.createElement("li");
+	li.innerHTML = projects_icon[index].children[0].innerHTML;
+	projects_header_list.appendChild(li);
+	// Update sticky header
+	stickyHeader.innerHTML = "";
+	var ul = document.createElement("ul");
+	ul.className = "projects--header-content";
+	stickyHeader.appendChild(ul);
+	var li = document.createElement("li");
+	li.innerHTML = projects_icon[index].children[0].innerHTML;
+	ul.appendChild(li);
 }
 
 function populateExpandedView(project, finishedPopulateCallback) {
@@ -213,22 +224,24 @@ function displayExpandedView() {
 	// Show updated container
 	projects_containerExpanded.style.display = "inline";
 
+	projects_list.style.height = 0;
+	projects_list.style.minHeight = 0;
+
 	var tll = new TimelineLite();
-	// tll.to(projects_containerExpanded, 1, {height: "auto"});
-	tll.set(projects_list, {height: 0});
-	tll.to(projects_expanded_title, 0.4, {opacity: 1}, '-=1');
-	tll.to(projects_expanded_details, 0.4, {opacity: 1}, '-=0.3');
-	tll.to(projects_expanded_description, 0.4, {opacity: 1}, '-=0.3');
-	tll.to(projects_exapnded_description_gitLink, 0.4, {opacity: 1}, '-=0.3');
-	tll.to(projects_expanded_container_image, 0.4, {opacity: 1}, '-=0.3');
-	tll.to(projects_expanded_closeButton, 0.4, {opacity: 1}, '-=0.3');
 	tll.set(projects_containerExpanded, {display: "inline"});
+	tll.to(projects_expanded_title, 0.4, {opacity: 1});
+	tll.to(projects_expanded_details, 0.4, {opacity: 1}, '-=0.25');
+	tll.to(projects_expanded_description, 0.4, {opacity: 1}, '-=0.25');
+	tll.to(projects_exapnded_description_gitLink, 0.4, {opacity: 1}, '-=0.25');
+	tll.to(projects_expanded_container_image, 0.4, {opacity: 1}, '-=0.25');
+	tll.to(projects_expanded_closeButton, 0.4, {opacity: 1}, '-=0.25');
 }
 function resetProjectSelection() {
 	createHeaderSearchTypes();
 
 	// Hide project tiles, show project window
 	var tll = new TimelineLite();
+	tll.set(projects_icon[selected.index].children[0], {backgroundImage: "url()"});
 	tll.to(projects_expanded_closeButton, 0.3, {opacity: 0});
 	tll.to(projects_expanded_container_image, 0.3, {opacity: 0}, '-=0.15');
 	tll.to(projects_exapnded_description_gitLink, 0.3, {opacity: 0}, '-=0.15');
@@ -241,9 +254,9 @@ function resetProjectSelection() {
 	tll.to(projects_list.children[selected.index].children[2], 0.6, {opacity: 1}, '-=.6')
 	tll.set(projects_containerExpanded, {display: "block"});
 	tll.set(projects_list, {height: "auto"});
-	tll.to(projects_list.children[selected.index], 0.5, {x: 0, y: 0});
+	tll.to(projects_list.children[selected.index], 0.4, {x: 0, y: 0});
 	tll.to(projects_icon[selected.index], 0.2, {borderRadius: "6px"}, '-=0.2');
-	tll.to(projects_list.children, 1, {opacity: 1, scale: 1});
+	tll.to(projects_list.children, 0.5, {opacity: 1, scale: 1});
 
 	// Reset selected
 	selected = {project: undefined, index: -1};
@@ -333,6 +346,7 @@ function populateProjectItems() {
 			 if (httpRequest.status == 200) {
 				 var projects = JSON.parse(httpRequest.responseText)
 				 // Populate project list
+				 projects_list.style.backgroundImage = "url()";
 				 for (var p = 0; p < projects.length; p++) {
 					 if (projects[p].architecture !== undefined && projects[p].architecture != "" && projects[p].architecture != "_") {
 
@@ -365,6 +379,7 @@ function populateProjectItems() {
 					 }
 					 projects_list.appendChild(parseProjectItem(projects[p]));
 				 }
+				 populateLanguages();
 				 createHeaderSearchTypes();
 				 projectsLoaded = true;
 				 if (initProjectOpen !== undefined) {

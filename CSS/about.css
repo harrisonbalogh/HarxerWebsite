@@ -55,19 +55,6 @@
 	text-align: left;
 }
 
-.about--profile-cover-shadow {
-	background-image: url("/images/image_gradientUp@2x.png");
-	background-position: center;
-	background-repeat: repeat-x;
-	background-size: 20px 20px;
-	display: inline-block;
-	height: 20px;
-	opacity: 0;
-	transform: translateY(-100%);
-	width: 100%;
-	z-index: 2;
-}
-
 .about--profile-picture {
 	background-color: var(--color-background);
 	background: url("/images/profilePic_noShadow2@2x.png") no-repeat left center/contain;
@@ -139,139 +126,201 @@
 
 .about--content-bio {
 	font-size: 14px;
-	margin: 40px 20px 40px 20px;
+	margin: 40px 20px 0 20px;
 	max-width: 800px;
-	padding-bottom: 10px;
 	text-align: justify;
 }
 
-.about--content-links {
-	color: var(--color-dominant);
-	font-size: 14px;
-	list-style: none;
-	margin: 26px 100px 50px 100px;
+.about--navigator {
+	display: flex;
+	max-width: 800px;
+	margin: 48px 20px 40px 20px;
+	padding: 0;
 	text-align: center;
 }
-.about--content-links li {
+
+#about--navigator-line-left {
+	border-bottom: 2px solid var(--color-background);
+	height: 14px;
+	width: 100%;
+}
+
+#about--navigator-line-right {
+	border-bottom: 2px solid var(--color-background);
+	height: 14px;
+	width: 100%;
+}
+
+#about--navigator-icons {
+	cursor: default;
+	display: inline-block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 460px;
+}
+#about--navigator-icons li {
+	cursor: pointer;
+	display: inline-block;
+	height: 24px;
+	margin: 0 4px;
+	padding: 0;
+	width: 30px;
+}
+
+#about--navigator-icon-lang {
+	background: url(/images/icon_computerCode@2x.png) no-repeat center/contain;
+}
+#about--navigator-icon-lang:hover {
+	background: url(/images/icon_computerCode_inv@2x.png) no-repeat center/contain;
+}
+
+#about--navigator-icon-work {
+	background: url(/images/icon_briefcase@2x.png) no-repeat center/contain;
+}
+#about--navigator-icon-work:hover {
+	background: url(/images/icon_briefcase_inv@2x.png) no-repeat center/contain;
+}
+
+#about--navigator-icon-educ {
+	background: url(/images/icon_graduationCap@2x.png) no-repeat center/contain;
+}
+#about--navigator-icon-educ:hover {
+	background: url(/images/icon_graduationCap_inv@2x.png) no-repeat center/contain;
+}
+
+#about--navigator-icon-tool {
+	background: url(/images/icon_gearHammer@2x.png) no-repeat center/contain;
+}
+#about--navigator-icon-tool:hover {
+	background: url(/images/icon_gearHammer_inv@2x.png) no-repeat center/contain;
+}
+
+/* ==================== sections ================== */
+
+.about--content-section {
+	margin: 0 20px 26px 20px;
+	text-align: left;
+	width: 100%;
+}
+
+.about--content-section-icon {
+	display: inline-block;
+	height: 24px;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+	width: 30px;
+}
+.about--content-section-icon.icon-lang {
+	background: url(/images/icon_computerCode@2x.png) no-repeat center/contain;
+}
+.about--content-section-icon.icon-work {
+	background: url(/images/icon_briefcase@2x.png) no-repeat center/contain;
+}
+.about--content-section-icon.icon-educ {
+	background: url(/images/icon_graduationCap@2x.png) no-repeat center/contain;
+}
+.about--content-section-icon.icon-tool {
+	background: url(/images/icon_gearHammer@2x.png) no-repeat center/contain;
+}
+
+.about--content-section-title {
 	color: var(--color-background);
-	display: inline;
-	font-weight: bolder;
-}
-.about--content-links li:hover {
-	color: var(--color-dominant);
-	cursor: pointer;
-}
-
-.about--container-content h1 {
-	border-bottom: 1px solid var(--color-background);
+	display: inline-block;
+	font-weight: bold;
 	font-size: 18px;
-	margin: 12px 0 6px 0;
-	padding: 4px 0 0 8px;
-	text-align: left;
+	margin: 1px 0 0 0;
+	padding: 0;
 }
 
-.about--content-list {
-	border-bottom: 1px solid transparent;
+.about--content-section-lang {
+	/* background: url(/images/loader_beat_white@2x.gif) no-repeat center/contain; */
+	border-spacing: 10px;
 	display: table;
-  margin: 0;
-  padding: 0 0 20px 0;
-  text-align: left;
-  width: 100%;
-}
-
-.about--content-list li {
-	border: 1px solid transparent;
-	border: 1px solid rgba(204,206,208, 1);
-  display: inline-table;
-  font-size: 14px;
-  margin: 2px;
-  overflow: visible;
-	padding: 6px;
-  text-align: left;
-	vertical-align: middle;
-  width: 120px;
-}
-.about--content-list li:hover {
-	border: 1px solid var(--color-dominant);
-}
-
-.about--content-list li .classIcon {
-	background: url("/images/icon_class@2x.png") no-repeat center/cover;
-	border-radius: 2px;
-	display: inline-block;
-	float: right;
-	height: 20px;
-	margin: 0;
-	margin-right: 4px;
-	overflow: visible;
+	list-style: none;
+	margin: 0 20px 40px 54px;
+	/* min-height: 40px; */
 	padding: 0;
-	position: relative;
-	width: 20px;
-}
-
-.about--content-list li .classIcon div {
-	background-color: var(--color-accent-backup);
-	border: 1px solid var(--color-background);
-	border-radius: 4px;
-	color: var(--color-accent);
-	display: block;
-	margin-left: 26px;
-	overflow: visible;
-	padding: 4px;
-	position: absolute;
 	text-align: left;
-	visibility: hidden;
-	width: 90px;
-	z-index: 1;
-}
-.about--content-list li .classIcon:hover div {
-	visibility: visible;
+	width: 100%;
+	max-width: 726px;
 }
 
-.about--content-list li .projectsIcon {
-	background: url("/images/icon_projects@2x.png") no-repeat center/cover;
-	border-radius: 2px;
-	cursor: pointer;
-	display: inline-block;
-	float: right;
-	height: 20px;
+.about--content-section-lang li {
+	cursor: default;
+	display: table-cell;
 	margin: 0;
-	margin-right: 4px;
-	overflow: visible;
 	padding: 0;
-	position: relative;
-	width: 20px;
-}
-.about--content-list li .projectsIcon:hover {
-	background: url("/images/icon_projects_hover@2x.png") no-repeat center/cover;
-}
-.about--content-list li .projectsIcon:active {
-	background: url("/images/icon_projects_active@2x.png") no-repeat center/cover;
-}
-
-.about--content-list li .projectsIcon div {
-	background-color: var(--color-accent-backup);
-	border: 1px solid var(--color-background);
-	border-radius: 4px;
-	color: var(--color-accent);
-	display: block;
-	margin-left: 26px;
-	overflow: visible;
-	padding: 4px;
-	position: absolute;
 	text-align: left;
-	visibility: hidden;
-	width: 100px;
-	z-index: 1;
 }
 
-.about--content-list li .projectsIcon:hover div {
-	visibility: visible;
+.about--content-section-lang-title {
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+.about--content-section-lang-count {
+	border-top: 1px solid gray;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: lighter;
+	color: gray;
+	margin: 0;
+	padding: 0;
+}
+
+.about-content-section-work-header {
+	font-size: 13px;
+	margin: 0 54px;
+	text-align: left;
+}
+.about-content-section-work-description {
+	font-size: 12px;
+	margin: 6px 20px 20px 80px;
+	text-align: left;
+}
+
+.about--content-section-educ {
+	display: inline-block;
+	margin: 0 54px 40px 54px;
+	padding: 0;
+	text-align: left;
+	width: 100%;
+}
+.about--content-section-educ .educ-title {
+	font-size: 13px;
+	display: inline-block;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+.about--content-section-educ .educ-sub {
+	font-size: 12px;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.about--content-tool-list {
+	display: inline-block;
+	list-style: none;
+}
+.about--content-tool-list li {
+	display: inline-block;
+	font-size: 12px;
+	border-right: 1px solid var(--color-background);
+	margin-right: 4px;
+	padding-right: 4px;
+}
+.about--content-tool-list li:nth-child(even) {
+	color: gray;
 }
 
 .about-padding-bottom {
 	display: inline-block;
-	height: 60px;
+	height: 20px;
 	width: 100%;
 }
 
